@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CocoaLibSpotify.h"
 
 @interface ViewController : UIViewController
+{    
+    SPPlaybackManager *_playbackManager;
+    SPTrack *_currentTrack;
+}
+
+@property (nonatomic, strong) SPTrack *currentTrack;
+
 - (IBAction)Track:(UITextField *)sender forEvent:(UIEvent *)event;
 - (IBAction)Accept:(UIButton *)sender;
 

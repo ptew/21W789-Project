@@ -12,14 +12,9 @@
 
 @implementation AppDelegate
 
-@synthesize mainViewController = _mainViewController;
-
-@synthesize playbackManager = _playbackManager;
-@synthesize currentTrack = _currentTrack;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self.window makeKeyAndVisible];
+	
     
     NSError *error = nil;
 	[SPSession initializeSharedSessionWithApplicationKey:[NSData dataWithBytes:&g_appkey length:g_appkey_size]
@@ -42,6 +37,7 @@
 	
 	[self performSelector:@selector(showLogin) withObject:nil afterDelay:0.0];
     
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
@@ -50,9 +46,10 @@
     
 	SPLoginViewController *controller = [SPLoginViewController loginControllerForSession:[SPSession sharedSession]];
 	controller.allowsCancel = NO;
+    controller.delegate = self;
 	
-	[self.mainViewController presentModalViewController:controller
-											   animated:NO];
+	[self.window addSubview:controller.view];
+    [self.window bringSubviewToFront:controller.view];
     
 }
 							

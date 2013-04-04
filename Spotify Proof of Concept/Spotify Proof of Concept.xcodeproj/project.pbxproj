@@ -391,6 +391,7 @@
 				4C07BFB1170D180700DA7F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

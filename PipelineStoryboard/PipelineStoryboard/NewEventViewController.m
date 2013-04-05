@@ -65,7 +65,10 @@
     
 }
 
-- (void) newTextAvailable:(NSString *)message from:(GroupQConnection *)connection {
+- (void) receivedMessage:(NSString *)message withHeader:(NSString *)header from:(GroupQConnection *)connection {
+}
+
+- (void) receivedObject:(NSData *)object withHeader:(NSString *)header from:(GroupQConnection *)connection {
     
 }
 

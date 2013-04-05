@@ -89,12 +89,14 @@
     
 }
 
-- (void) newTextAvailable:(NSString *)message from:(GroupQConnection *)connection {
-    for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
-        [connection sendText:message];
-    }
+- (void) receivedMessage:(NSString *)message withHeader:(NSString *)header from:(GroupQConnection *)connection {
+    [[GroupQEvent sharedEvent] broadcastMessage:message withHeader:header];
     [self.lines addObject:message];
     [self.tableView reloadData];
+}
+
+
+- (void) receivedObject:(NSData *)object withHeader:(NSString *)header from:(GroupQConnection *)connection {
 }
 
 - (IBAction)endEvent:(UIBarButtonItem *)sender {

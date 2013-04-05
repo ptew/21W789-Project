@@ -63,7 +63,10 @@
 - (void) disconnectedFromEvent {
 }
 
-- (void) newTextAvailable:(NSString *)newText {
+- (void) receivedMessage:(NSString *)message withHeader:(NSString *)header {
+}
+
+- (void) receivedObject:(NSData *)object withHeader:(NSString *)header {
 }
 
 #pragma mark UITableView Delegate Methods

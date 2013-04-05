@@ -32,5 +32,7 @@
 // The event name
 @property (strong, nonatomic) NSString *eventName;
 
+- (void) broadcastMessage: (NSString *) message withHeader: (NSString *) header;
+
 + (GroupQEvent *) sharedEvent;
 @end

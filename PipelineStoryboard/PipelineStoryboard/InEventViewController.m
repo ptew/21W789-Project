@@ -44,7 +44,7 @@
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
-    [[GroupQClient sharedClient] sendText:textField.text];
+    [[GroupQClient sharedClient] sendMessage:textField.text withHeader:@""];
     textField.text = @"";
     return TRUE;
 }
@@ -63,8 +63,12 @@
 - (void) eventsUpdated {    
 }
 
-- (void) newTextAvailable:(NSString *)newText {
-    self.messagesView.text = [NSString stringWithFormat:@"%@%@\n", self.messagesView.text, newText];
+- (void) receivedMessage:(NSString *)message withHeader:(NSString *)header {
+    self.messagesView.text = [NSString stringWithFormat:@"%@%@\n", self.messagesView.text, message];
     [self.messagesView scrollRangeToVisible:NSMakeRange(self.messagesView.text.length-1, 1)];
 }
+
+- (void) receivedObject:(NSData *)object withHeader:(NSString *)header {
+}
+
 @end

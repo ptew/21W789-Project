@@ -31,7 +31,7 @@
 - (void) disconnect;
 
 // Send text to the current event server
-- (void) sendText: (NSString *) text;
+- (void) sendMessage: (NSString *) message withHeader:(NSString *)header;
 
 // Get a list of all of the current Bonjour events
 - (NSArray *) getEvents;

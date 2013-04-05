@@ -18,9 +18,13 @@
 @property (strong, nonatomic) NSMutableData* currentMessageToWrite; // Buffer storing text to eventually
                                                                     // send
 
+@property (strong, nonatomic) NSMutableString* currentHeaderBeingRead;
+@property (strong, nonatomic) NSMutableString* currentMessageBeingRead;
+
 // Sets up the read and write streams after acquisition
 - (void) setUpStreams;
 - (void) tryWriting;
+- (void) processText: (NSString*) text;
 @end
 
 @implementation GroupQConnection
@@ -72,6 +76,9 @@
     
     // Set up buffers
     self.currentMessageToWrite = [[NSMutableData alloc] init];
+    self.currentHeaderBeingRead = [[NSMutableString alloc] init];
+    self.currentMessageBeingRead = [[NSMutableString alloc] init];
+    
     // Open up the streams for communication
     [readStream open];
     [writeStream open];
@@ -81,7 +88,9 @@
     if (sendDisconnect) {
         self.currentMessageToWrite = [[NSMutableData alloc] init];
         char disconnectChar = ((char)4);
-        [self sendText:[NSString stringWithFormat:@"%c", disconnectChar]];
+        NSString *outString = [NSString stringWithFormat:@"%c", disconnectChar];
+        [self.currentMessageToWrite appendData:[outString dataUsingEncoding:NSASCIIStringEncoding]];
+        [self tryWriting];
     }
     
     [readStream close];
@@ -92,9 +101,27 @@
 }
 
 // Adds text to the outgoing data buffer
-- (void) sendText: (NSString*) text {
+- (void) sendMessage: (NSString*) message withHeader: (NSString*) header {
     // Appends the outgoing text after encoding it as ASCII bytes
-    [self.currentMessageToWrite appendData:[text dataUsingEncoding:NSASCIIStringEncoding]];
+    unichar delimiter = ((unichar)2);
+    unichar endofmessage = ((unichar)3);
+    NSString *outString = [NSString stringWithFormat:@"%@%cs%@%c", header, delimiter, message, endofmessage];
+    [self.currentMessageToWrite appendData:[outString dataUsingEncoding:NSASCIIStringEncoding]];
+    [self tryWriting];
+}
+
+
+// Adds text to the outgoing data buffer
+- (void) sendObject: (id) what withHeader: (NSString*) header {
+    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:what];
+    // Appends the outgoing text after encoding it as ASCII bytes
+    unichar delimiter = ((unichar)2);
+    unichar endofmessage = ((unichar)3);
+    NSString *headerString = [NSString stringWithFormat:@"%@%co", header, delimiter];
+    NSString *endOfMessage = [NSString stringWithFormat:@"%c", endofmessage];
+    [self.currentMessageToWrite appendData:[headerString dataUsingEncoding:NSASCIIStringEncoding]];
+    [self.currentMessageToWrite appendData:encodedObject];
+    [self.currentMessageToWrite appendData:[endOfMessage dataUsingEncoding:NSASCIIStringEncoding]];
     [self tryWriting];
 }
 
@@ -127,6 +154,40 @@
         [self.currentMessageToWrite replaceBytesInRange:range withBytes:NULL length:0];
     }
 }
+
+// Processes incoming text into messages
+- (void) processText:(NSString *)text {
+    unichar delimeter = ((unichar)2);
+    unichar endofmessage = ((unichar)3);
+    unichar buffer[text.length];
+    [text getCharacters:buffer];
+    for (unsigned int i=0; i<text.length; i++) {
+        unichar currentChar = buffer[i];
+        if (currentChar == delimeter) {
+            self.currentHeaderBeingRead = [NSString stringWithString:self.currentMessageBeingRead];
+            [self.currentMessageBeingRead deleteCharactersInRange:NSMakeRange(0, self.currentMessageBeingRead.length)];
+        }
+        else if (currentChar == endofmessage) {
+            NSString *header = [NSString stringWithString:self.currentHeaderBeingRead];
+            [self.currentHeaderBeingRead deleteCharactersInRange:NSMakeRange(0, self.currentHeaderBeingRead.length)];
+            
+            if ([self.currentMessageBeingRead characterAtIndex:0] == 's') {
+                NSString *message = [NSString stringWithString:[self.currentMessageBeingRead substringFromIndex:1]];
+                [self.delegate connection:self receivedMessage:message withHeader: header];
+            }
+            else if ([self.currentMessageBeingRead characterAtIndex:0] == 'o') {
+                NSString *message = [NSString stringWithString:[self.currentMessageBeingRead substringFromIndex:1]];
+                NSData *objectData = [message dataUsingEncoding:NSASCIIStringEncoding];
+                [self.delegate connection:self receivedObject:objectData withHeader: header];
+            }
+            [self.currentMessageBeingRead deleteCharactersInRange:NSMakeRange(0, self.currentMessageBeingRead.length)];
+        }
+        else {
+            [self.currentMessageBeingRead appendFormat:@"%c", currentChar];
+        }
+    }
+}
+
 // Handles events from the streams
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
     NSLog(@"Stream event!");
@@ -161,8 +222,8 @@
                     [self disconnectStreams:FALSE];
                     [self.delegate connectionDisconnected:self];
                 }
-                // Finished! Send the processed text to our delegate
-                [self.delegate connection:self receivedText:newText];
+                // Finished! Process the text
+                [self processText: newText];
             }
             break;
         }

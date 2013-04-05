@@ -60,8 +60,8 @@
 }
 
 
-- (void) sendText: (NSString*) text {
-    [self.connectionToServer sendText:text];
+- (void) sendMessage:(NSString *)text withHeader:(NSString *)header {
+    [self.connectionToServer sendMessage:text withHeader:header];
 }
 
 // Delegate functions
@@ -93,8 +93,12 @@
         [self.delegate eventsUpdated];
 }
 
-- (void) connection:(GroupQConnection *)connection receivedText:(NSString *)text {
-    [self.delegate newTextAvailable:text];
+- (void) connection:(GroupQConnection *)connection receivedMessage:(NSString *)message withHeader:(NSString *)header {
+    [self.delegate receivedMessage:message withHeader:header];
+}
+
+- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
+    [self.delegate receivedObject:message withHeader:header];
 }
 
 + (GroupQClient *) sharedClient {

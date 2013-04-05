@@ -20,7 +20,7 @@
 - (void) disconnectStreams: (BOOL) sendDisconnect;
 
 // Sends text to the other end of the connection
-- (void) sendText: (NSString *) text;
+- (void) sendMessage: (NSString*) message withHeader: (NSString*) header;
 
 // The connection's delegate
 @property (strong, nonatomic) id<GroupQConnectionDelegate> delegate;

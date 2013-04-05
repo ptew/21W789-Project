@@ -128,6 +128,11 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     [self.userConnections addObject:connection];
 }
 
+- (void) broadcastMessage:(NSString *)message withHeader:(NSString *)header {
+    for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
+        [connection sendMessage:message withHeader:header];
+    }
+}
 #pragma mark Connection Delegate Methods
 - (void) connectionDidConnect:(GroupQConnection *)connection {
     [self.delegate userUpdate];
@@ -143,8 +148,12 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     [self.delegate userUpdate];
 }
 
-- (void) connection:(GroupQConnection *)connection receivedText:(NSString *)text {
-    [self.delegate newTextAvailable:text from: connection];
+- (void) connection:(GroupQConnection *)connection receivedMessage:(NSString *)message withHeader:(NSString *)header {
+    [self.delegate receivedMessage:message withHeader:header from:connection];
+}
+
+- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
+    [self.delegate receivedObject:message withHeader:header from:connection];
 }
 
 + (GroupQEvent *) sharedEvent {

@@ -23,6 +23,7 @@
 - (void) connectionDisconnected: (GroupQConnection*) connection;
 
 // Sent when new text came from the other end of the connection
-- (void) connection: (GroupQConnection*) connection receivedText: (NSString*) text;
+- (void) connection: (GroupQConnection*) connection receivedMessage: (NSString*) message withHeader: (NSString *) header;
 
+- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header;
 @end

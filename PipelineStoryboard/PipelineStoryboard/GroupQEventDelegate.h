@@ -20,7 +20,10 @@
 - (void) userUpdate;
 
 // Sent when a new message from a user is available
-- (void) newTextAvailable: (NSString*) message from: (GroupQConnection*) connection;
+- (void) receivedMessage: (NSString*) message withHeader: (NSString *) header from: (GroupQConnection*) connection;
+
+// Sent when a new message from a user is available
+- (void) receivedObject: (NSData*) object withHeader: (NSString *) header from: (GroupQConnection*) connection;
 
 // Send when an event was ended
 - (void) eventEnded;

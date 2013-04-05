@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SpotifyQueueItem : NSObject
+@interface SpotifyQueueItem : NSObject <NSCoding>
 @property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* artist;
 @property (strong, nonatomic) NSString* album;
@@ -16,4 +16,6 @@
 
 - (SpotifyQueueItem*)initWithTitle:(NSString*)title artist:(NSString*) artist album: (NSString*) album trackURI: (NSURL*) trackURI;
 
+- (SpotifyQueueItem*)initWithCoder: (NSCoder*)decoder;
+- (void)encodeWithCoder:(NSCoder*)encoder;
 @end

@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B813B57A170E551A00948BF2 /* GroupQEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B813B579170E551A00948BF2 /* GroupQEvent.m */; };
+		B813B57E170E56E700948BF2 /* GroupQConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B813B57D170E56E700948BF2 /* GroupQConnection.m */; };
+		B841017B170BEDCB00B48D6C /* InEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B841017A170BEDCB00B48D6C /* InEventViewController.m */; };
 		B84B81ED170A8DAD006E059C /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84B81EC170A8DAD006E059C /* UsersViewController.m */; };
+		B87DDB40170DEEC400B9445E /* GroupQClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B87DDB3F170DEEC400B9445E /* GroupQClient.m */; };
+		B87DDB45170E16CC00B9445E /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87DDB44170E16CC00B9445E /* ActivityViewController.m */; };
+		B87DDB47170E16DB00B9445E /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B87DDB46170E16DB00B9445E /* ActivityView.xib */; };
 		B8B87587170A764700327BD3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B87586170A764700327BD3 /* UIKit.framework */; };
 		B8B87589170A764700327BD3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B87588170A764700327BD3 /* Foundation.framework */; };
 		B8B8758B170A764700327BD3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B8758A170A764700327BD3 /* CoreGraphics.framework */; };
@@ -18,15 +24,30 @@
 		B8B8759B170A764700327BD3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B8759A170A764700327BD3 /* Default@2x.png */; };
 		B8B8759D170A764700327BD3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B8759C170A764700327BD3 /* Default-568h@2x.png */; };
 		B8B875A0170A764700327BD3 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8B8759E170A764700327BD3 /* MainStoryboard.storyboard */; };
-		B8B875A3170A764700327BD3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B875A2170A764700327BD3 /* ViewController.m */; };
+		B8B875A3170A764700327BD3 /* BrowseEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B875A2170A764700327BD3 /* BrowseEventsViewController.m */; };
 		B8B875AB170A77D800327BD3 /* NewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B875AA170A77D800327BD3 /* NewEventViewController.m */; };
 		B8B875B0170A7E4F00327BD3 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B875AF170A7E4F00327BD3 /* DeleteButton.png */; };
 		B8B875B2170A849000327BD3 /* spotify-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B875B1170A849000327BD3 /* spotify-logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B813B578170E551A00948BF2 /* GroupQEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupQEvent.h; sourceTree = "<group>"; };
+		B813B579170E551A00948BF2 /* GroupQEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupQEvent.m; sourceTree = "<group>"; };
+		B813B57B170E557100948BF2 /* GroupQEventDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupQEventDelegate.h; sourceTree = "<group>"; };
+		B813B57C170E56E700948BF2 /* GroupQConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupQConnection.h; sourceTree = "<group>"; };
+		B813B57D170E56E700948BF2 /* GroupQConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupQConnection.m; sourceTree = "<group>"; };
+		B813B57F170E579B00948BF2 /* GroupQConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupQConnectionDelegate.h; sourceTree = "<group>"; };
+		B813B580170E603200948BF2 /* GroupQNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupQNetworking.h; sourceTree = "<group>"; };
+		B8410179170BEDCB00B48D6C /* InEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InEventViewController.h; sourceTree = "<group>"; };
+		B841017A170BEDCB00B48D6C /* InEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InEventViewController.m; sourceTree = "<group>"; };
 		B84B81EB170A8DAD006E059C /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
 		B84B81EC170A8DAD006E059C /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
+		B87DDB3E170DEEC400B9445E /* GroupQClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupQClient.h; path = ../GroupQClient.h; sourceTree = "<group>"; };
+		B87DDB3F170DEEC400B9445E /* GroupQClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GroupQClient.m; path = ../GroupQClient.m; sourceTree = "<group>"; };
+		B87DDB42170E090600B9445E /* GroupQClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GroupQClientDelegate.h; path = ../GroupQClientDelegate.h; sourceTree = "<group>"; };
+		B87DDB43170E16CC00B9445E /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
+		B87DDB44170E16CC00B9445E /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		B87DDB46170E16DB00B9445E /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 		B8B87583170A764700327BD3 /* PipelineStoryboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PipelineStoryboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8B87586170A764700327BD3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B8B87588170A764700327BD3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -41,8 +62,8 @@
 		B8B8759A170A764700327BD3 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		B8B8759C170A764700327BD3 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B8B8759F170A764700327BD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		B8B875A1170A764700327BD3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B8B875A2170A764700327BD3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B8B875A1170A764700327BD3 /* BrowseEventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowseEventsViewController.h; sourceTree = "<group>"; };
+		B8B875A2170A764700327BD3 /* BrowseEventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowseEventsViewController.m; sourceTree = "<group>"; };
 		B8B875A9170A77D800327BD3 /* NewEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEventViewController.h; sourceTree = "<group>"; };
 		B8B875AA170A77D800327BD3 /* NewEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEventViewController.m; sourceTree = "<group>"; };
 		B8B875AF170A7E4F00327BD3 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteButton.png; sourceTree = SOURCE_ROOT; };
@@ -63,6 +84,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B85B55BA170E615F00809A3D /* Delegate Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B87DDB42170E090600B9445E /* GroupQClientDelegate.h */,
+				B813B57B170E557100948BF2 /* GroupQEventDelegate.h */,
+				B813B57F170E579B00948BF2 /* GroupQConnectionDelegate.h */,
+			);
+			name = "Delegate Protocols";
+			sourceTree = "<group>";
+		};
+		B85B55BB170E617E00809A3D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B87DDB3E170DEEC400B9445E /* GroupQClient.h */,
+				B87DDB3F170DEEC400B9445E /* GroupQClient.m */,
+				B813B578170E551A00948BF2 /* GroupQEvent.h */,
+				B813B579170E551A00948BF2 /* GroupQEvent.m */,
+				B813B57C170E56E700948BF2 /* GroupQConnection.h */,
+				B813B57D170E56E700948BF2 /* GroupQConnection.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		B87DDB48170E16E200B9445E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B87DDB43170E16CC00B9445E /* ActivityViewController.h */,
+				B87DDB44170E16CC00B9445E /* ActivityViewController.m */,
+				B87DDB46170E16DB00B9445E /* ActivityView.xib */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		B88D7F5C170DE67B002C1B9B /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				B85B55BA170E615F00809A3D /* Delegate Protocols */,
+				B85B55BB170E617E00809A3D /* Classes */,
+				B813B580170E603200948BF2 /* GroupQNetworking.h */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		B8B8757A170A764700327BD3 = {
 			isa = PBXGroup;
 			children = (
@@ -93,15 +157,19 @@
 		B8B8758C170A764700327BD3 /* PipelineStoryboard */ = {
 			isa = PBXGroup;
 			children = (
+				B88D7F5C170DE67B002C1B9B /* Networking */,
 				B8B87595170A764700327BD3 /* AppDelegate.h */,
 				B8B87596170A764700327BD3 /* AppDelegate.m */,
 				B8B8759E170A764700327BD3 /* MainStoryboard.storyboard */,
+				B8410179170BEDCB00B48D6C /* InEventViewController.h */,
+				B841017A170BEDCB00B48D6C /* InEventViewController.m */,
 				B84B81EB170A8DAD006E059C /* UsersViewController.h */,
 				B84B81EC170A8DAD006E059C /* UsersViewController.m */,
 				B8B875A9170A77D800327BD3 /* NewEventViewController.h */,
 				B8B875AA170A77D800327BD3 /* NewEventViewController.m */,
-				B8B875A1170A764700327BD3 /* ViewController.h */,
-				B8B875A2170A764700327BD3 /* ViewController.m */,
+				B8B875A1170A764700327BD3 /* BrowseEventsViewController.h */,
+				B8B875A2170A764700327BD3 /* BrowseEventsViewController.m */,
+				B87DDB48170E16E200B9445E /* Utilities */,
 				B8B8758D170A764700327BD3 /* Supporting Files */,
 			);
 			path = PipelineStoryboard;
@@ -181,6 +249,7 @@
 				B8B875A0170A764700327BD3 /* MainStoryboard.storyboard in Resources */,
 				B8B875B0170A7E4F00327BD3 /* DeleteButton.png in Resources */,
 				B8B875B2170A849000327BD3 /* spotify-logo.png in Resources */,
+				B87DDB47170E16DB00B9445E /* ActivityView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,9 +262,14 @@
 			files = (
 				B8B87593170A764700327BD3 /* main.m in Sources */,
 				B8B87597170A764700327BD3 /* AppDelegate.m in Sources */,
-				B8B875A3170A764700327BD3 /* ViewController.m in Sources */,
+				B8B875A3170A764700327BD3 /* BrowseEventsViewController.m in Sources */,
 				B8B875AB170A77D800327BD3 /* NewEventViewController.m in Sources */,
 				B84B81ED170A8DAD006E059C /* UsersViewController.m in Sources */,
+				B841017B170BEDCB00B48D6C /* InEventViewController.m in Sources */,
+				B87DDB40170DEEC400B9445E /* GroupQClient.m in Sources */,
+				B87DDB45170E16CC00B9445E /* ActivityViewController.m in Sources */,
+				B813B57A170E551A00948BF2 /* GroupQEvent.m in Sources */,
+				B813B57E170E56E700948BF2 /* GroupQConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,10 +354,14 @@
 		B8B875A7170A764700327BD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Matthews (AFG4CP6J88)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Matthews (AFG4CP6J88)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PipelineStoryboard/PipelineStoryboard-Prefix.pch";
 				INFOPLIST_FILE = "PipelineStoryboard/PipelineStoryboard-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "AF22FF9D-D04A-4FD9-A809-960468DD8EDB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AF22FF9D-D04A-4FD9-A809-960468DD8EDB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -291,10 +369,14 @@
 		B8B875A8170A764700327BD3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Matthews (AFG4CP6J88)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Matthews (AFG4CP6J88)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PipelineStoryboard/PipelineStoryboard-Prefix.pch";
 				INFOPLIST_FILE = "PipelineStoryboard/PipelineStoryboard-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "AF22FF9D-D04A-4FD9-A809-960468DD8EDB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AF22FF9D-D04A-4FD9-A809-960468DD8EDB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

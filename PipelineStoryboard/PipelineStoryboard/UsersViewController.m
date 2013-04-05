@@ -14,8 +14,7 @@
 - (IBAction)endEvent:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
 @property (weak, nonatomic) IBOutlet UITableView *userTable;
-@property (strong, nonatomic) NSMutableArray *users;
-@property (strong, nonatomic) NSNetService *netService;
+@property (strong, nonatomic) NSMutableArray *lines;
 @end
 
 @implementation UsersViewController
@@ -32,26 +31,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.users = [[NSMutableArray alloc] init];
-    self.navBar.title = self.eventName;
     
-    self.netService = [[NSNetService alloc] initWithDomain:@"" type:@"_groupq._tcp" name:self.eventName port:9876];
-    self.netService.delegate = self;
-    [self.netService publish];
-}
-
--(void)netService:(NSNetService *)aNetService
-    didNotPublish:(NSDictionary *)dict {
-    NSLog(@"Service did not publish: %@", dict);
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [self.netService stop];
-}
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.lines = [[NSMutableArray alloc] init];
+    [[GroupQEvent sharedEvent] setDelegate:self];
+    self.navigationItem.title = [[GroupQEvent sharedEvent] eventName];
 }
 
 #pragma mark - Table view data source
@@ -66,8 +49,7 @@
 {
     // Return the number of rows in the section.
     if (section == 0) {
-        NSLog(@"User count: %d", self.users.count);
-        return self.users.count;
+        return self.lines.count;
     }
     return 0;
 }
@@ -80,32 +62,45 @@
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    NSLog(@"Cell %d's text: %@", indexPath.row, [self.users objectAtIndex:indexPath.row]);
-    cell.textLabel.text = [self.users objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self.lines objectAtIndex:indexPath.row];
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return @"Connected Users";
+        return @"Received Messages";
     }
     return @"";
 }
 
-#pragma mark - Table view delegate
+- (void) eventCreated {
+    
+}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+- (void) eventNotCreated {
+    
+}
+
+- (void) eventEnded {
+    [((UINavigationController *)self.parentViewController) popViewControllerAnimated:YES];
+}
+
+- (void) userUpdate {
+    
+}
+
+- (void) receivedMessage:(NSString *)message withHeader:(NSString *)header from:(GroupQConnection *)connection {
+    [[GroupQEvent sharedEvent] broadcastMessage:message withHeader:header];
+    [self.lines addObject:message];
+    [self.tableView reloadData];
+}
+
+
+- (void) receivedObject:(NSData *)object withHeader:(NSString *)header from:(GroupQConnection *)connection {
 }
 
 - (IBAction)endEvent:(UIBarButtonItem *)sender {
     [((UINavigationController *)self.parentViewController) popViewControllerAnimated:YES];
+    [[GroupQEvent sharedEvent] endEvent];
 }
 @end

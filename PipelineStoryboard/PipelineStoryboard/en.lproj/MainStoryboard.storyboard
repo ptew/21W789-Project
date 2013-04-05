@@ -205,32 +205,24 @@
                     <navigationItem key="navigationItem" title="Create an Event" id="PwD-kS-BJs">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ag2-IE-y2C">
                             <connections>
-                                <segue destination="LLs-fJ-pH4" kind="push" identifier="createEvent" id="Jdw-Wd-IpT"/>
+                                <action selector="makeEvent:" destination="KEj-wU-7vE" id="YvP-4e-raS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="nameField" destination="VBg-NC-ccB" id="ABT-YI-gQS"/>
                         <outlet property="passwordField" destination="Fr3-eu-QSm" id="Ewx-EO-f4M"/>
+                        <segue destination="LLs-fJ-pH4" kind="push" identifier="createEvent" id="5U7-WN-76g"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="poi-1l-v2n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="My Event Name" minimumFontSize="17" clearButtonMode="whileEditing" id="TqV-d4-EoR">
-                    <rect key="frame" x="0.0" y="0.0" width="152" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="KEj-wU-7vE" id="CQs-9w-j3s"/>
-                    </connections>
-                </textField>
             </objects>
             <point key="canvasLocation" x="1000" y="39"/>
         </scene>
         <!--Users View Controller-->
         <scene sceneID="yZt-Q7-Y9z">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ex3-3z-bN8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="LLs-fJ-pH4" customClass="UsersViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IOe-3w-J0x">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
@@ -255,14 +247,13 @@
                         <outlet property="userTable" destination="IOe-3w-J0x" id="4Rq-S5-rOZ"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ex3-3z-bN8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1539" y="1328"/>
         </scene>
-        <!--View Controller - Events Near You-->
+        <!--Browse Events View Controller - Events Near You-->
         <scene sceneID="CAh-GC-lE4">
             <objects>
-                <tableViewController id="Sib-Bm-uLH" customClass="ViewController" sceneMemberID="viewController">
+                <tableViewController id="Sib-Bm-uLH" customClass="BrowseEventsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ICx-qe-pCZ">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -279,6 +270,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="eventsTable" destination="ICx-qe-pCZ" id="ueh-w1-tJV"/>
+                        <segue destination="dqn-z2-XkZ" kind="push" identifier="joinEvent" id="GyH-ND-xGq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qyj-k1-fck" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -295,24 +287,92 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Sib-Bm-uLH" kind="relationship" relationship="rootViewController" id="Yfd-2k-XoW"/>
+                        <segue destination="Sib-Bm-uLH" kind="relationship" relationship="rootViewController" id="62e-2q-jTo"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hd1-PI-iDs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-105" y="39"/>
         </scene>
+        <!--In Event View Controller-->
+        <scene sceneID="ctp-An-cS3">
+            <objects>
+                <viewController id="dqn-z2-XkZ" customClass="InEventViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Aot-lV-vib">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEi-Af-199">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="282" id="TBK-gV-Fk2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dqn-z2-XkZ" id="oVn-Qi-7S1"/>
+                                </connections>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeP-cC-ezh">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="JXG-70-Btk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HeP-cC-ezh" firstAttribute="top" secondItem="Aot-lV-vib" secondAttribute="top" constant="20" symbolic="YES" type="default" id="EAU-6i-EEf"/>
+                            <constraint firstItem="dEi-Af-199" firstAttribute="centerX" secondItem="Aot-lV-vib" secondAttribute="centerX" type="default" id="Qw5-28-0ds"/>
+                            <constraint firstItem="HeP-cC-ezh" firstAttribute="leading" secondItem="Aot-lV-vib" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="i6S-4V-MrK"/>
+                            <constraint firstItem="dEi-Af-199" firstAttribute="centerX" secondItem="HeP-cC-ezh" secondAttribute="centerX" type="default" id="kIo-9m-LaB"/>
+                            <constraint firstItem="dEi-Af-199" firstAttribute="top" secondItem="HeP-cC-ezh" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="vSP-Av-PgD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="lG0-Ts-dm9">
+                        <barButtonItem key="leftBarButtonItem" title="Leave Event" id="FiT-jQ-iIP">
+                            <color key="tintColor" red="0.98225203800000005" green="0.01387240553" blue="0.07326082297" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="leaveEvent:" destination="dqn-z2-XkZ" id="7tB-u8-nUN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="messagesView" destination="HeP-cC-ezh" id="6Pe-TA-Fm1"/>
+                        <outlet property="textField" destination="dEi-Af-199" id="TxB-GY-lNJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r4b-gc-wjT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="429" y="813"/>
+        </scene>
     </scenes>
     <resources>
         <image name="spotify-logo.png" width="892" height="896"/>
     </resources>
     <classes>
+        <class className="BrowseEventsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrowseEventsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="eventsTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="InEventViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InEventViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="leaveEvent:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="messagesView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
         <class className="NewEventViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewEventViewController.h"/>
             <relationships>
+                <relationship kind="action" name="makeEvent:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
             </relationships>
@@ -323,12 +383,6 @@
                 <relationship kind="action" name="endEvent:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="navBar" candidateClass="UINavigationItem"/>
                 <relationship kind="outlet" name="userTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="eventsTable" candidateClass="UITableView"/>
             </relationships>
         </class>
     </classes>

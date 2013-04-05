@@ -10,4 +10,8 @@
 
 @interface SpotifySearcher : NSObject
 
+- (NSMutableArray*)searchByArtist:(NSString*)artist;
+- (NSMutableArray*)searchByTrack:(NSString*)track;
+- (NSMutableArray*)searchByAlbum:(NSString*)album;
+
 @end

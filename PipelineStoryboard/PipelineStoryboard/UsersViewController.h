@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GroupQNetworking.h"
 
-@interface UsersViewController : UITableViewController <NSNetServiceDelegate>
-@property (strong, nonatomic) NSString *eventName;
+@interface UsersViewController : UITableViewController <GroupQEventDelegate>
 @end

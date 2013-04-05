@@ -15,5 +15,21 @@
     self.artist = artist;
     self.album = album;
     self.trackURI = trackURI;
+    return self;
+}
+
+- (SpotifyQueueItem*)initWithCoder:(NSCoder *)decoder{
+    self.title = [decoder decodeObjectForKey:@"title"];
+    self.artist = [decoder decodeObjectForKey:@"artist"];
+    self.album =   [decoder decodeObjectForKey:@"album"];
+    self.trackURI = [decoder decodeObjectForKey:@"trackURI"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder{
+    [encoder encodeObject:self.title forKey:@"title"];
+    [encoder encodeObject:self.artist forKey:@"artist"];
+    [encoder encodeObject:self.album forKey:@"album"];
+    [encoder encodeObject:self.trackURI forKey:@"trackURI"];
 }
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GroupQNetworking.h"
 
-@interface NewEventViewController : UITableViewController <UITextFieldDelegate>
+@interface NewEventViewController : UITableViewController <UITextFieldDelegate, GroupQEventDelegate>
 
 @end

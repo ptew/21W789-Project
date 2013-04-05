@@ -10,4 +10,10 @@
 
 @implementation SpotifyQueueItem
 
+- (SpotifyQueueItem*) initWithTitle:(NSString *)title artist:(NSString *)artist album:(NSString *)album trackURI:(NSURL *)trackURI {
+    self.title = title;
+    self.artist = artist;
+    self.album = album;
+    self.trackURI = trackURI;
+}
 @end

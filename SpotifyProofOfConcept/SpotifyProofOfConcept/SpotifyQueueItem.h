@@ -12,6 +12,8 @@
 @property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* artist;
 @property (strong, nonatomic) NSString* album;
-//@properyy (strong, nonatomic) NSURL* trackURI;
+@property (strong, nonatomic) NSURL* trackURI;
+
+- (SpotifyQueueItem*)initWithTitle:(NSString*)title artist:(NSString*) artist album: (NSString*) album trackURI: (NSURL*) trackURI;
 
 @end

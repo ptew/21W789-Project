@@ -12,9 +12,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, SPSessionDelegate, SPSessionPlaybackDelegate>
 
-
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, strong) ViewController *mainViewController;
 @property (nonatomic, strong) SPPlaybackManager *playbackManager;
 - (IBAction)playTrack:(id)sender;
 

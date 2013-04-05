@@ -14,42 +14,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	
-    
-    NSError *error = nil;
-	[SPSession initializeSharedSessionWithApplicationKey:[NSData dataWithBytes:&g_appkey length:g_appkey_size]
-											   userAgent:@"com.spotify.SimplePlayer-iOS"
-										   loadingPolicy:SPAsyncLoadingManual
-												   error:&error];
-	if (error != nil) {
-		NSLog(@"CocoaLibSpotify init failed: %@", error);
-		abort();
-	}
-    
-    self.playbackManager = [[SPPlaybackManager alloc] initWithPlaybackSession:[SPSession sharedSession]];
-	[[SPSession sharedSession] setDelegate:self];
-    
-	[self addObserver:self forKeyPath:@"currentTrack.name" options:0 context:nil];
-	[self addObserver:self forKeyPath:@"currentTrack.artists" options:0 context:nil];
-	[self addObserver:self forKeyPath:@"currentTrack.duration" options:0 context:nil];
-	[self addObserver:self forKeyPath:@"currentTrack.album.cover.image" options:0 context:nil];
-	[self addObserver:self forKeyPath:@"playbackManager.trackPosition" options:0 context:nil];
-	
-	[self performSelector:@selector(showLogin) withObject:nil afterDelay:0.0];
-    
-    [self.window makeKeyAndVisible];
+
     
     return YES;
 }
 
 -(void)showLogin {
-    
 	SPLoginViewController *controller = [SPLoginViewController loginControllerForSession:[SPSession sharedSession]];
 	controller.allowsCancel = NO;
-    controller.delegate = self;
-	
-	[self.window addSubview:controller.view];
-    [self.window bringSubviewToFront:controller.view];
+	[self.window setRootViewController:controller];
     
 }
 							

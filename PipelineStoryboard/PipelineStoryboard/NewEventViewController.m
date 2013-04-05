@@ -8,8 +8,10 @@
 
 #import "NewEventViewController.h"
 #import "UsersViewController.h"
+#import "ActivityViewController.h"
 
 @interface NewEventViewController ()
+- (IBAction)makeEvent:(UIBarButtonItem *)sender;
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @end
@@ -49,10 +51,32 @@
     return TRUE;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"createEvent"]){
-        UsersViewController *controller = (UsersViewController *)segue.destinationViewController;
-        controller.eventName = self.nameField.text;
-    }
+- (void) eventCreated {
+    [self dismissViewControllerAnimated:NO completion:NULL];
+    [[GroupQEvent sharedEvent] broadcastEvent];
+    [self performSegueWithIdentifier:@"createEvent" sender:@"self"];
+}
+
+- (void) eventNotCreated {
+    [self dismissViewControllerAnimated:NO completion:NULL];
+}
+
+- (void) userUpdate {
+    
+}
+
+- (void) newTextAvailable:(NSString *)message from:(GroupQConnection *)connection {
+    
+}
+
+- (void) eventEnded {
+    
+}
+
+- (IBAction)makeEvent:(UIBarButtonItem *)sender {
+    ActivityViewController *creatingActivity = [[ActivityViewController alloc] initWithActivityText:[NSString stringWithFormat:@"creating %@", self.nameField.text]];
+    [self presentViewController:creatingActivity animated:NO completion:NULL];
+    [[GroupQEvent sharedEvent] setDelegate: self];
+    [[GroupQEvent sharedEvent] createEventWithName:self.nameField.text];
 }
 @end

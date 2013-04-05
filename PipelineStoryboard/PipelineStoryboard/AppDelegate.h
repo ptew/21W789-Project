@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GroupQNetworking.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

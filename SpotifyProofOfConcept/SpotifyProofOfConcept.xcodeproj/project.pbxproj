@@ -31,6 +31,7 @@
 		4C8921B4170E93E10018C068 /* SPLoginResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C8921B3170E93E10018C068 /* SPLoginResources.bundle */; };
 		4C8921B7170E94450018C068 /* libCocoaLibSpotify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8921B0170E93CA0018C068 /* libCocoaLibSpotify.a */; };
 		DECFFDDB170E965A00BE36E3 /* QueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFFDDA170E965A00BE36E3 /* QueueViewController.m */; };
+		DECFFDE0170E9B8400BE36E3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DECFFDDF170E9B8400BE36E3 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,13 +48,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 50D4F52B156BCDE800E237DD;
 			remoteInfo = CocoaLSTests;
-		};
-		4C8921B5170E94140018C068 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C8921AA170E93C90018C068 /* CocoaLibSpotify iOS Library.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 50AF49DB1439CBFE00E4A5EF;
-			remoteInfo = CocoaLibSpotify;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -93,6 +87,7 @@
 		4C8921B3170E93E10018C068 /* SPLoginResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SPLoginResources.bundle; path = "../cocoalibspotify-master/iOS Library/SPLoginResources.bundle"; sourceTree = "<group>"; };
 		DECFFDD9170E965A00BE36E3 /* QueueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueViewController.h; sourceTree = "<group>"; };
 		DECFFDDA170E965A00BE36E3 /* QueueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueViewController.m; sourceTree = "<group>"; };
+		DECFFDDF170E9B8400BE36E3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DECFFDE0170E9B8400BE36E3 /* MediaPlayer.framework in Frameworks */,
 				4C8921B7170E94450018C068 /* libCocoaLibSpotify.a in Frameworks */,
 				4C1B6B9F170DEF7400344F9F /* CoreAudio.framework in Frameworks */,
 				4C1B6B9D170DEF6600344F9F /* AudioToolbox.framework in Frameworks */,
@@ -138,6 +134,7 @@
 		4C1B6B64170DEE2C00344F9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DECFFDDF170E9B8400BE36E3 /* MediaPlayer.framework */,
 				4C1B6B9E170DEF7400344F9F /* CoreAudio.framework */,
 				4C1B6B9C170DEF6600344F9F /* AudioToolbox.framework */,
 				4C1B6B9A170DEF5B00344F9F /* SystemConfiguration.framework */,
@@ -212,7 +209,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4C8921B6170E94140018C068 /* PBXTargetDependency */,
 			);
 			name = SpotifyProofOfConcept;
 			productName = SpotifyProofOfConcept;
@@ -301,14 +297,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4C8921B6170E94140018C068 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocoaLibSpotify;
-			targetProxy = 4C8921B5170E94140018C068 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4C1B6B6E170DEE2C00344F9F /* InfoPlist.strings */ = {

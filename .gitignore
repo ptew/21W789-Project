@@ -138,3 +138,5 @@ Podfile.lock
 #
 # ...none. Everything is now explained.
 *.xcuserstate
+
+*.xcuserstate

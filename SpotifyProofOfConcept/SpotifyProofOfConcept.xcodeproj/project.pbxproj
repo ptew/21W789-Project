@@ -30,6 +30,7 @@
 		4C8921A9170E91090018C068 /* SpotifyQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8921A8170E91090018C068 /* SpotifyQueueItem.m */; };
 		4C8921B4170E93E10018C068 /* SPLoginResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C8921B3170E93E10018C068 /* SPLoginResources.bundle */; };
 		4C8921B7170E94450018C068 /* libCocoaLibSpotify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8921B0170E93CA0018C068 /* libCocoaLibSpotify.a */; };
+		DECFFDDB170E965A00BE36E3 /* QueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFFDDA170E965A00BE36E3 /* QueueViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		4C8921A8170E91090018C068 /* SpotifyQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifyQueueItem.m; sourceTree = "<group>"; };
 		4C8921AA170E93C90018C068 /* CocoaLibSpotify iOS Library.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify iOS Library.xcodeproj"; path = "../cocoalibspotify-master/iOS Library/CocoaLibSpotify iOS Library.xcodeproj"; sourceTree = "<group>"; };
 		4C8921B3170E93E10018C068 /* SPLoginResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SPLoginResources.bundle; path = "../cocoalibspotify-master/iOS Library/SPLoginResources.bundle"; sourceTree = "<group>"; };
+		DECFFDD9170E965A00BE36E3 /* QueueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueViewController.h; sourceTree = "<group>"; };
+		DECFFDDA170E965A00BE36E3 /* QueueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +157,8 @@
 				4C1B6B74170DEE2C00344F9F /* AppDelegate.h */,
 				4C1B6B75170DEE2C00344F9F /* AppDelegate.m */,
 				4C1B6B7D170DEE2C00344F9F /* MainStoryboard.storyboard */,
+				DECFFDD9170E965A00BE36E3 /* QueueViewController.h */,
+				DECFFDDA170E965A00BE36E3 /* QueueViewController.m */,
 				4C1B6B80170DEE2C00344F9F /* ViewController.h */,
 				4C1B6B81170DEE2C00344F9F /* ViewController.m */,
 				4C1B6B6C170DEE2C00344F9F /* Supporting Files */,
@@ -291,6 +296,7 @@
 				4C89219D170E5B580018C068 /* SpotifyPlayer.m in Sources */,
 				4C8921A6170E83DA0018C068 /* SpotifySearcher.m in Sources */,
 				4C8921A9170E91090018C068 /* SpotifyQueueItem.m in Sources */,
+				DECFFDDB170E965A00BE36E3 /* QueueViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

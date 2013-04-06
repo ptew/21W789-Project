@@ -222,7 +222,6 @@
         <!--Users View Controller-->
         <scene sceneID="yZt-Q7-Y9z">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ex3-3z-bN8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="LLs-fJ-pH4" customClass="UsersViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IOe-3w-J0x">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
@@ -247,6 +246,7 @@
                         <outlet property="userTable" destination="IOe-3w-J0x" id="4Rq-S5-rOZ"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ex3-3z-bN8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1539" y="1328"/>
         </scene>

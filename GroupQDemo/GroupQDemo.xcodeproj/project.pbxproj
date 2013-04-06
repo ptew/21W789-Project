@@ -30,7 +30,6 @@
 		4C9D8DCA1710B432001145B8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D8DC91710B432001145B8 /* Default@2x.png */; };
 		4C9D8DCC1710B432001145B8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D8DCB1710B432001145B8 /* Default-568h@2x.png */; };
 		4C9D8DCF1710B432001145B8 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */; };
-		4C9D8DD21710B432001145B8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DD11710B432001145B8 /* ViewController.m */; };
 		4C9D8DE41710B46D001145B8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE31710B46D001145B8 /* SystemConfiguration.framework */; };
 		4C9D8DE61710B475001145B8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE51710B475001145B8 /* CFNetwork.framework */; };
 		4C9D8DE81710B47B001145B8 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE71710B47B001145B8 /* libstdc++.dylib */; };
@@ -90,8 +89,6 @@
 		4C9D8DC91710B432001145B8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4C9D8DCB1710B432001145B8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4C9D8DCE1710B432001145B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		4C9D8DD01710B432001145B8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4C9D8DD11710B432001145B8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4C9D8DD81710B44A001145B8 /* CocoaLibSpotify iOS Library.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify iOS Library.xcodeproj"; path = "../cocoalibspotify-master/iOS Library/CocoaLibSpotify iOS Library.xcodeproj"; sourceTree = "<group>"; };
 		4C9D8DE31710B46D001145B8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4C9D8DE51710B475001145B8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -227,8 +224,6 @@
 				4C9D8DC41710B432001145B8 /* AppDelegate.h */,
 				4C9D8DC51710B432001145B8 /* AppDelegate.m */,
 				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
-				4C9D8DD01710B432001145B8 /* ViewController.h */,
-				4C9D8DD11710B432001145B8 /* ViewController.m */,
 				4C9D8DBC1710B432001145B8 /* Supporting Files */,
 			);
 			path = GroupQDemo;
@@ -470,7 +465,6 @@
 			files = (
 				4C9D8DC21710B432001145B8 /* main.m in Sources */,
 				4C9D8DC61710B432001145B8 /* AppDelegate.m in Sources */,
-				4C9D8DD21710B432001145B8 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,6 +646,7 @@
 				4C8D19F91710B8C9006A3BA9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4C9D8DAD1710B432001145B8 /* Build configuration list for PBXProject "GroupQDemo" */ = {
 			isa = XCConfigurationList;

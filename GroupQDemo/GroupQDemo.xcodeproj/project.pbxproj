@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C8D19EB1710B8C9006A3BA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB51710B432001145B8 /* UIKit.framework */; };
+		4C8D19EC1710B8C9006A3BA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB71710B432001145B8 /* Foundation.framework */; };
+		4C8D19F21710B8C9006A3BA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C8D19F01710B8C9006A3BA9 /* InfoPlist.strings */; };
+		4C8D19F51710B8C9006A3BA9 /* CocoaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D19F41710B8C9006A3BA9 /* CocoaTests.m */; };
+		4C8D19FA1710B8F2006A3BA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE31710B46D001145B8 /* SystemConfiguration.framework */; };
+		4C8D19FB1710B8FA006A3BA9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE51710B475001145B8 /* CFNetwork.framework */; };
+		4C8D19FC1710B903006A3BA9 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE71710B47B001145B8 /* libstdc++.dylib */; };
+		4C8D19FD1710B90A006A3BA9 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE91710B481001145B8 /* CoreAudio.framework */; };
+		4C8D19FE1710B911006A3BA9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DEB1710B488001145B8 /* AudioToolbox.framework */; };
+		4C8D19FF1710B918006A3BA9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DED1710B48D001145B8 /* AVFoundation.framework */; };
+		4C8D1A001710B921006A3BA9 /* libCocoaLibSpotify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DDE1710B44A001145B8 /* libCocoaLibSpotify.a */; };
+		4C8D1A041710BA55006A3BA9 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8D1A031710BA55006A3BA9 /* SenTestingKit.framework */; };
+		4C8D1A071710BB01006A3BA9 /* SpotifySearchTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D1A061710BB01006A3BA9 /* SpotifySearchTest.m */; };
 		4C9D8DB61710B432001145B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB51710B432001145B8 /* UIKit.framework */; };
 		4C9D8DB81710B432001145B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB71710B432001145B8 /* Foundation.framework */; };
 		4C9D8DBA1710B432001145B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB91710B432001145B8 /* CoreGraphics.framework */; };
@@ -29,6 +42,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4C8D1A011710B97D006A3BA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C9D8DAA1710B432001145B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C9D8DB11710B432001145B8;
+			remoteInfo = GroupQDemo;
+		};
 		4C9D8DDD1710B44A001145B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C9D8DD81710B44A001145B8 /* CocoaLibSpotify iOS Library.xcodeproj */;
@@ -46,6 +66,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C8D19E81710B8C9006A3BA9 /* CocoaTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C8D19E91710B8C9006A3BA9 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		4C8D19EF1710B8C9006A3BA9 /* CocoaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CocoaTests-Info.plist"; sourceTree = "<group>"; };
+		4C8D19F11710B8C9006A3BA9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4C8D19F31710B8C9006A3BA9 /* CocoaTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaTests.h; sourceTree = "<group>"; };
+		4C8D19F41710B8C9006A3BA9 /* CocoaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaTests.m; sourceTree = "<group>"; };
+		4C8D19F61710B8C9006A3BA9 /* CocoaTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CocoaTests-Prefix.pch"; sourceTree = "<group>"; };
+		4C8D1A031710BA55006A3BA9 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		4C8D1A051710BB01006A3BA9 /* SpotifySearchTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifySearchTest.h; sourceTree = "<group>"; };
+		4C8D1A061710BB01006A3BA9 /* SpotifySearchTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifySearchTest.m; sourceTree = "<group>"; };
 		4C9D8DB21710B432001145B8 /* GroupQDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GroupQDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C9D8DB51710B432001145B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C9D8DB71710B432001145B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -93,6 +123,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4C8D19E41710B8C9006A3BA9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C8D1A041710BA55006A3BA9 /* SenTestingKit.framework in Frameworks */,
+				4C8D1A001710B921006A3BA9 /* libCocoaLibSpotify.a in Frameworks */,
+				4C8D19FF1710B918006A3BA9 /* AVFoundation.framework in Frameworks */,
+				4C8D19FE1710B911006A3BA9 /* AudioToolbox.framework in Frameworks */,
+				4C8D19FD1710B90A006A3BA9 /* CoreAudio.framework in Frameworks */,
+				4C8D19FC1710B903006A3BA9 /* libstdc++.dylib in Frameworks */,
+				4C8D19FB1710B8FA006A3BA9 /* CFNetwork.framework in Frameworks */,
+				4C8D19FA1710B8F2006A3BA9 /* SystemConfiguration.framework in Frameworks */,
+				4C8D19EB1710B8C9006A3BA9 /* UIKit.framework in Frameworks */,
+				4C8D19EC1710B8C9006A3BA9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C9D8DAF1710B432001145B8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -113,10 +160,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C8D19ED1710B8C9006A3BA9 /* CocoaTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C8D19F31710B8C9006A3BA9 /* CocoaTests.h */,
+				4C8D19F41710B8C9006A3BA9 /* CocoaTests.m */,
+				4C8D19EE1710B8C9006A3BA9 /* Supporting Files */,
+			);
+			path = CocoaTests;
+			sourceTree = "<group>";
+		};
+		4C8D19EE1710B8C9006A3BA9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C8D19EF1710B8C9006A3BA9 /* CocoaTests-Info.plist */,
+				4C8D19F01710B8C9006A3BA9 /* InfoPlist.strings */,
+				4C8D19F61710B8C9006A3BA9 /* CocoaTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		4C9D8DA91710B432001145B8 = {
 			isa = PBXGroup;
 			children = (
+				4C8D1A051710BB01006A3BA9 /* SpotifySearchTest.h */,
+				4C8D1A061710BB01006A3BA9 /* SpotifySearchTest.m */,
+				4C8D1A031710BA55006A3BA9 /* SenTestingKit.framework */,
 				4C9D8DBB1710B432001145B8 /* GroupQDemo */,
+				4C8D19ED1710B8C9006A3BA9 /* CocoaTests */,
 				4C9D8DB41710B432001145B8 /* Frameworks */,
 				4C9D8DB31710B432001145B8 /* Products */,
 			);
@@ -126,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9D8DB21710B432001145B8 /* GroupQDemo.app */,
+				4C8D19E81710B8C9006A3BA9 /* CocoaTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,6 +214,7 @@
 				4C9D8DB51710B432001145B8 /* UIKit.framework */,
 				4C9D8DB71710B432001145B8 /* Foundation.framework */,
 				4C9D8DB91710B432001145B8 /* CoreGraphics.framework */,
+				4C8D19E91710B8C9006A3BA9 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -255,6 +328,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4C8D19E71710B8C9006A3BA9 /* CocoaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C8D19F71710B8C9006A3BA9 /* Build configuration list for PBXNativeTarget "CocoaTests" */;
+			buildPhases = (
+				4C8D19E31710B8C9006A3BA9 /* Sources */,
+				4C8D19E41710B8C9006A3BA9 /* Frameworks */,
+				4C8D19E51710B8C9006A3BA9 /* Resources */,
+				4C8D19E61710B8C9006A3BA9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C8D1A021710B97D006A3BA9 /* PBXTargetDependency */,
+			);
+			name = CocoaTests;
+			productName = CocoaTests;
+			productReference = 4C8D19E81710B8C9006A3BA9 /* CocoaTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		4C9D8DB11710B432001145B8 /* GroupQDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C9D8DD51710B432001145B8 /* Build configuration list for PBXNativeTarget "GroupQDemo" */;
@@ -300,6 +392,7 @@
 			projectRoot = "";
 			targets = (
 				4C9D8DB11710B432001145B8 /* GroupQDemo */,
+				4C8D19E71710B8C9006A3BA9 /* CocoaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -322,6 +415,14 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4C8D19E51710B8C9006A3BA9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C8D19F21710B8C9006A3BA9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C9D8DB01710B432001145B8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -337,7 +438,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4C8D19E61710B8C9006A3BA9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		4C8D19E31710B8C9006A3BA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C8D19F51710B8C9006A3BA9 /* CocoaTests.m in Sources */,
+				4C8D1A071710BB01006A3BA9 /* SpotifySearchTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C9D8DAE1710B432001145B8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -350,7 +476,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4C8D1A021710B97D006A3BA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C9D8DB11710B432001145B8 /* GroupQDemo */;
+			targetProxy = 4C8D1A011710B97D006A3BA9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		4C8D19F01710B8C9006A3BA9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C8D19F11710B8C9006A3BA9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		4C9D8DBE1710B432001145B8 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -370,6 +512,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4C8D19F81710B8C9006A3BA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GroupQDemo.app/GroupQDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CocoaTests/CocoaTests-Prefix.pch";
+				INFOPLIST_FILE = "CocoaTests/CocoaTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "@(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		4C8D19F91710B8C9006A3BA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GroupQDemo.app/GroupQDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CocoaTests/CocoaTests-Prefix.pch";
+				INFOPLIST_FILE = "CocoaTests/CocoaTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "@(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		4C9D8DD31710B432001145B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -431,6 +615,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GroupQDemo/GroupQDemo-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "GroupQDemo/GroupQDemo-Info.plist";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -446,6 +631,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GroupQDemo/GroupQDemo-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "GroupQDemo/GroupQDemo-Info.plist";
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -459,6 +645,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4C8D19F71710B8C9006A3BA9 /* Build configuration list for PBXNativeTarget "CocoaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C8D19F81710B8C9006A3BA9 /* Debug */,
+				4C8D19F91710B8C9006A3BA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4C9D8DAD1710B432001145B8 /* Build configuration list for PBXProject "GroupQDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -475,6 +669,7 @@
 				4C9D8DD71710B432001145B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

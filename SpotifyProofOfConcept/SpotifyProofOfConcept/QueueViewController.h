@@ -22,5 +22,6 @@ IBOutlet UITableView *queueTableView;
 @property (nonatomic) NSIndexPath *currentlySelectedSong;
 @property (nonatomic, retain) IBOutlet UITableView *queueTableView;
 @property (nonatomic) BOOL *firstLoad;
+@property (nonatomic, retain) NSMutableArray *songQueue;
 
 @end

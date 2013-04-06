@@ -33,6 +33,7 @@
 @synthesize currentlySelectedSong;
 @synthesize mediaActionSheet =_mediaActionSheet;
 @synthesize firstLoad;
+@synthesize songQueue;
 
 
 - (id)initWithStyle:(UITableViewStyle)style

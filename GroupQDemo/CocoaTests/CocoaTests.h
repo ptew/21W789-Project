@@ -7,6 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "Spotify.h"
 
 @interface CocoaTests : SenTestCase
 

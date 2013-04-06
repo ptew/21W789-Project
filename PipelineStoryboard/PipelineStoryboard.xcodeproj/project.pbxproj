@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B813B57A170E551A00948BF2 /* GroupQEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B813B579170E551A00948BF2 /* GroupQEvent.m */; };
 		B813B57E170E56E700948BF2 /* GroupQConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B813B57D170E56E700948BF2 /* GroupQConnection.m */; };
+		B83475141710D0EE00C87A1C /* TEMPSEARCHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B83475131710D0EE00C87A1C /* TEMPSEARCHViewController.m */; };
 		B841017B170BEDCB00B48D6C /* InEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B841017A170BEDCB00B48D6C /* InEventViewController.m */; };
 		B84B81ED170A8DAD006E059C /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B84B81EC170A8DAD006E059C /* UsersViewController.m */; };
 		B87DDB40170DEEC400B9445E /* GroupQClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B87DDB3F170DEEC400B9445E /* GroupQClient.m */; };
@@ -38,6 +39,8 @@
 		B813B57D170E56E700948BF2 /* GroupQConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupQConnection.m; sourceTree = "<group>"; };
 		B813B57F170E579B00948BF2 /* GroupQConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupQConnectionDelegate.h; sourceTree = "<group>"; };
 		B813B580170E603200948BF2 /* GroupQNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupQNetworking.h; sourceTree = "<group>"; };
+		B83475121710D0EE00C87A1C /* TEMPSEARCHViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TEMPSEARCHViewController.h; sourceTree = "<group>"; };
+		B83475131710D0EE00C87A1C /* TEMPSEARCHViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TEMPSEARCHViewController.m; sourceTree = "<group>"; };
 		B8410179170BEDCB00B48D6C /* InEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InEventViewController.h; sourceTree = "<group>"; };
 		B841017A170BEDCB00B48D6C /* InEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InEventViewController.m; sourceTree = "<group>"; };
 		B84B81EB170A8DAD006E059C /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				B8B875AA170A77D800327BD3 /* NewEventViewController.m */,
 				B8B875A1170A764700327BD3 /* BrowseEventsViewController.h */,
 				B8B875A2170A764700327BD3 /* BrowseEventsViewController.m */,
+				B83475121710D0EE00C87A1C /* TEMPSEARCHViewController.h */,
+				B83475131710D0EE00C87A1C /* TEMPSEARCHViewController.m */,
 				B87DDB48170E16E200B9445E /* Utilities */,
 				B8B8758D170A764700327BD3 /* Supporting Files */,
 			);
@@ -270,6 +275,7 @@
 				B87DDB45170E16CC00B9445E /* ActivityViewController.m in Sources */,
 				B813B57A170E551A00948BF2 /* GroupQEvent.m in Sources */,
 				B813B57E170E56E700948BF2 /* GroupQConnection.m in Sources */,
+				B83475141710D0EE00C87A1C /* TEMPSEARCHViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

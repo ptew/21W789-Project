@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CocoaLibSpotify.h"
+#import "SpotifySearcherDelegate.h"
+#import "SpotifyQueueItem.h"
 
-@interface SpotifySearcher : NSObject
+@interface SpotifySearcher : NSObject <NSURLConnectionDataDelegate, NSXMLParserDelegate>
 
-- (NSMutableArray*)searchByArtist:(NSString*)artist;
-- (NSMutableArray*)searchByTrack:(NSString*)track;
-- (NSMutableArray*)searchByAlbum:(NSString*)album;
-
+@property (strong, nonatomic) NSURL *spotifySearchURL;
+@property (strong, nonatomic) id<SpotifySearcherDelegate> delegate;
+- (void)search:(NSString*)query;
++ (SpotifySearcher *) sharedSearcher;
 @end

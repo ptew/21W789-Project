@@ -252,27 +252,7 @@
 
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    
-    
-    if ([[self.songQueue objectAtIndex:sourceIndexPath.row+1] isKindOfClass:[MPMediaItem class]]) {
-        MPMediaItem *item =[self.songQueue objectAtIndex:sourceIndexPath.row+1];
-        [self.songQueue removeObjectAtIndex:sourceIndexPath.row+1];
-        [self.songQueue insertObject:item atIndex:destinationIndexPath.row+1];
-    }
-    else{
-        SpotifyQueueItem *item = [self.songQueue objectAtIndex:sourceIndexPath.row+1];
-        [self.songQueue removeObjectAtIndex:sourceIndexPath.row+1];
-        [self.songQueue insertObject:item atIndex:destinationIndexPath.row+1];
-        NSLog(@"Item Not an IOS item");
-    }
-    
-    //NSMutableArray *queue = [[NSMutableArray alloc] initWithArray:userMediaItemCollection.items];
-    //[queue removeObject:item];
-    //[queue insertObject:item atIndex:destinationIndexPath.row];
-    //NSArray *queueArray = [queue copy];
-    //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
-    [self.tableView reloadData];
-
+    [[GroupQClient sharedClient] tellServerToMoveSongFrom:sourceIndexPath.row To:destinationIndexPath.row];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -283,99 +263,30 @@
 {
     NSString *choice = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([choice isEqualToString:@"Play Now"]){
-        firstLoad = false;
-        if ([[self.songQueue objectAtIndex:self.currentlySelectedSong.row+1] isKindOfClass:[MPMediaItem class]]) {
-            MPMediaItem *item =[self.songQueue objectAtIndex:self.currentlySelectedSong.row+1];
-            [self.songQueue removeObjectAtIndex:self.currentlySelectedSong.row+1];
-            [self.songQueue removeObjectAtIndex:0];
-            [self.songQueue insertObject:item atIndex:0];
-            [self.myPlayer setNowPlayingItem: [self.songQueue objectAtIndex:0]];
-            [self.myPlayer play];
-        }
-        else{
-            SpotifyQueueItem *item = [self.songQueue objectAtIndex:self.currentlySelectedSong.row+1];
-            [self.songQueue removeObjectAtIndex:self.currentlySelectedSong.row+1];
-            [self.songQueue insertObject:item atIndex:0];
-            NSLog(@"Item Not an IOS item");
-        }
-        //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
+        [[GroupQClient sharedClient] tellServerToPlaySong:self.currentlySelectedSong.row];
     }
     else if([choice isEqualToString:@"Play Next"]){
-        if ([[self.songQueue objectAtIndex:self.currentlySelectedSong.row+1] isKindOfClass:[MPMediaItem class]]) {
-            MPMediaItem *item =[self.songQueue objectAtIndex:self.currentlySelectedSong.row+1];
-            [self.songQueue removeObjectAtIndex:self.currentlySelectedSong.row+1];
-            [self.songQueue insertObject:item atIndex:1];
-        }
-        else{
-            SpotifyQueueItem *item = [self.songQueue objectAtIndex:self.currentlySelectedSong.row+1];
-            [self.songQueue removeObjectAtIndex:self.currentlySelectedSong.row+1];
-            [self.songQueue insertObject:item atIndex:1];
-            NSLog(@"Item Not an IOS item");
-        }
-        
-        //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
+        [[GroupQClient sharedClient] tellServerToMoveSongFrom:self.currentlySelectedSong.row To:0];
     }
     else if([choice isEqualToString:@"Add Song"]){
-        NSLog(@"Show picker");
-        MPMediaPickerController *picker =
-        [[MPMediaPickerController alloc] initWithMediaTypes: MPMediaTypeAnyAudio];
-        
-        picker.delegate						= self;
-        picker.allowsPickingMultipleItems	= YES;
-        picker.prompt						= NSLocalizedString (@"AddSongsPrompt", @"Prompt to user to choose some songs to play");
-        
-        [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault animated:YES];
-        
-        [self presentViewController:picker animated:YES completion:NULL];
+        [[GroupQClient sharedClient] tellServerToAddSongs:[MPMediaItemCollection collectionWithItems:[[MPMediaQuery songsQuery].items objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 10)]]]];
+        ///////////////////////////////////////////////////////
+        ////////FOR PARKER TO IMPLEMENT///////////////////////
+        //////////////////////////////////////////////////////
     }
     else if([choice isEqualToString:@"Add Playlist"]){
+        ///////////////////////////////////////////////////////
+        ////////FOR PARKER TO IMPLEMENT///////////////////////
+        //////////////////////////////////////////////////////
         
     }
     else if([choice isEqualToString:@"Add from Spotify"]){
-        
+        ///////////////////////////////////////////////////////
+        ////////Open Spotify Search view///////////////////////
+        ////////For Brad to Implement/////////////////////////
+        //////////////////////////////////////////////////////
     }
-    [self.tableView reloadData];
 }
-
-// To learn about notifications, see "Notifications" in Cocoa Fundamentals Guide.
-- (void) registerForMediaPlayerNotifications {
-	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    
-	[notificationCenter addObserver: self
-						   selector: @selector (handle_NowPlayingItemChanged:)
-							   name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
-							 object: self.myPlayer];
-	
-	[notificationCenter addObserver: self
-						   selector: @selector (handle_PlaybackStateChanged:)
-							   name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
-							 object: self.myPlayer];
-    
-	[self.myPlayer beginGeneratingPlaybackNotifications];
-}
-
-- (void) handle_NowPlayingItemChanged: (NSNotification *) notification {
-    NSLog(@"Got notified now playing");
-}
-
-- (void) handle_PlaybackStateChanged: (id) notification {
-    NSLog(@"Got notified Playback");
-    MPMusicPlaybackState playbackState = [self.myPlayer playbackState];
-    
-    if (playbackState == MPMusicPlaybackStateStopped) {
-        [self.songQueue removeObjectAtIndex:0];
-		if ([[self.songQueue objectAtIndex:0] isKindOfClass:[MPMediaItem class]]) {
-            [self.myPlayer setNowPlayingItem: [self.songQueue objectAtIndex:0]];
-            [self.myPlayer play];
-        }
-        else{
-            //set the spotify item at index 0 to the currently playing item in spotify player and playf
-            NSLog(@"Item Not an IOS item");
-        }
-    [self.tableView reloadData];
-	}
-}
-
 
 - (IBAction)showMediaPicker:(id)sender {
     if (self.mediaActionSheet) {
@@ -386,5 +297,13 @@
     }
     
     [self.tableView reloadData];
+}
+
+#pragma mark GroupQClient Delegate Methods
+- (void) eventsUpdated {}
+- (void) didConnectToEvent{}
+- (void) didNotConnectToEvent{}
+- (void) disconnectedFromEvent{
+    [self performSegueWithIdentifier:@"leaveEvent" sender:self];
 }
 @end

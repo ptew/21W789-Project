@@ -21,11 +21,4 @@
 
 // Sent when the connection was terminated
 - (void) disconnectedFromEvent;
-
-// Sent when new text from the server is available for processing
-- (void) receivedMessage: (NSString *) message withHeader: (NSString *) header;
-
-
-// Sent when new text from the server is available for processing
-- (void) receivedObject: (NSData *) object withHeader: (NSString *) header;
 @end

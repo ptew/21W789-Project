@@ -13,6 +13,13 @@
 
 @interface SpotifySearcher : NSObject <NSURLConnectionDataDelegate, NSXMLParserDelegate>
 
+typedef enum parserStateTaypes{
+    NONE,
+    ALBUM,
+    ARTIST,
+    TRACK,
+} ParserState;
+
 @property (strong, nonatomic) NSURL *spotifySearchURL;
 @property (strong, nonatomic) id<SpotifySearcherDelegate> delegate;
 - (void)search:(NSString*)query;

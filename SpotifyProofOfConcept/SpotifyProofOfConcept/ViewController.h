@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SpotifyPlayer.h"
+#import "SpotifySearcherDelegate.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate>{
+@interface ViewController : UIViewController <UITextFieldDelegate, SpotifySearcherDelegate>{
     
 }
 @property (strong, nonatomic) SpotifyPlayer* spotifyPlayer;

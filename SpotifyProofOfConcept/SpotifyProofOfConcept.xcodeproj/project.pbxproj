@@ -87,6 +87,7 @@
 		4C8921AA170E93C90018C068 /* CocoaLibSpotify iOS Library.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify iOS Library.xcodeproj"; path = "../cocoalibspotify-master/iOS Library/CocoaLibSpotify iOS Library.xcodeproj"; sourceTree = "<group>"; };
 		4C8921B3170E93E10018C068 /* SPLoginResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SPLoginResources.bundle; path = "../cocoalibspotify-master/iOS Library/SPLoginResources.bundle"; sourceTree = "<group>"; };
 		4CDED795170F79A800819ABB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		4CDED798170FC96600819ABB /* SpotifySearcherDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotifySearcherDelegate.h; sourceTree = "<group>"; };
 		DECFFDD9170E965A00BE36E3 /* QueueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueViewController.h; sourceTree = "<group>"; };
 		DECFFDDA170E965A00BE36E3 /* QueueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueViewController.m; sourceTree = "<group>"; };
 		DECFFDDF170E9B8400BE36E3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -169,6 +170,7 @@
 				4C89219C170E5B580018C068 /* SpotifyPlayer.m */,
 				4C8921A4170E83DA0018C068 /* SpotifySearcher.h */,
 				4C8921A5170E83DA0018C068 /* SpotifySearcher.m */,
+				4CDED798170FC96600819ABB /* SpotifySearcherDelegate.h */,
 				4C8921A7170E91090018C068 /* SpotifyQueueItem.h */,
 				4C8921A8170E91090018C068 /* SpotifyQueueItem.m */,
 				4C1B6BA5170DF1AF00344F9F /* SpotifyConnectionDelegate.h */,

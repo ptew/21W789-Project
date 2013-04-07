@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "SpotifyConnection.h"
+#import "SpotifySearcher.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) SpotifyConnection* spotifyConnection;
@@ -42,8 +43,8 @@
 }
 
 - (IBAction)submitButton:(UIButton *)sender {
-    NSLog(self.inputText1.text);
-    NSLog(self.inputText2.text);
+    NSLog(@"%@", self.inputText1.text);
+    NSLog(@"%@", self.inputText2.text);
 }
 
 - (IBAction)playButton:(UIButton *)sender {
@@ -53,6 +54,16 @@
 }
 
 - (IBAction)searchButton:(UIButton *)sender {
+    [[SpotifySearcher sharedSearcher] setDelegate:self];
+    NSLog(@"%@", self.inputText1.text);
+    [[SpotifySearcher sharedSearcher] search:self.inputText1.text];
+}
+
+- (void)searchResultedInErrorFor:(id)who{
     
 }
+- (void)searchReturnedResults:(NSArray *)results forID:(id)who{
+    NSLog(@"Got returned search results in view controller.");
+}
+
 @end

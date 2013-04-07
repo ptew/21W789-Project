@@ -7,8 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "Spotify.h"
 
 @interface GroupQQueue : NSObject <NSCoding>
 @property (strong, nonatomic) id nowPlaying;
 @property (strong, nonatomic) NSMutableArray *queuedSongs;
+
+- (void) moveSong: (int)position to: (int)destination;
+- (void) addSongs: (MPMediaItemCollection*) songs;
+- (void) deleteSong: (int) index;
+- (void) playSong: (int) index;
+- (void) addSpotifySong: (SpotifyQueueItem *) song;
+
 @end

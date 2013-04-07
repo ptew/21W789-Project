@@ -173,11 +173,39 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
             [connection setDJ:false];
         }
     }
-    else if
+    else if([header isEqualToString:@"moveSong"]) {
+        NSArray *indexes = [message componentsSeparatedByString:@"-"];
+        NSString* posSt = (NSString*) [indexes objectAtIndex:0];
+        NSString* destSt = (NSString*) [indexes objectAtIndex:1];
+        int pos = [posSt integerValue];
+        int dest = [destSt integerValue];
+        [self.songQueue moveSong:pos to:dest];
+        [self tellClientsToMoveSongFrom:pos to:dest];
+    }
+    else if([header isEqualToString:@"deleteSong"]) {
+        int pos = [message integerValue];
+        [self.songQueue deleteSong:pos];
+        [self tellClientsToDeleteSong:pos];
+    }
+    else if([header isEqualToString:@"playSong"]) {
+        int pos = [message integerValue];
+        [self.songQueue playSong:pos];
+        [self playNextSongInQueue];
+        [self tellClientsToPlaySong:pos];
+    }
 }
 
 - (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
-    if ([header isEqualToString:@"])
+    if ([header isEqualToString:@"addSongs"]) {
+        MPMediaItemCollection *songs = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        [self.songQueue addSongs:songs];
+        [self tellClientsToAddSongs:songs];
+    }
+    else if([header isEqualToString:@"addSpotifySong"]) {
+        SpotifyQueueItem *song = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        [self.songQueue addSpotifySong:song];
+        [self tellClientsToAddSpotifySong:song];
+    }
 }
 
 + (GroupQEvent *) sharedEvent {
@@ -217,29 +245,26 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     MPMusicPlaybackState playbackState = [self.musicPlayer playbackState];
     if (playbackState == MPMusicPlaybackStateStopped) {
         NSLog(@"Playback stopped.");
-        [self playNextSongInQueue];
+        [self songDidStopPlaying];
 	}
 }
 
 - (void) songDidStopPlaying {
+    [self.songQueue playSong:0];
+    [self tellClientsToPlaySong:0];
     [self playNextSongInQueue];
 }
 
 - (void) playNextSongInQueue {
-    if (self.songQueue.queuedSongs.count == 0) {
-        self.songQueue.nowPlaying = nil;
+    if (self.songQueue.nowPlaying == nil)
+        return;
+    
+    if ([self.songQueue.nowPlaying isKindOfClass:[MPMediaItem class]]) {
+        [self.musicPlayer setNowPlayingItem: self.songQueue.nowPlaying];
+        [self.musicPlayer play];
     }
-    else {
-        id nextSongToPlay = [self.songQueue.queuedSongs objectAtIndex:0];
-        self.songQueue.nowPlaying = nextSongToPlay;
-        [self.songQueue.queuedSongs removeObjectAtIndex:0];
-        if ([self.songQueue.nowPlaying isKindOfClass:[MPMediaItem class]]) {
-            [self.musicPlayer setNowPlayingItem: self.songQueue.nowPlaying];
-            [self.musicPlayer play];
-        }
-        else{
-            [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)nextSongToPlay];
-        }
+    else{
+        [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying];
     }
 }
 

@@ -15,7 +15,7 @@
 @interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate>
 
 // Creates an event with a given name
-- (void) createEventWithName: (NSString*) name;
+- (void) createEventWithName: (NSString*) name andPassword: (NSString*) password;
 
 // Broadcasts the event
 - (void) broadcastEvent;
@@ -31,6 +31,9 @@
 
 // The event name
 @property (strong, nonatomic) NSString *eventName;
+
+// The event password
+@property (strong, nonatomic) NSString *eventPassword;
 
 - (void) broadcastMessage: (NSString *) message withHeader: (NSString *) header;
 

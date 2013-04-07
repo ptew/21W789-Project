@@ -1,5 +1,5 @@
 //
-//  BrowseEventsViewController.h
+//  NewEventViewController.h
 //  GroupQDemo
 //
 //  Created by Jono Matthews on 4/6/13.
@@ -10,6 +10,6 @@
 #import "GroupQNetworking.h"
 #import "ActivityViewController.h"
 
-@interface BrowseEventsViewController : UITableViewController <GroupQClientDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface NewEventViewController : UITableViewController <UITextFieldDelegate, GroupQEventDelegate>
 
 @end

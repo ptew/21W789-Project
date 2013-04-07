@@ -28,9 +28,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 @implementation GroupQEvent
 
-- (void) createEventWithName: (NSString*) name {
+- (void) createEventWithName: (NSString*) name andPassword: (NSString*) password {
     // Store the event name and set up the user list
     self.eventName = name;
+    self.eventPassword = password;
     self.userConnections = [[NSMutableArray alloc] init];
     
     // Create an empty listening socket -- give it a pointer to this event for callback purposes
@@ -73,7 +74,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 // Broadcasts the listening socket on Bonjour
 - (void) broadcastEvent {
     // Create a new Bonjour service
- 	self.eventService = [[NSNetService alloc] initWithDomain:@"" type:@"_groupq._tcp." name:self.eventName port:port];
+ 	self.eventService = [[NSNetService alloc] initWithDomain:@"" type:@"_groupq._tcp." name:[NSString stringWithFormat:@"%@\n%@", self.eventName, self.eventPassword] port:port];
     
     // We will be this service's delegate.
 	self.eventService.delegate = self;

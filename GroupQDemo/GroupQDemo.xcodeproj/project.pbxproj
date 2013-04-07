@@ -7,19 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C0145221710C45600BA3FEE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB91710B432001145B8 /* CoreGraphics.framework */; };
-		4C0145241710C59200BA3FEE /* SpotifySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DF91710B54F001145B8 /* SpotifySearcher.m */; };
-		4C8D19EB1710B8C9006A3BA9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB51710B432001145B8 /* UIKit.framework */; };
-		4C8D19EC1710B8C9006A3BA9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB71710B432001145B8 /* Foundation.framework */; };
-		4C8D19F21710B8C9006A3BA9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C8D19F01710B8C9006A3BA9 /* InfoPlist.strings */; };
-		4C8D19F51710B8C9006A3BA9 /* CocoaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D19F41710B8C9006A3BA9 /* CocoaTests.m */; };
-		4C8D19FA1710B8F2006A3BA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE31710B46D001145B8 /* SystemConfiguration.framework */; };
-		4C8D19FB1710B8FA006A3BA9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE51710B475001145B8 /* CFNetwork.framework */; };
-		4C8D19FC1710B903006A3BA9 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE71710B47B001145B8 /* libstdc++.dylib */; };
-		4C8D19FD1710B90A006A3BA9 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DE91710B481001145B8 /* CoreAudio.framework */; };
-		4C8D19FE1710B911006A3BA9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DEB1710B488001145B8 /* AudioToolbox.framework */; };
-		4C8D19FF1710B918006A3BA9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DED1710B48D001145B8 /* AVFoundation.framework */; };
-		4C8D1A041710BA55006A3BA9 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8D1A031710BA55006A3BA9 /* SenTestingKit.framework */; };
 		4C9D8DB61710B432001145B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB51710B432001145B8 /* UIKit.framework */; };
 		4C9D8DB81710B432001145B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB71710B432001145B8 /* Foundation.framework */; };
 		4C9D8DBA1710B432001145B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB91710B432001145B8 /* CoreGraphics.framework */; };
@@ -37,7 +24,18 @@
 		4C9D8DEC1710B488001145B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DEB1710B488001145B8 /* AudioToolbox.framework */; };
 		4C9D8DEE1710B48D001145B8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DED1710B48D001145B8 /* AVFoundation.framework */; };
 		4C9D8DF01710B4CB001145B8 /* SPLoginResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D8DEF1710B4CB001145B8 /* SPLoginResources.bundle */; };
-		B83475181710D10D00C87A1C /* TEMPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B83475171710D10D00C87A1C /* TEMPViewController.m */; };
+		B846E3211710ED3800B8E2AD /* spotify-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B846E3201710ED3800B8E2AD /* spotify-logo.png */; };
+		B86510D01710D2E800495318 /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86510CD1710D2E800495318 /* ActivityView.xib */; };
+		B86510D11710D2E800495318 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86510CF1710D2E800495318 /* ActivityViewController.m */; };
+		B86510D31710D6C400495318 /* libCocoaLibSpotify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DDE1710B44A001145B8 /* libCocoaLibSpotify.a */; };
+		B86510D41710D7D500495318 /* GroupQClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8E031710B588001145B8 /* GroupQClient.m */; };
+		B86510D51710D7D500495318 /* GroupQConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DFC1710B57F001145B8 /* GroupQConnection.m */; };
+		B86510D61710D7D500495318 /* GroupQEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DFF1710B57F001145B8 /* GroupQEvent.m */; };
+		B86510D71710D7D500495318 /* SpotifyConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DF31710B54F001145B8 /* SpotifyConnection.m */; };
+		B86510D81710D7D500495318 /* SpotifyPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DF51710B54F001145B8 /* SpotifyPlayer.m */; };
+		B86510D91710D7D500495318 /* SpotifyQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DF71710B54F001145B8 /* SpotifyQueueItem.m */; };
+		B86510DA1710D7D500495318 /* SpotifySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DF91710B54F001145B8 /* SpotifySearcher.m */; };
+		B86510DD1710EC0900495318 /* NewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86510DC1710EC0900495318 /* NewEventViewController.m */; };
 		B8A999DE1710C6B4004E037D /* Icon.psd in Resources */ = {isa = PBXBuildFile; fileRef = B8A999D91710C6B4004E037D /* Icon.psd */; };
 		B8A999DF1710C6B4004E037D /* Icon_LARGE.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999DA1710C6B4004E037D /* Icon_LARGE.png */; };
 		B8A999E01710C6B4004E037D /* ICON_SMALL.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999DB1710C6B4004E037D /* ICON_SMALL.png */; };
@@ -50,27 +48,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4C01451E1710C36E00BA3FEE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C9D8DD81710B44A001145B8 /* CocoaLibSpotify iOS Library.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 50AF49DB1439CBFE00E4A5EF;
-			remoteInfo = CocoaLibSpotify;
-		};
-		4C0145201710C3FF00BA3FEE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C9D8DD81710B44A001145B8 /* CocoaLibSpotify iOS Library.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 50AF49DB1439CBFE00E4A5EF;
-			remoteInfo = CocoaLibSpotify;
-		};
-		4C8D1A011710B97D006A3BA9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C9D8DAA1710B432001145B8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4C9D8DB11710B432001145B8;
-			remoteInfo = GroupQDemo;
-		};
 		4C9D8DDD1710B44A001145B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C9D8DD81710B44A001145B8 /* CocoaLibSpotify iOS Library.xcodeproj */;
@@ -88,7 +65,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4C8D19E81710B8C9006A3BA9 /* CocoaTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C8D19E91710B8C9006A3BA9 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		4C8D19EF1710B8C9006A3BA9 /* CocoaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CocoaTests-Info.plist"; sourceTree = "<group>"; };
 		4C8D19F11710B8C9006A3BA9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -138,8 +114,12 @@
 		4C9D8E031710B588001145B8 /* GroupQClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupQClient.m; sourceTree = "<group>"; };
 		4C9D8E041710B588001145B8 /* GroupQClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupQClientDelegate.h; sourceTree = "<group>"; };
 		4C9D8E0B1710B618001145B8 /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
-		B83475161710D10D00C87A1C /* TEMPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TEMPViewController.h; sourceTree = "<group>"; };
-		B83475171710D10D00C87A1C /* TEMPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TEMPViewController.m; sourceTree = "<group>"; };
+		B846E3201710ED3800B8E2AD /* spotify-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotify-logo.png"; sourceTree = "<group>"; };
+		B86510CD1710D2E800495318 /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
+		B86510CE1710D2E800495318 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
+		B86510CF1710D2E800495318 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		B86510DB1710EC0900495318 /* NewEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEventViewController.h; sourceTree = "<group>"; };
+		B86510DC1710EC0900495318 /* NewEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEventViewController.m; sourceTree = "<group>"; };
 		B8A999D91710C6B4004E037D /* Icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icon.psd; sourceTree = "<group>"; };
 		B8A999DA1710C6B4004E037D /* Icon_LARGE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_LARGE.png; sourceTree = "<group>"; };
 		B8A999DB1710C6B4004E037D /* ICON_SMALL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ICON_SMALL.png; sourceTree = "<group>"; };
@@ -154,27 +134,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4C8D19E41710B8C9006A3BA9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C0145221710C45600BA3FEE /* CoreGraphics.framework in Frameworks */,
-				4C8D1A041710BA55006A3BA9 /* SenTestingKit.framework in Frameworks */,
-				4C8D19FF1710B918006A3BA9 /* AVFoundation.framework in Frameworks */,
-				4C8D19FE1710B911006A3BA9 /* AudioToolbox.framework in Frameworks */,
-				4C8D19FD1710B90A006A3BA9 /* CoreAudio.framework in Frameworks */,
-				4C8D19FC1710B903006A3BA9 /* libstdc++.dylib in Frameworks */,
-				4C8D19FB1710B8FA006A3BA9 /* CFNetwork.framework in Frameworks */,
-				4C8D19FA1710B8F2006A3BA9 /* SystemConfiguration.framework in Frameworks */,
-				4C8D19EB1710B8C9006A3BA9 /* UIKit.framework in Frameworks */,
-				4C8D19EC1710B8C9006A3BA9 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C9D8DAF1710B432001145B8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B86510D31710D6C400495318 /* libCocoaLibSpotify.a in Frameworks */,
 				4C9D8DEE1710B48D001145B8 /* AVFoundation.framework in Frameworks */,
 				4C9D8DEC1710B488001145B8 /* AudioToolbox.framework in Frameworks */,
 				4C9D8DEA1710B481001145B8 /* CoreAudio.framework in Frameworks */,
@@ -226,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				4C9D8DB21710B432001145B8 /* GroupQDemo.app */,
-				4C8D19E81710B8C9006A3BA9 /* CocoaTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +214,7 @@
 		4C9D8DBB1710B432001145B8 /* GroupQDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B86510D21710D2EE00495318 /* Activity Screen */,
 				B8A999ED1710C9D9004E037D /* Custom Libraries */,
 				B8A999D81710C6B4004E037D /* assets */,
 				4C9D8DC41710B432001145B8 /* AppDelegate.h */,
@@ -259,9 +223,9 @@
 				B8A999F21710CB7D004E037D /* BrowseEventsViewController.m */,
 				B8A999E71710C9B8004E037D /* SplashScreenViewController.h */,
 				B8A999E81710C9B8004E037D /* SplashScreenViewController.m */,
+				B86510DB1710EC0900495318 /* NewEventViewController.h */,
+				B86510DC1710EC0900495318 /* NewEventViewController.m */,
 				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
-				B83475161710D10D00C87A1C /* TEMPViewController.h */,
-				B83475171710D10D00C87A1C /* TEMPViewController.m */,
 			);
 			path = GroupQDemo;
 			sourceTree = "<group>";
@@ -358,9 +322,20 @@
 			name = Delegates;
 			sourceTree = "<group>";
 		};
+		B86510D21710D2EE00495318 /* Activity Screen */ = {
+			isa = PBXGroup;
+			children = (
+				B86510CD1710D2E800495318 /* ActivityView.xib */,
+				B86510CE1710D2E800495318 /* ActivityViewController.h */,
+				B86510CF1710D2E800495318 /* ActivityViewController.m */,
+			);
+			name = "Activity Screen";
+			sourceTree = "<group>";
+		};
 		B8A999D81710C6B4004E037D /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				B846E3201710ED3800B8E2AD /* spotify-logo.png */,
 				B8A999F61710D027004E037D /* NoLock.png */,
 				B8A999F41710CFBE004E037D /* Lock.png */,
 				B8A999D91710C6B4004E037D /* Icon.psd */,
@@ -384,26 +359,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4C8D19E71710B8C9006A3BA9 /* CocoaTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4C8D19F71710B8C9006A3BA9 /* Build configuration list for PBXNativeTarget "CocoaTests" */;
-			buildPhases = (
-				4C8D19E31710B8C9006A3BA9 /* Sources */,
-				4C8D19E41710B8C9006A3BA9 /* Frameworks */,
-				4C8D19E51710B8C9006A3BA9 /* Resources */,
-				4C8D19E61710B8C9006A3BA9 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4C0145211710C3FF00BA3FEE /* PBXTargetDependency */,
-				4C8D1A021710B97D006A3BA9 /* PBXTargetDependency */,
-			);
-			name = CocoaTests;
-			productName = CocoaTests;
-			productReference = 4C8D19E81710B8C9006A3BA9 /* CocoaTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 		4C9D8DB11710B432001145B8 /* GroupQDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C9D8DD51710B432001145B8 /* Build configuration list for PBXNativeTarget "GroupQDemo" */;
@@ -415,7 +370,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4C01451F1710C36E00BA3FEE /* PBXTargetDependency */,
 			);
 			name = GroupQDemo;
 			productName = GroupQDemo;
@@ -450,7 +404,6 @@
 			projectRoot = "";
 			targets = (
 				4C9D8DB11710B432001145B8 /* GroupQDemo */,
-				4C8D19E71710B8C9006A3BA9 /* CocoaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -473,14 +426,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4C8D19E51710B8C9006A3BA9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C8D19F21710B8C9006A3BA9 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C9D8DB01710B432001145B8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -498,68 +443,35 @@
 				B8A999E21710C6B4004E037D /* Speaker.png in Resources */,
 				B8A999F51710CFBE004E037D /* Lock.png in Resources */,
 				B8A999F71710D027004E037D /* NoLock.png in Resources */,
+				B86510D01710D2E800495318 /* ActivityView.xib in Resources */,
+				B846E3211710ED3800B8E2AD /* spotify-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		4C8D19E61710B8C9006A3BA9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		4C8D19E31710B8C9006A3BA9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C0145241710C59200BA3FEE /* SpotifySearcher.m in Sources */,
-				4C8D19F51710B8C9006A3BA9 /* CocoaTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C9D8DAE1710B432001145B8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B86510D41710D7D500495318 /* GroupQClient.m in Sources */,
+				B86510D51710D7D500495318 /* GroupQConnection.m in Sources */,
+				B86510D61710D7D500495318 /* GroupQEvent.m in Sources */,
+				B86510D71710D7D500495318 /* SpotifyConnection.m in Sources */,
+				B86510D81710D7D500495318 /* SpotifyPlayer.m in Sources */,
+				B86510D91710D7D500495318 /* SpotifyQueueItem.m in Sources */,
+				B86510DA1710D7D500495318 /* SpotifySearcher.m in Sources */,
 				4C9D8DC21710B432001145B8 /* main.m in Sources */,
 				4C9D8DC61710B432001145B8 /* AppDelegate.m in Sources */,
 				B8A999EA1710C9B8004E037D /* SplashScreenViewController.m in Sources */,
 				B8A999F31710CB7D004E037D /* BrowseEventsViewController.m in Sources */,
-				B83475181710D10D00C87A1C /* TEMPViewController.m in Sources */,
+				B86510D11710D2E800495318 /* ActivityViewController.m in Sources */,
+				B86510DD1710EC0900495318 /* NewEventViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4C01451F1710C36E00BA3FEE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocoaLibSpotify;
-			targetProxy = 4C01451E1710C36E00BA3FEE /* PBXContainerItemProxy */;
-		};
-		4C0145211710C3FF00BA3FEE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CocoaLibSpotify;
-			targetProxy = 4C0145201710C3FF00BA3FEE /* PBXContainerItemProxy */;
-		};
-		4C8D1A021710B97D006A3BA9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4C9D8DB11710B432001145B8 /* GroupQDemo */;
-			targetProxy = 4C8D1A011710B97D006A3BA9 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4C8D19F01710B8C9006A3BA9 /* InfoPlist.strings */ = {
@@ -589,48 +501,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4C8D19F81710B8C9006A3BA9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GroupQDemo.app/GroupQDemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CocoaTests/CocoaTests-Prefix.pch";
-				INFOPLIST_FILE = "CocoaTests/CocoaTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "@(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		4C8D19F91710B8C9006A3BA9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GroupQDemo.app/GroupQDemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CocoaTests/CocoaTests-Prefix.pch";
-				INFOPLIST_FILE = "CocoaTests/CocoaTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "@(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 		4C9D8DD31710B432001145B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -722,15 +592,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4C8D19F71710B8C9006A3BA9 /* Build configuration list for PBXNativeTarget "CocoaTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4C8D19F81710B8C9006A3BA9 /* Debug */,
-				4C8D19F91710B8C9006A3BA9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4C9D8DAD1710B432001145B8 /* Build configuration list for PBXProject "GroupQDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -43,6 +43,14 @@
         //********************
         // LOG IN TO SPOTIFY
         //********************
+        SpotifyConnection *connection = [[SpotifyConnection alloc] initWithParent:self];
+        [connection connect];
+        SPLoginViewController *loginController = [connection getLoginScreen];
+        [self presentViewController:loginController animated:NO completion:NULL];
+        //need to fire some event to show that spotify has logged in.
+        //use the loginviewcontrollerdelegate to do this future brad. I hope last night was fun.
+        //If she was ugly just own up to it in chapter, no shame.
+        
     }
 }
 

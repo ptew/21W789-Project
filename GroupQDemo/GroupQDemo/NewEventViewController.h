@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GroupQNetworking.h"
 #import "ActivityViewController.h"
+#import "Spotify.h"
 
 @interface NewEventViewController : UITableViewController <UITextFieldDelegate, GroupQEventDelegate>
 

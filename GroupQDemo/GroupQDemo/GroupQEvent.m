@@ -173,11 +173,17 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
             [connection setDJ:false];
         }
     }
-    else if
+    else if([header isEqualToString:@"moveSong"]) {
+        NSArray *indexes = [message componentsSeparatedByString:@"-"];
+        
+    }
 }
 
 - (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
-    if ([header isEqualToString:@"])
+    if ([header isEqualToString:@"addSongs"]) {
+        MPMediaItemCollection *songs = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        [self tellClientsToAddSongs:songs];
+    }
 }
 
 + (GroupQEvent *) sharedEvent {

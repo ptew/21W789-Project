@@ -79,7 +79,6 @@
 
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing {
-    NSLog(@"Event %@ discovered", aNetService.name);
     [self.events addObject:aNetService];
     if (!moreComing)
         [self.delegate eventsUpdated];
@@ -87,7 +86,6 @@
 
 
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing {
-    NSLog(@"Event %@ lost", aNetService.name);
     [self.events removeObject:aNetService];
     if (!moreComing)
         [self.delegate eventsUpdated];
@@ -99,6 +97,14 @@
 
 - (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
     [self.delegate receivedObject:message withHeader:header];
+}
+
+- (bool) isDJ {
+    return isDJ;
+}
+
+- (void) setDJ:(bool)dj {
+    isDJ = dj;
 }
 
 + (GroupQClient *) sharedClient {

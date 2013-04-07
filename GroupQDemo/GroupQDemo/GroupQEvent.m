@@ -16,8 +16,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     CFSocketRef socketRef;  // The listening socket of the event
 }
 
-@property (strong, nonatomic) NSNetService *eventService;   // The Bonjour service to broadcast the
-                                                            // listening socket of the event on
 
 
 

@@ -11,7 +11,9 @@
 #import "GroupQConnectionDelegate.h"
 #import "GroupQClientDelegate.h"
 
-@interface GroupQClient : NSObject <NSNetServiceBrowserDelegate, GroupQConnectionDelegate>
+@interface GroupQClient : NSObject <NSNetServiceBrowserDelegate, GroupQConnectionDelegate> {
+    bool isDJ;
+}
 
 // The event service currently being connected to
 @property (strong, nonatomic) NSNetService *eventService;
@@ -35,6 +37,9 @@
 
 // Get a list of all of the current Bonjour events
 - (NSArray *) getEvents;
+
+- (bool) isDJ;
+- (void) setDJ:(bool)dj;
 
 + (GroupQClient *) sharedClient;
 @end

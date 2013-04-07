@@ -18,6 +18,7 @@
 #import "QueueViewController.h"
 #import "AppDelegate.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "SpotifyQueueItem.h"
 
 
 @interface QueueViewController ()
@@ -44,28 +45,19 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
      self.clearsSelectionOnViewWillAppear = NO;
     // instantiate a music player
-    myPlayer = [MPMusicPlayerController applicationMusicPlayer];
+    myPlayer = [MPMusicPlayerController iPodMusicPlayer];
     
-    //MPMediaQuery * query = [MPMediaQuery songsQuery];
-    
-    //userMediaItemCollection = [MPMediaItemCollection collectionWithItems: query.items];
-    
-    // assign a playback queue containing all media items on the device
-    //[myPlayer setQueueWithQuery:query];
-    
-    // start playing from the beginning of the queue
-    //[myPlayer play];
     
     firstLoad = TRUE;
     
+    [self registerForMediaPlayerNotifications];
+    
     [self setEditing:TRUE animated:TRUE];
-
 
 }
 
@@ -90,10 +82,10 @@
     }
     else if (section == 1) {
         if (firstLoad){
-            return userMediaItemCollection.count;
+            return songQueue.count;
         }
         else{
-            return userMediaItemCollection.count-1;
+            return songQueue.count-1;
         }
     }
     return 0;
@@ -109,55 +101,63 @@
     }
     
     if (indexPath.section == 0){
-        MPMediaItem * song = [myPlayer nowPlayingItem];
-        NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
-        NSString * album   = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
-        NSString * artist  = [song valueForProperty:MPMediaItemPropertyArtist];
-        if (song) {
-            cell.textLabel.text = title;
-            UIButton *contactAddButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-            cell.accessoryView = contactAddButton;
-            if ([album isEqualToString:@""]) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",artist];
-            }
-            else{
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",artist, album];
+        NSString *nowPlayingTitle = @"Add a song to play";
+        NSString *nowPlayingSubtitle = @"";
+        if ([[songQueue objectAtIndex:0] isKindOfClass:[MPMediaItem class]]) {
+            MPMediaItem * song = [songQueue objectAtIndex:0];
+            NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
+            NSString * album   = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
+            NSString * artist  = [song valueForProperty:MPMediaItemPropertyArtist];
+            if (song && !firstLoad) {
+                nowPlayingTitle = title;
+                if ([album isEqualToString:@""]) {
+                    nowPlayingSubtitle = artist;
+                }
+                else{
+                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                }
             }
         }
         else{
-            cell.textLabel.text = @"Add a song to play";
-            cell.detailTextLabel.text = @"";
+            NSLog(@"Spotify section 0");
         }
+        cell.textLabel.text = nowPlayingTitle;
+        cell.detailTextLabel.text = nowPlayingSubtitle;
     }
     else if(indexPath.section == 1) {
-        MPMediaItem *song;
-        if(firstLoad){
-            song = [userMediaItemCollection.items objectAtIndex:indexPath.row+1];
-            firstLoad = false;
-            }
-        else{
-            song = [userMediaItemCollection.items objectAtIndex:indexPath.row];
-            }
-        NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
-        NSString * album   = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
-        NSString * artist  = [song valueForProperty:MPMediaItemPropertyArtist];
         
-        if (song) {
-            cell.textLabel.text = title;
-            if ([album isEqualToString:@""]) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",artist];
+        //THIS COULD BE PROBLEM AREA FOR INDEX ISSUES
+        if ([[songQueue objectAtIndex:indexPath.row] isKindOfClass:[MPMediaItem class]]) {
+
+            MPMediaItem *song;
+            if(firstLoad){
+                song = [songQueue objectAtIndex:indexPath.row];
             }
             else{
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                song = [songQueue objectAtIndex:indexPath.row+1];
             }
+            NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
+            NSString * album   = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
+            NSString * artist  = [song valueForProperty:MPMediaItemPropertyArtist];
+        
+            if (song) {
+                cell.textLabel.text = title;
+                if ([album isEqualToString:@""]) {
+                    cell.detailTextLabel.text = artist;
+                }
+                else{
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                }
+            }
+        }else{
+            NSLog(@"Spotify");
         }
-        UILabel *countLabel = [[UILabel alloc] init];
-        countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
-        countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
-        [cell addSubview:countLabel];
-        [tableView deselectRowAtIndexPath: indexPath animated: YES];
-        }
-    
+            UILabel *countLabel = [[UILabel alloc] init];
+            countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
+            countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
+            [cell addSubview:countLabel];
+    }
+    [tableView deselectRowAtIndexPath: indexPath animated: YES];
     return cell;
 }
 
@@ -169,15 +169,16 @@
 	if (mediaItemCollection) {
         
 		// If there's no playback queue yet...
-		if (userMediaItemCollection == nil) {
-            NSLog(@"creating user item collection");
+		if (songQueue == nil) {
+            
+            songQueue = [NSMutableArray arrayWithArray:mediaItemCollection.items];
+            
+            [myPlayer setNowPlayingItem: [songQueue objectAtIndex:0]];
             
 			// apply the new media item collection as a playback queue for the music player
-            userMediaItemCollection = [MPMediaItemCollection collectionWithItems:mediaItemCollection.items];
+            //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
         
-            [myPlayer setQueueWithItemCollection:userMediaItemCollection];
-            
-            [myPlayer play];
+            //[myPlayer setQueueWithItemCollection:userMediaItemCollection];
             
             // Obtain the music player's state so it can then be
             //		restored after updating the playback queue.
@@ -199,10 +200,12 @@
 			NSArray *newMediaItems				= [mediaItemCollection items];
 			[combinedMediaItems addObjectsFromArray: newMediaItems];
 			
-			[self setUserMediaItemCollection: [MPMediaItemCollection collectionWithItems: (NSArray *) combinedMediaItems]];
+            [songQueue addObjectsFromArray: newMediaItems];
+            
+			//[self setUserMediaItemCollection: [MPMediaItemCollection collectionWithItems: songQueue]];
             
 			// Apply the new media item collection as a playback queue for the music player.
-			[musicPlayer setQueueWithItemCollection: userMediaItemCollection];
+			//[musicPlayer setQueueWithItemCollection: userMediaItemCollection];
 			
 			// Restore the now-playing item and its current playback time.
 			musicPlayer.nowPlayingItem			= nowPlayingItem;
@@ -210,7 +213,7 @@
 			
 			// If the music player was playing, get it playing again.
 			if (wasPlaying) {
-				[musicPlayer play];
+				[myPlayer play];
 			}
 		}
         [self.tableView reloadData];
@@ -250,12 +253,12 @@
 //		when the user taps the 'playBarButton' in the Navigation bar.
 - (IBAction) playOrPauseMusic: (id)sender {
     
-	MPMusicPlaybackState playbackState = [musicPlayer playbackState];
+	MPMusicPlaybackState playbackState = [myPlayer playbackState];
     
 	if (playbackState == MPMusicPlaybackStateStopped || playbackState == MPMusicPlaybackStatePaused) {
-		[musicPlayer play];
+		[myPlayer play];
 	} else if (playbackState == MPMusicPlaybackStatePlaying) {
-		[musicPlayer pause];
+		[myPlayer pause];
 	}
 }
 
@@ -298,12 +301,23 @@
 
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    NSMutableArray *queue = [[NSMutableArray alloc] initWithArray:userMediaItemCollection.items];
-    MPMediaItem *item = [userMediaItemCollection.items objectAtIndex:sourceIndexPath.row];
-    [queue removeObject:item];
-    [queue insertObject:item atIndex:destinationIndexPath.row];
-    NSArray *queueArray = [queue copy];
-    userMediaItemCollection = [MPMediaItemCollection collectionWithItems:queueArray];
+    if ([[songQueue objectAtIndex:sourceIndexPath.row+1] isKindOfClass:[MPMediaItem class]]) {
+        MPMediaItem *item =[songQueue objectAtIndex:sourceIndexPath.row+1];
+        [songQueue removeObjectAtIndex:sourceIndexPath.row+1];
+        [songQueue insertObject:item atIndex:destinationIndexPath.row+1];
+    }
+    else{
+        SpotifyQueueItem *item = [songQueue objectAtIndex:sourceIndexPath.row+1];
+        [songQueue removeObjectAtIndex:sourceIndexPath.row+1];
+        [songQueue insertObject:item atIndex:destinationIndexPath.row+1];
+        NSLog(@"Item Not an IOS item");
+    }
+    
+    //NSMutableArray *queue = [[NSMutableArray alloc] initWithArray:userMediaItemCollection.items];
+    //[queue removeObject:item];
+    //[queue insertObject:item atIndex:destinationIndexPath.row];
+    //NSArray *queueArray = [queue copy];
+    //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
     [self.tableView reloadData];
 
 }
@@ -316,20 +330,37 @@
 {
     NSString *choice = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([choice isEqualToString:@"Play Now"]){
-        myPlayer.nowPlayingItem = [userMediaItemCollection.items objectAtIndex:currentlySelectedSong.row];
-        NSMutableArray *queue = [[NSMutableArray alloc] initWithArray:userMediaItemCollection.items];
-        [queue removeObject:myPlayer.nowPlayingItem];
-        NSArray *queueArray = [queue copy];
-        userMediaItemCollection = [MPMediaItemCollection collectionWithItems:queueArray];
-        [myPlayer play];
+        firstLoad = false;
+        if ([[songQueue objectAtIndex:currentlySelectedSong.row+1] isKindOfClass:[MPMediaItem class]]) {
+            MPMediaItem *item =[songQueue objectAtIndex:currentlySelectedSong.row+1];
+            [songQueue removeObjectAtIndex:currentlySelectedSong.row+1];
+            [songQueue removeObjectAtIndex:0];
+            [songQueue insertObject:item atIndex:0];
+            [myPlayer setNowPlayingItem: [songQueue objectAtIndex:0]];
+            [myPlayer play];
+        }
+        else{
+            SpotifyQueueItem *item = [songQueue objectAtIndex:currentlySelectedSong.row+1];
+            [songQueue removeObjectAtIndex:currentlySelectedSong.row+1];
+            [songQueue insertObject:item atIndex:0];
+            NSLog(@"Item Not an IOS item");
+        }
+        //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
     }
     else if([choice isEqualToString:@"Play Next"]){
-        NSMutableArray *queue = [[NSMutableArray alloc] initWithArray:userMediaItemCollection.items];
-        MPMediaItem *item = [userMediaItemCollection.items objectAtIndex:currentlySelectedSong.row];
-        [queue removeObject:item];
-        [queue insertObject:item atIndex:0];
-        NSArray *queueArray = [queue copy];
-        userMediaItemCollection = [MPMediaItemCollection collectionWithItems:queueArray];
+        if ([[songQueue objectAtIndex:currentlySelectedSong.row+1] isKindOfClass:[MPMediaItem class]]) {
+            MPMediaItem *item =[songQueue objectAtIndex:currentlySelectedSong.row+1];
+            [songQueue removeObjectAtIndex:currentlySelectedSong.row+1];
+            [songQueue insertObject:item atIndex:1];
+        }
+        else{
+            SpotifyQueueItem *item = [songQueue objectAtIndex:currentlySelectedSong.row+1];
+            [songQueue removeObjectAtIndex:currentlySelectedSong.row+1];
+            [songQueue insertObject:item atIndex:1];
+            NSLog(@"Item Not an IOS item");
+        }
+        
+        //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
     }
     else if([choice isEqualToString:@"Add Song"]){
         NSLog(@"Show picker");
@@ -352,6 +383,45 @@
         
     }
     [self.tableView reloadData];
+}
+
+// To learn about notifications, see "Notifications" in Cocoa Fundamentals Guide.
+- (void) registerForMediaPlayerNotifications {
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    
+	[notificationCenter addObserver: self
+						   selector: @selector (handle_NowPlayingItemChanged:)
+							   name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
+							 object: myPlayer];
+	
+	[notificationCenter addObserver: self
+						   selector: @selector (handle_PlaybackStateChanged:)
+							   name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
+							 object: myPlayer];
+    
+	[myPlayer beginGeneratingPlaybackNotifications];
+}
+
+- (void) handle_NowPlayingItemChanged: (NSNotification *) notification {
+    NSLog(@"Got notified now playing");
+}
+
+- (void) handle_PlaybackStateChanged: (id) notification {
+    NSLog(@"Got notified Playback");
+    MPMusicPlaybackState playbackState = [myPlayer playbackState];
+    
+    if (playbackState == MPMusicPlaybackStateStopped) {
+        [songQueue removeObjectAtIndex:0];
+		if ([[songQueue objectAtIndex:0] isKindOfClass:[MPMediaItem class]]) {
+            [myPlayer setNowPlayingItem: [songQueue objectAtIndex:0]];
+            [myPlayer play];
+        }
+        else{
+            //set the spotify item at index 0 to the currently playing item in spotify player and playf
+            NSLog(@"Item Not an IOS item");
+        }
+    [self.tableView reloadData];
+	}
 }
 
 

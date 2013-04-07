@@ -97,11 +97,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				DECFFDE0170E9B8400BE36E3 /* MediaPlayer.framework in Frameworks */,
-=======
 				4CDED796170F79A800819ABB /* MediaPlayer.framework in Frameworks */,
->>>>>>> 304e77e706f1673ded6ea68f919b5a44435c6f20
 				4C8921B7170E94450018C068 /* libCocoaLibSpotify.a in Frameworks */,
 				4C1B6B9F170DEF7400344F9F /* CoreAudio.framework in Frameworks */,
 				4C1B6B9D170DEF6600344F9F /* AudioToolbox.framework in Frameworks */,

@@ -12,3 +12,4 @@
 #import "GroupQEventDelegate.h"
 #import "GroupQConnection.h"
 #import "GroupQConnectionDelegate.h"
+#import "GroupQQueue.h"

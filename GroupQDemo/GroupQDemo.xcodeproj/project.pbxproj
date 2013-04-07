@@ -24,6 +24,7 @@
 		4C9D8DEC1710B488001145B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DEB1710B488001145B8 /* AudioToolbox.framework */; };
 		4C9D8DEE1710B48D001145B8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DED1710B48D001145B8 /* AVFoundation.framework */; };
 		4C9D8DF01710B4CB001145B8 /* SPLoginResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D8DEF1710B4CB001145B8 /* SPLoginResources.bundle */; };
+		B82E6C2D1711E23600767DF8 /* QueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82E6C2C1711E23600767DF8 /* QueueViewController.m */; };
 		B846E3211710ED3800B8E2AD /* spotify-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B846E3201710ED3800B8E2AD /* spotify-logo.png */; };
 		B86510D01710D2E800495318 /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86510CD1710D2E800495318 /* ActivityView.xib */; };
 		B86510D11710D2E800495318 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86510CF1710D2E800495318 /* ActivityViewController.m */; };
@@ -45,6 +46,8 @@
 		B8A999F31710CB7D004E037D /* BrowseEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A999F21710CB7D004E037D /* BrowseEventsViewController.m */; };
 		B8A999F51710CFBE004E037D /* Lock.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999F41710CFBE004E037D /* Lock.png */; };
 		B8A999F71710D027004E037D /* NoLock.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999F61710D027004E037D /* NoLock.png */; };
+		B8F46F4E1711E26400846F82 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F46F4D1711E26400846F82 /* MediaPlayer.framework */; };
+		B8F46F54171203AE00846F82 /* GroupQQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F46F53171203AE00846F82 /* GroupQQueue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +117,8 @@
 		4C9D8E031710B588001145B8 /* GroupQClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupQClient.m; sourceTree = "<group>"; };
 		4C9D8E041710B588001145B8 /* GroupQClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupQClientDelegate.h; sourceTree = "<group>"; };
 		4C9D8E0B1710B618001145B8 /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
+		B82E6C2B1711E23600767DF8 /* QueueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueViewController.h; sourceTree = "<group>"; };
+		B82E6C2C1711E23600767DF8 /* QueueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueViewController.m; sourceTree = "<group>"; };
 		B846E3201710ED3800B8E2AD /* spotify-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotify-logo.png"; sourceTree = "<group>"; };
 		B86510CD1710D2E800495318 /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 		B86510CE1710D2E800495318 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
@@ -131,6 +136,10 @@
 		B8A999F21710CB7D004E037D /* BrowseEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BrowseEventsViewController.m; path = ../BrowseEventsViewController.m; sourceTree = "<group>"; };
 		B8A999F41710CFBE004E037D /* Lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lock.png; sourceTree = "<group>"; };
 		B8A999F61710D027004E037D /* NoLock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoLock.png; sourceTree = "<group>"; };
+		B8F46F4D1711E26400846F82 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		B8F46F511711F12F00846F82 /* SpotifyPlayerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotifyPlayerDelegate.h; sourceTree = "<group>"; };
+		B8F46F52171203AE00846F82 /* GroupQQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupQQueue.h; path = ../GroupQQueue.h; sourceTree = "<group>"; };
+		B8F46F53171203AE00846F82 /* GroupQQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GroupQQueue.m; path = ../GroupQQueue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F46F4E1711E26400846F82 /* MediaPlayer.framework in Frameworks */,
 				B86510D31710D6C400495318 /* libCocoaLibSpotify.a in Frameworks */,
 				4C9D8DEE1710B48D001145B8 /* AVFoundation.framework in Frameworks */,
 				4C9D8DEC1710B488001145B8 /* AudioToolbox.framework in Frameworks */,
@@ -177,6 +187,7 @@
 		4C9D8DA91710B432001145B8 = {
 			isa = PBXGroup;
 			children = (
+				B8F46F4D1711E26400846F82 /* MediaPlayer.framework */,
 				4C8D1A031710BA55006A3BA9 /* SenTestingKit.framework */,
 				4C9D8DBB1710B432001145B8 /* GroupQDemo */,
 				4C8D19ED1710B8C9006A3BA9 /* CocoaTests */,
@@ -225,6 +236,8 @@
 				B8A999E81710C9B8004E037D /* SplashScreenViewController.m */,
 				B86510DB1710EC0900495318 /* NewEventViewController.h */,
 				B86510DC1710EC0900495318 /* NewEventViewController.m */,
+				B82E6C2B1711E23600767DF8 /* QueueViewController.h */,
+				B82E6C2C1711E23600767DF8 /* QueueViewController.m */,
 				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
 			);
 			path = GroupQDemo;
@@ -285,6 +298,8 @@
 				4C9D8DFC1710B57F001145B8 /* GroupQConnection.m */,
 				4C9D8DFE1710B57F001145B8 /* GroupQEvent.h */,
 				4C9D8DFF1710B57F001145B8 /* GroupQEvent.m */,
+				B8F46F52171203AE00846F82 /* GroupQQueue.h */,
+				B8F46F53171203AE00846F82 /* GroupQQueue.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -318,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				4C9D8DFA1710B54F001145B8 /* SpotifySearcherDelegate.h */,
+				B8F46F511711F12F00846F82 /* SpotifyPlayerDelegate.h */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -468,6 +484,8 @@
 				B8A999F31710CB7D004E037D /* BrowseEventsViewController.m in Sources */,
 				B86510D11710D2E800495318 /* ActivityViewController.m in Sources */,
 				B86510DD1710EC0900495318 /* NewEventViewController.m in Sources */,
+				B82E6C2D1711E23600767DF8 /* QueueViewController.m in Sources */,
+				B8F46F54171203AE00846F82 /* GroupQQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

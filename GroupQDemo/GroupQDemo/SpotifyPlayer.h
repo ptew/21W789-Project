@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "CocoaLibSpotify.h"
+#import "SpotifyQueueItem.h"
+#import "SpotifyPlayerDelegate.h"
 
-@interface SpotifyPlayer : NSObject {
+@interface SpotifyPlayer : SPPlaybackManager {
     // Public member variables (NOT PROPERTIES)
 }
 
-// Public functions and properties
+@property (strong, nonatomic) id<SpotifyPlayerDelegate> playerDelegate;
 
-- (IBAction)playTrack:(NSURL *) trackURL;
+- (IBAction)playTrack:(SpotifyQueueItem *) trackURL;
+
++ (SpotifyPlayer *) sharedPlayer;
 @end

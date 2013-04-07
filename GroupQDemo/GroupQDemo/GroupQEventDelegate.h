@@ -15,16 +15,4 @@
 
 // Sent when an event could not be created
 - (void) eventNotCreated;
-
-// Sent when the list of users has changed
-- (void) userUpdate;
-
-// Sent when a new message from a user is available
-- (void) receivedMessage: (NSString*) message withHeader: (NSString *) header from: (GroupQConnection*) connection;
-
-// Sent when a new message from a user is available
-- (void) receivedObject: (NSData*) object withHeader: (NSString *) header from: (GroupQConnection*) connection;
-
-// Send when an event was ended
-- (void) eventEnded;
 @end

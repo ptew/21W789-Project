@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Team Awesome. All rights reserved.
 //
 
+
 #import "GroupQEvent.h"
 
 // Socket callback forward declaration -- see description in implementation
@@ -17,10 +18,25 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 }
 
 
-
+@property (strong, nonatomic) MPMusicPlayerController *musicPlayer;
+@property (strong, nonatomic) GroupQQueue *songQueue;
+@property (strong, nonatomic) MPMediaItemCollection *iPodItemCollection;
+@property (strong, nonatomic) MPMediaQuery *iPodPlaylistQuery;
 
 // Private function to handle new connections
 - (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle;
+
+- (void) setupMusicPlayer;
+
+- (void) playNextSongInQueue;
+
+- (void) sendItemsAndQueueTo: (GroupQConnection *) who;
+
+- (void) tellClientsToAddSongs: (MPMediaItemCollection *) songs;
+- (void) tellClientsToMoveSongFrom: (int) oldPos to: (int) newPos;
+- (void) tellClientsToDeleteSong: (int) position;
+- (void) tellClientsToPlaySong: (int) position;
+- (void) tellClientsToAddSpotifySong: (SpotifyQueueItem *) song;
 @end
 
 
@@ -31,6 +47,8 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     self.eventName = name;
     self.eventPassword = password;
     self.userConnections = [[NSMutableArray alloc] init];
+    
+    [self setupMusicPlayer];
     
     // Create an empty listening socket -- give it a pointer to this event for callback purposes
     CFSocketContext socketCtxt = {0, (__bridge void *)(self), NULL, NULL, NULL};
@@ -65,7 +83,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
     CFRunLoopSourceRef runLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, socketRef, 0);
     CFRunLoopAddSource(currentRunLoop, runLoopSource, kCFRunLoopCommonModes);
-    // The event was created!
     [self.delegate eventCreated];
 }
 
@@ -102,9 +119,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     
     // Remove users from list
     [self.userConnections removeAllObjects];
-    
-    // The event ended!
-    [self.delegate eventEnded];
 }
 
 // The socket callback function will be called whenever a new socket connects to the listening socket
@@ -124,7 +138,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     GroupQConnection* connection = [[GroupQConnection alloc] init];
     connection.delegate = self;
     [connection connectWithSocketHandle:nativeSocketHandle];
-    [self.userConnections addObject:connection];
 }
 
 - (void) broadcastMessage:(NSString *)message withHeader:(NSString *)header {
@@ -132,27 +145,39 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         [connection sendMessage:message withHeader:header];
     }
 }
-#pragma mark Connection Delegate Methods
-- (void) connectionDidConnect:(GroupQConnection *)connection {
-    [self.delegate userUpdate];
+
+- (void) broadcastObject:(id)object withHeader:(NSString *)header {
+    for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
+        [connection sendObject:object withHeader:header];
+    }
 }
 
-- (void) connectionDidNotConnect:(GroupQConnection *)connection {
-    [self.userConnections removeObject:connection];
-    [self.delegate userUpdate];
+#pragma mark Connection Delegate Methods
+- (void) connectionDidConnect:(GroupQConnection *)connection {
+    [self.userConnections addObject:connection];
+    [self sendItemsAndQueueTo: connection];
 }
+
+- (void) connectionDidNotConnect:(GroupQConnection *)connection {}
 
 - (void) connectionDisconnected:(GroupQConnection *)connection {
     [self.userConnections removeObject:connection];
-    [self.delegate userUpdate];
 }
 
 - (void) connection:(GroupQConnection *)connection receivedMessage:(NSString *)message withHeader:(NSString *)header {
-    [self.delegate receivedMessage:message withHeader:header from:connection];
+    if ([header isEqualToString:@"registerUser"]) {
+        if([message isEqualToString:@"dj"]) {
+            [connection setDJ:true];
+        }
+        else {
+            [connection setDJ:false];
+        }
+    }
+    else if
 }
 
 - (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
-    [self.delegate receivedObject:message withHeader:header from:connection];
+    if ([header isEqualToString:@"])
 }
 
 + (GroupQEvent *) sharedEvent {
@@ -162,5 +187,81 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         sharedEvent = [[GroupQEvent alloc] init];
     });
     return sharedEvent;
+}
+
+
+//**********==================
+// MUSIC PLAYER METHODS
+//**********==================
+- (void) setupMusicPlayer {
+    // Initialize properties
+    self.songQueue = [[GroupQQueue alloc] init];
+    self.musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    
+    // Configure media player notifications so we know when to update the queue
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    
+    [notificationCenter addObserver: self
+                           selector: @selector (handle_PlaybackStateChanged:)
+                               name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
+                             object: self.musicPlayer];
+    
+    [self.musicPlayer beginGeneratingPlaybackNotifications];
+    
+    self.iPodItemCollection = [MPMediaItemCollection collectionWithItems:[MPMediaQuery songsQuery].items];
+    self.iPodPlaylistQuery = [MPMediaQuery playlistsQuery];
+}
+
+- (void) handle_PlaybackStateChanged: (id) notification {
+    NSLog(@"Playback state changed.");
+    MPMusicPlaybackState playbackState = [self.musicPlayer playbackState];
+    if (playbackState == MPMusicPlaybackStateStopped) {
+        NSLog(@"Playback stopped.");
+        [self playNextSongInQueue];
+	}
+}
+
+- (void) songDidStopPlaying {
+    [self playNextSongInQueue];
+}
+
+- (void) playNextSongInQueue {
+    if (self.songQueue.queuedSongs.count == 0) {
+        self.songQueue.nowPlaying = nil;
+    }
+    else {
+        id nextSongToPlay = [self.songQueue.queuedSongs objectAtIndex:0];
+        self.songQueue.nowPlaying = nextSongToPlay;
+        [self.songQueue.queuedSongs removeObjectAtIndex:0];
+        if ([self.songQueue.nowPlaying isKindOfClass:[MPMediaItem class]]) {
+            [self.musicPlayer setNowPlayingItem: self.songQueue.nowPlaying];
+            [self.musicPlayer play];
+        }
+        else{
+            [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)nextSongToPlay];
+        }
+    }
+}
+
+- (void) sendItemsAndQueueTo:(GroupQConnection *)who {
+    [self broadcastObject:self.iPodItemCollection withHeader:@"ipodItems"];
+    [self broadcastObject:self.iPodPlaylistQuery withHeader:@"ipodPlaylists"];
+    [self broadcastObject:self.songQueue withHeader:@"songQueue"];
+}
+
+- (void) tellClientsToAddSongs:(MPMediaItemCollection *)songs {
+    [self broadcastObject:songs withHeader:@"addSongs"];
+}
+- (void) tellClientsToAddSpotifySong:(SpotifyQueueItem *)song {
+    [self broadcastObject:song withHeader:@"addSpotifySong"];
+}
+- (void) tellClientsToDeleteSong:(int)position {
+    [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"deleteSong"];
+}
+- (void) tellClientsToMoveSongFrom:(int)oldPos to:(int)newPos {
+    [self broadcastMessage:[NSString stringWithFormat:@"%d-%d", oldPos, newPos] withHeader:@"moveSong"];
+}
+- (void) tellClientsToPlaySong:(int)position {
+    [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"playSong"];
 }
 @end

@@ -10,9 +10,14 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#import <MediaPlayer/MediaPlayer.h>
+
+#import "Spotify.h"
+
+#import "GroupQQueue.h"
 #import "GroupQConnection.h"
 #import "GroupQEventDelegate.h"
-@interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate>
+@interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate, SpotifyPlayerDelegate>
 
 // Creates an event with a given name
 - (void) createEventWithName: (NSString*) name andPassword: (NSString*) password;
@@ -23,9 +28,6 @@
 // Ends the event
 - (void) endEvent;
 
-// The event delegate
-@property (strong, nonatomic) id<GroupQEventDelegate> delegate;
-
 // A list of all current users
 @property (strong, nonatomic) NSMutableArray *userConnections; // List of GroupQConnections
 
@@ -35,11 +37,13 @@
 // The event password
 @property (strong, nonatomic) NSString *eventPassword;
 
+@property (strong, nonatomic) id<GroupQEventDelegate> delegate;
 
 @property (strong, nonatomic) NSNetService *eventService;   // The Bonjour service to broadcast the
 // listening socket of the event on
 
 - (void) broadcastMessage: (NSString *) message withHeader: (NSString *) header;
+- (void) broadcastObject: (id) object withHeader: (NSString *) header;
 
 + (GroupQEvent *) sharedEvent;
 @end

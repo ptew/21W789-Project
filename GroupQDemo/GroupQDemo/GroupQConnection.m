@@ -241,4 +241,12 @@
         }
     }
 }
+
+- (void) setDJ:(bool)yesIfDJ {
+    isDJ = yesIfDJ;
+}
+
+- (BOOL) isDJ {
+    return isDJ;
+}
 @end

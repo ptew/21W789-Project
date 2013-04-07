@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "GroupQConnectionDelegate.h"
 
-@interface GroupQConnection : NSObject <NSStreamDelegate>
+@interface GroupQConnection : NSObject <NSStreamDelegate> {
+    BOOL isDJ;
+}
+
 // Connects to a service
 - (void) connectWithService: (NSNetService*) service;
 
@@ -22,7 +25,11 @@
 // Sends text to the other end of the connection
 - (void) sendMessage: (NSString*) message withHeader: (NSString*) header;
 
+- (void) sendObject: (id) what withHeader: (NSString*) header;
+
+- (void) setDJ: (bool)isDJ;
+- (BOOL) isDJ;
+
 // The connection's delegate
 @property (strong, nonatomic) id<GroupQConnectionDelegate> delegate;
-
 @end

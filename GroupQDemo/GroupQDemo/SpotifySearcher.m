@@ -27,10 +27,9 @@
 /*
  Opens a search at a given URL and adds the url to the list of open searches currently being completed. When the search is done it fires a response elsewhere.
  Returns a bool of if the open was preformed succesfully.
-*/
-- (void)search:(NSString *)query{
+ */
+- (void)search: (NSString *)query{
     NSMutableString *searchString = [[NSMutableString alloc] initWithString:@"http://ws.spotify.com/search/1/track?q="];
-    NSLog(query);
     [searchString appendString:query];
     
     NSURL *newSearch = [NSURL alloc];
@@ -54,30 +53,19 @@
 #pragma mark NSURLConnection Methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    //debuging
-    NSLog(@"recieved data");
-    NSString *htmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    //NSLog(@"%@", htmlString);
-    
     //xml parser
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-    
-    //do something with the user so we know who to send the info to.
-    //puts the user in the parsers map so when the objects are parsed the data can be returned to the user who sent the request.
     [parser setDelegate:self];
     [parser parse];
     
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    NSLog(@"Failed with error");
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
 }
 
 #pragma mark NSXMLParser Methods
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
-    //NSLog(@"Starting element %@", elementName);
-    //NSLog(@"%@", [[[attributeDict keyEnumerator] allObjects] objectAtIndex:0]);
     
     if([elementName isEqualToString:@"tracks"]){
         self.parsedData = [[NSMutableArray alloc] init];

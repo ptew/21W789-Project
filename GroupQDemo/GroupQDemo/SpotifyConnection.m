@@ -38,13 +38,10 @@
 }
 
 -(UIViewController *)viewControllerToPresentLoginViewForSession:(SPSession *)aSession {
-    NSLog(@"Called the function.");
 	return self.parent;
 }
 
 -(void)sessionDidLoginSuccessfully:(SPSession *)aSession; {
-    NSLog(@"The application logged in succesfully.");
-	// Invoked by SPSession after a successful login.
 }
 
 -(void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error; {

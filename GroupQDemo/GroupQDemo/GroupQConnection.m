@@ -148,7 +148,6 @@
         NSInteger bytesSent = [writeStream write:(const uint8_t *)buf maxLength:len];
         if (bytesSent < 0)
             return;
-        NSLog(@"Wrote %d bytes to the buffer", bytesSent);
         // Remove the sent bytes from the buffer.
         NSRange range = {0, bytesSent};
         [self.currentMessageToWrite replaceBytesInRange:range withBytes:NULL length:0];
@@ -190,7 +189,6 @@
 
 // Handles events from the streams
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {
-    NSLog(@"Stream event!");
     switch (eventCode) {
         // Specific to the write stream
         case NSStreamEventHasSpaceAvailable: {

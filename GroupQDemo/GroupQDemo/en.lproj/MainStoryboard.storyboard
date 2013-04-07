@@ -22,6 +22,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="rHh-pF-DzV" id="Asq-5s-zhf"/>
+                        <segue destination="me9-cr-aFB" kind="modal" identifier="joinEvent" id="WqH-fC-Gt7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ud6-6R-myT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -192,11 +193,90 @@
                     <connections>
                         <outlet property="eventName" destination="lAl-ED-wCP" id="h5j-uA-mw1"/>
                         <outlet property="eventPassword" destination="2u3-mD-qRc" id="Dj7-Bt-o7z"/>
+                        <segue destination="me9-cr-aFB" kind="modal" identifier="createEvent" id="VEM-PN-mcH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NHX-kN-e6s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="963" y="130"/>
+        </scene>
+        <!--View Controller - Requests-->
+        <scene sceneID="DuT-QB-scv">
+            <objects>
+                <viewController id="ZjR-v6-4xg" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3jS-5L-Q5G">
+                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Requests" id="M0W-2l-Eg2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sVo-k6-Qvn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1922" y="2057"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="C1K-J6-Cpw">
+            <objects>
+                <tabBarController definesPresentationContext="YES" id="me9-cr-aFB" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="UqW-my-jdJ">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="1ux-Vf-C8C" kind="relationship" relationship="viewControllers" id="fFy-tx-P7y"/>
+                        <segue destination="VyJ-3j-Qbc" kind="relationship" relationship="viewControllers" id="w8P-Lt-eq4"/>
+                        <segue destination="ZjR-v6-4xg" kind="relationship" relationship="viewControllers" id="2ln-Pk-bgv"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mgl-0m-JM4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="963" y="1358"/>
+        </scene>
+        <!--View Controller - Now Playing-->
+        <scene sceneID="qXz-XS-0rJ">
+            <objects>
+                <viewController id="VyJ-3j-Qbc" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5aL-2n-xmK">
+                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Now Playing" id="mm7-3m-Xk4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OmM-kD-UJy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1921" y="658"/>
+        </scene>
+        <!--Table View Controller - Queue-->
+        <scene sceneID="R4g-Cy-P5W">
+            <objects>
+                <tableViewController id="1ux-Vf-C8C" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7uY-qT-RAx">
+                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" barStyle="blackOpaque" id="LDa-cs-vdO">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Queue" id="DLz-Df-2zF">
+                                    <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ars-vK-VvM"/>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <connections>
+                            <outlet property="dataSource" destination="1ux-Vf-C8C" id="fcZ-G6-mIk"/>
+                            <outlet property="delegate" destination="1ux-Vf-C8C" id="hbY-wX-2Pu"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Queue" id="Lxq-Nq-SOT"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hlo-2h-sQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1922" y="1375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8o0-So-abs">
@@ -240,7 +320,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jhp-2l-SHu">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="E6D-Xa-rQE"/>
+                                    <constraint firstAttribute="width" constant="240" id="onM-5w-ids"/>
                                     <constraint firstAttribute="height" constant="46" id="ybw-zF-KPD"/>
                                 </constraints>
                                 <string key="text">This product uses SPOTIFY CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group.</string>
@@ -251,17 +331,17 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.41694661900000002" blue="0.081784601880000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="jhp-2l-SHu" firstAttribute="centerX" secondItem="p2C-oP-Fzf" secondAttribute="centerX" type="default" id="3TF-gx-8jX"/>
                             <constraint firstItem="fSk-nm-0qC" firstAttribute="top" secondItem="y4Z-wC-t9a" secondAttribute="top" constant="176" id="5OW-nt-se5"/>
                             <constraint firstItem="fSk-nm-0qC" firstAttribute="leading" secondItem="y4Z-wC-t9a" secondAttribute="leading" type="default" id="7dY-Qp-A4d"/>
                             <constraint firstItem="fSk-nm-0qC" firstAttribute="trailing" secondItem="y4Z-wC-t9a" secondAttribute="trailing" type="default" id="CB6-uP-G8n"/>
                             <constraint firstItem="p2C-oP-Fzf" firstAttribute="top" secondItem="y4Z-wC-t9a" secondAttribute="top" constant="225" type="user" id="Ixw-O1-foM"/>
                             <constraint firstAttribute="bottom" secondItem="jhp-2l-SHu" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="Ki5-PT-eYB"/>
                             <constraint firstItem="p2C-oP-Fzf" firstAttribute="centerX" secondItem="fSk-nm-0qC" secondAttribute="centerX" type="default" id="blF-nI-zDg"/>
-                            <constraint firstItem="jhp-2l-SHu" firstAttribute="centerX" secondItem="p2C-oP-Fzf" secondAttribute="centerX" type="default" id="jz2-fB-DBQ"/>
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="K7h-sY-icD" kind="modal" identifier="closeSplashScreen" animates="NO" id="ox9-Ag-TPa"/>
+                        <segue destination="K7h-sY-icD" kind="modal" identifier="closeSplashScreen" modalTransitionStyle="crossDissolve" id="ox9-Ag-TPa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DhR-r5-Amb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -300,4 +380,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="WqH-fC-Gt7"/>
+    </inferredMetricsTieBreakers>
 </document>

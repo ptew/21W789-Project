@@ -35,6 +35,10 @@
 // The event password
 @property (strong, nonatomic) NSString *eventPassword;
 
+
+@property (strong, nonatomic) NSNetService *eventService;   // The Bonjour service to broadcast the
+// listening socket of the event on
+
 - (void) broadcastMessage: (NSString *) message withHeader: (NSString *) header;
 
 + (GroupQEvent *) sharedEvent;

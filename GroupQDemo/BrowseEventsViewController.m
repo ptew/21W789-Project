@@ -172,9 +172,11 @@
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:@"DJ"]) {
+        [[GroupQClient sharedClient] setDJ:YES];
         [self joinEventAsDJ:TRUE];
     }
     else if ([buttonTitle isEqualToString:@"Listener"]) {
+        [[GroupQClient sharedClient] setDJ:NO];
         [self joinEventAsDJ:FALSE];
     }
 }

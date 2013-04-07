@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ZS0-1s-WzU">
-=======
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="me9-cr-aFB">
->>>>>>> ea757c6d63d5426eee70f034d8f187b20300d69c
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -383,7 +379,6 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/QueueViewController.h"/>
             <relationships>
                 <relationship kind="action" name="showMediaPicker:"/>
-                <relationship kind="outlet" name="queueTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="SplashScreenViewController" superclassName="UIViewController">
@@ -396,6 +391,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="VEM-PN-mcH"/>
+        <segue reference="WqH-fC-Gt7"/>
     </inferredMetricsTieBreakers>
 </document>

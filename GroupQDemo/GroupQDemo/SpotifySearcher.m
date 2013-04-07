@@ -81,21 +81,25 @@
         self.parsedData = [[NSMutableArray alloc] init];
     }
     else if([elementName isEqualToString:@"track"]){
+        self.currentItem = [[SpotifyQueueItem alloc] init];
     }
     else if([elementName isEqualToString:@"name"]){
-        NSArray *data = [[attributeDict keyEnumerator] allObjects];
-        NSLog(@"%", data.count);
-        for (int i = 0; i < data.count; i++) {
-            NSLog(data[i]);
-        }
-                         
+        //add name to current item
+    }
+    else if([elementName isEqualToString:@"artist"]){
+        //add artist to current item
     }
 }
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
     
 }
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
-    //call this method when the parser has finnished running.
-    //[self.delegate searchReturnedResults:results];
+    if([elementName isEqualToString:@"track"]){
+        //add the item to parsedData
+    }
+    else if([elementName isEqualToString:@"tracks"]){
+        //the parser has finnished parsing the xml and we can return the results via the delegate.
+        //[self.delegate searchReturnedResults:results];
+    }
 }
 @end

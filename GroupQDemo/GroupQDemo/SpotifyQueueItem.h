@@ -17,5 +17,6 @@
 - (SpotifyQueueItem*)initWithTitle:(NSString*)title artist:(NSString*) artist album: (NSString*) album trackURI: (NSURL*) trackURI;
 
 - (SpotifyQueueItem*)initWithCoder: (NSCoder*)decoder;
+- (SpotifyQueueItem*)init;
 - (void)encodeWithCoder:(NSCoder*)encoder;
 @end

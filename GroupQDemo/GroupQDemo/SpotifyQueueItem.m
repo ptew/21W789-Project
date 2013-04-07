@@ -18,6 +18,10 @@
     return self;
 }
 
+- (SpotifyQueueItem*) init{
+    return self;
+}
+
 - (SpotifyQueueItem*)initWithCoder:(NSCoder *)decoder{
     self.title = [decoder decodeObjectForKey:@"title"];
     self.artist = [decoder decodeObjectForKey:@"artist"];

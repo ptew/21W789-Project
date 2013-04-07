@@ -11,6 +11,8 @@
 @interface SpotifySearcher ()
 @property (strong, nonatomic) NSMutableArray *parsedData;
 @property (strong, nonatomic) SpotifyQueueItem *currentItem;
+@property (strong, nonatomic) NSMutableString *buildString;
+@property ParserState parserState;
 @end
 
 @implementation SpotifySearcher
@@ -74,7 +76,7 @@
 
 #pragma mark NSXMLParser Methods
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
-    NSLog(@"Starting element %@", elementName);
+    //NSLog(@"Starting element %@", elementName);
     //NSLog(@"%@", [[[attributeDict keyEnumerator] allObjects] objectAtIndex:0]);
     
     if([elementName isEqualToString:@"tracks"]){
@@ -82,24 +84,47 @@
     }
     else if([elementName isEqualToString:@"track"]){
         self.currentItem = [[SpotifyQueueItem alloc] init];
+        self.currentItem.trackURI = [NSURL URLWithString:(NSString*)[attributeDict objectForKey:@"href"]];
+        self.parserState = TRACK;
     }
     else if([elementName isEqualToString:@"name"]){
-        //add name to current item
+        self.buildString = [[NSMutableString alloc] init];
     }
     else if([elementName isEqualToString:@"artist"]){
-        //add artist to current item
+        self.parserState = ARTIST;
+    }
+    else if([elementName isEqualToString:@"album"]){
+        self.parserState = ALBUM;
     }
 }
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-    
+    if(self.parserState != NONE){
+        [self.buildString appendString:string];
+    }
 }
+
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
     if([elementName isEqualToString:@"track"]){
-        //add the item to parsedData
+        [self.parsedData addObject:self.currentItem];
+    } else if ([elementName isEqualToString:@"name"]){
+        switch (self.parserState) {
+            case TRACK:
+                self.currentItem.title = [self.buildString copy];
+                break;
+            case ALBUM:
+                self.currentItem.album = [self.buildString copy];
+                break;
+            case ARTIST:
+                self.currentItem.artist = [self.buildString copy];
+                break;
+            default:
+                break;
+        }
+    self.parserState = NONE;
     }
-    else if([elementName isEqualToString:@"tracks"]){
-        //the parser has finnished parsing the xml and we can return the results via the delegate.
-        //[self.delegate searchReturnedResults:results];
-    }
+}
+
+-(void)parserDidEndDocument:(NSXMLParser *)parser{
+    [self.delegate searchReturnedResults:self.parsedData];
 }
 @end

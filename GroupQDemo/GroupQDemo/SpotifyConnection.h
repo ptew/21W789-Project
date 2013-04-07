@@ -12,7 +12,6 @@
 @interface SpotifyConnection : NSObject <SPSessionDelegate>
 
 @property (weak, nonatomic) UIViewController *parent;
-@property (strong, nonatomic) SPPlaybackManager* player;
 
 - (SpotifyConnection *) initWithParent: (UIViewController *) who;
 

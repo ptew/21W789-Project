@@ -28,7 +28,6 @@
 		NSLog(@"CocoaLibSpotify init failed: %@", error);
 		abort();
 	}
-    self.player = [[SPPlaybackManager alloc] initWithPlaybackSession:[SPSession sharedSession]];
     [[SPSession sharedSession] setDelegate:self];
 }
 

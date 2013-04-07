@@ -9,6 +9,8 @@
 #import "GroupQClient.h"
 
 @interface GroupQClient ()
+- (void) tellServerIfDJ;
+
 @property (strong, nonatomic) NSNetServiceBrowser *browser;         // The Bonjour service browser
 @property (strong, nonatomic) NSMutableArray *events;               // A list of all current events
 @property (strong, nonatomic) GroupQConnection *connectionToServer; // The connection to the server
@@ -26,6 +28,8 @@
     
     // Initialize our list of events
     self.events = [[NSMutableArray alloc] init];
+    
+    self.queue = [[GroupQQueue alloc] init];
     
     return self;
 }
@@ -64,7 +68,12 @@
     [self.connectionToServer sendMessage:text withHeader:header];
 }
 
-// Delegate functions
+- (void) sendObject:(id)object withHeader:(NSString *)header {
+    [self.connectionToServer sendObject:object withHeader:header];
+}
+
+#pragma mark GroupQConnection methods
+
 - (void) connectionDisconnected:(GroupQConnection *)connection {
     [self.delegate disconnectedFromEvent];
 }
@@ -92,12 +101,43 @@
 }
 
 - (void) connection:(GroupQConnection *)connection receivedMessage:(NSString *)message withHeader:(NSString *)header {
-    [self.delegate receivedMessage:message withHeader:header];
+    if([header isEqualToString:@"deleteSong"]){
+        [self.queue deleteSong:[message integerValue]];
+    }
+    else if([header isEqualToString:@"moveSong"]){
+        NSArray *components = [message componentsSeparatedByString:@"-"];
+        [self.queue moveSong:[components[0] integerValue] to:[components[1] integerValue]];
+    }
+    else if([header isEqualToString:@"playSong"]){
+        [self.queue playSong:[message integerValue]];
+    }
+    else{
+        NSLog(@"Unrecognized header parsed in recievedMessages.");
+    }
+
 }
 
-- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
-    [self.delegate receivedObject:message withHeader:header];
+- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {    
+    if([header isEqualToString:@"ipodItems"]){
+        self.ipodLibrary = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+    }
+    else if([header isEqualToString:@"ipodPlaylists"]){
+        self.ipodPlaylists = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+    }
+    else if([header isEqualToString:@"songQueue"]){
+        self.queue = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+    }
+    else if([header isEqualToString:@"addSongs"]){
+        [self.queue addSongs:[NSKeyedUnarchiver unarchiveObjectWithData:message]];
+    }
+    else if([header isEqualToString:@"addSpotifySong"]){
+        [self.queue addSpotifySong:[NSKeyedUnarchiver unarchiveObjectWithData:message]];
+    }
+    else{
+        NSLog(@"Unrecognized header parsed in recievedObjects.");
+    }       
 }
+//end GroupQConnection methods
 
 - (bool) isDJ {
     return isDJ;
@@ -114,6 +154,31 @@
         sharedClient = [[GroupQClient alloc] init];
     });
     return sharedClient;
+}
+
+- (void) tellServerIfDJ{
+    if (isDJ) {
+        [self.connectionToServer sendMessage:@"dj" withHeader:@"registerUser"];
+    }
+    else {
+        [self.connectionToServer sendMessage:@"listener" withHeader:@"registerUser"];
+    }
+}
+
+- (void) tellServerToAddSongs:(MPMediaItemCollection *)songs {
+    [self.connectionToServer sendObject:songs withHeader:@"addSongs"];
+}
+- (void) tellServerToMoveSongFrom:(int)index To:(int)newIndex {
+    [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d-%d", index, newIndex] withHeader:@"moveSong"];
+}
+- (void) tellServerToDeleteSong:(int)index {
+    [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"moveSong"];
+}
+- (void) tellServerToPlaySong:(int)index{
+    [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"playSong"];
+}
+- (void) tellServerToaddSpotifySong:(SpotifyQueueItem *)song{
+    [self.connectionToServer sendObject:song withHeader:@"addSpotifySong"];
 }
 
 @end

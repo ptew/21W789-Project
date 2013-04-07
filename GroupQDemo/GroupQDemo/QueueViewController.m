@@ -20,9 +20,7 @@
 #import "Spotify.h"
 
 
-@interface QueueViewController () {
-    BOOL firstLoad;
-}
+@interface QueueViewController ()
 
 //@property (nonatomic, strong)	MPMediaItemCollection	*userMediaItemCollection;
 @property (nonatomic, weak) UIActionSheet *songActionSheet;
@@ -41,7 +39,6 @@
     [super viewDidLoad];
      self.clearsSelectionOnViewWillAppear = NO;
     
-    firstLoad = TRUE;
     [self setEditing:TRUE animated:TRUE];
 
 }
@@ -66,7 +63,7 @@
         return 1;
     }
     else if (section == 1) {
-        [GroupQClient sharedClient].queue.count;
+        return [GroupQClient sharedClient].queue.queuedSongs.count;
     }
     return 0;
 }
@@ -85,17 +82,19 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
+    
+    //Sets the inital labels so the user knows to add songs to play.
+    NSString *nowPlayingTitle = @"Add a song to play";
+    NSString *nowPlayingSubtitle = @"";
+    
     if (indexPath.section == 0){
-        //Sets the inital labels so the user knows to add songs to play.
-        NSString *nowPlayingTitle = @"Add a song to play";
-        NSString *nowPlayingSubtitle = @"";
         //handles the now playing cell if the now playing song is an ios song.
-        if ([[self.songQueue objectAtIndex:0] isKindOfClass:[MPMediaItem class]]) {
-            MPMediaItem * song = [self.songQueue objectAtIndex:0];
+        if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[MPMediaItem class]]) {
+            MPMediaItem * song = [GroupQClient sharedClient].queue.nowPlaying;
             NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
             NSString * album   = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
             NSString * artist  = [song valueForProperty:MPMediaItemPropertyArtist];
-            if (song && !firstLoad) {
+            if (song) {
                 nowPlayingTitle = title;
                 if ([album isEqualToString:@""]) {
                     nowPlayingSubtitle = artist;
@@ -105,45 +104,62 @@
                 }
             }
         }
-        else{
-            NSLog(@"Spotify section 0");
+        else if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[SpotifyQueueItem class]]){
+            SpotifyQueueItem *song = [GroupQClient sharedClient].queue.nowPlaying;
+            NSString * title   = song.title;
+            NSString * album   = song.album;
+            NSString * artist  = song.artist;
+            if (song) {
+                nowPlayingTitle = title;
+                if ([album isEqualToString:@""]) {
+                    nowPlayingSubtitle = artist;
+                }
+                else{
+                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                }
+            }
         }
-        cell.textLabel.text = nowPlayingTitle;
-        cell.detailTextLabel.text = nowPlayingSubtitle;
     }
     else if(indexPath.section == 1) {
-        
-        //THIS COULD BE PROBLEM AREA FOR INDEX ISSUES
-        if ([[self.songQueue objectAtIndex:indexPath.row] isKindOfClass:[MPMediaItem class]]) {
-
-            MPMediaItem *song;
-            if(firstLoad){
-                song = [self.songQueue objectAtIndex:indexPath.row];
-            }
-            else{
-                song = [self.songQueue objectAtIndex:indexPath.row+1];
-            }
+        //handles the now playing cell if the now playing song is an ios song.
+        if ([[[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row] isKindOfClass:[MPMediaItem class]]) {
+            MPMediaItem * song = [[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row];
             NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
             NSString * album   = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
             NSString * artist  = [song valueForProperty:MPMediaItemPropertyArtist];
-        
             if (song) {
-                cell.textLabel.text = title;
+                nowPlayingTitle = title;
                 if ([album isEqualToString:@""]) {
-                    cell.detailTextLabel.text = artist;
+                    nowPlayingSubtitle = artist;
                 }
                 else{
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",artist, album];
                 }
             }
-        }else{
-            NSLog(@"Spotify");
         }
-            UILabel *countLabel = [[UILabel alloc] init];
-            countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
-            countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
-            [cell addSubview:countLabel];
+        else if ([[[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row] isKindOfClass:[SpotifyQueueItem class]]){
+            SpotifyQueueItem *song = [GroupQClient sharedClient].queue.nowPlaying;
+            NSString * title   = song.title;
+            NSString * album   = song.album;
+            NSString * artist  = song.artist;
+            if (song) {
+                nowPlayingTitle = title;
+                if ([album isEqualToString:@""]) {
+                    nowPlayingSubtitle = artist;
+                }
+                else{
+                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                }
+            }
+        }
+        UILabel *countLabel = [[UILabel alloc] init];
+        countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
+        countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
+        [cell addSubview:countLabel];
     }
+    cell.textLabel.text = nowPlayingTitle;
+    cell.detailTextLabel.text = nowPlayingSubtitle;
+    
     [tableView deselectRowAtIndexPath: indexPath animated: YES];
     return cell;
 }
@@ -153,7 +169,7 @@
 //		state of the application.
 - (void) updatePlayerQueueWithMediaCollection: (MPMediaItemCollection *) mediaItemCollection {
 	// Configure the music player, but only if the user chose at least one song to play
-	if (mediaItemCollection) {
+/*	if (mediaItemCollection) {
         
 		// If there's no playback queue yet...
 		if (self.songQueue == nil) {
@@ -197,6 +213,7 @@
         
     
 	}
+*/
 }
 
 
@@ -226,38 +243,6 @@
 
 }
 
-// A toggle control for playing or pausing iPod library music playback, invoked
-//		when the user taps the 'playBarButton' in the Navigation bar.
-- (IBAction) playOrPauseMusic: (id)sender {
-    
-	MPMusicPlaybackState playbackState = [self.myPlayer playbackState];
-    
-	if (playbackState == MPMusicPlaybackStateStopped || playbackState == MPMusicPlaybackStatePaused) {
-		[self.myPlayer play];
-	} else if (playbackState == MPMusicPlaybackStatePlaying) {
-		[self.myPlayer pause];
-	}
-}
-
-
-
-// Invoked when the user taps the Done button in the media item picker after having chosen
-//		one or more media items to play.
-- (void) mediaPicker: (MPMediaPickerController *) mediaPicker didPickMediaItems: (MPMediaItemCollection *) mediaItemCollection {
-    NSLog(@"Pressed Done");
-	// Dismiss the media item picker.
-	[self dismissViewControllerAnimated:YES completion:NULL];
-	
-	// Apply the chosen songs to the music player's queue.
-	[self updatePlayerQueueWithMediaCollection: mediaItemCollection];
-    
-	[[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleBlackOpaque animated: YES];
-}
-
-- (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker {
-	[self dismissViewControllerAnimated:YES completion:NULL];
-}
-
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) // Don't move the first row
        return NO;
@@ -267,6 +252,8 @@
 
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
+    
     if ([[self.songQueue objectAtIndex:sourceIndexPath.row+1] isKindOfClass:[MPMediaItem class]]) {
         MPMediaItem *item =[self.songQueue objectAtIndex:sourceIndexPath.row+1];
         [self.songQueue removeObjectAtIndex:sourceIndexPath.row+1];

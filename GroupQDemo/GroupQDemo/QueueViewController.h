@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "GroupQNetworking.h"
 
-@interface QueueViewController : UITableViewController<MPMediaPickerControllerDelegate,UIActionSheetDelegate>
+@interface QueueViewController : UITableViewController<UIActionSheetDelegate, GroupQClientDelegate>
 @end

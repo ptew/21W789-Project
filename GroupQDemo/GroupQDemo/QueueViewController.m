@@ -24,13 +24,11 @@
     BOOL firstLoad;
 }
 
-@property (nonatomic, strong)	MPMusicPlayerController	*myPlayer;
-@property (nonatomic, strong)	MPMediaItemCollection	*userMediaItemCollection;
+//@property (nonatomic, strong)	MPMediaItemCollection	*userMediaItemCollection;
 @property (nonatomic, weak) UIActionSheet *songActionSheet;
 @property (nonatomic, weak) UIActionSheet *mediaActionSheet;
 @property (nonatomic, strong) NSIndexPath *currentlySelectedSong;
-@property (nonatomic, strong) IBOutlet UITableView *queueTableView;
-@property (nonatomic, strong) NSMutableArray *songQueue;
+@property (nonatomic, strong) GroupQQueue *songQueue;
 
 - (IBAction)showMediaPicker:(id)sender;
 
@@ -38,27 +36,12 @@
 
 @implementation QueueViewController
 
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
      self.clearsSelectionOnViewWillAppear = NO;
-    // instantiate a music player
-    self.myPlayer = [MPMusicPlayerController iPodMusicPlayer];
-    
     
     firstLoad = TRUE;
-    
-    [self registerForMediaPlayerNotifications];
-    
     [self setEditing:TRUE animated:TRUE];
 
 }
@@ -68,27 +51,33 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
+    //section for now playing and annother for the rest of the queue.
     return 2;
 }
 
+/*
+ Takes the integer of the section and determines how many cells there are in that section.
+ If it is section 0 (Now playing) there is 1 cell.
+ Otherwise the fuction returns the number of songs in the queue. 
+ */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
         return 1;
     }
     else if (section == 1) {
-        if (firstLoad){
-            return self.songQueue.count;
-        }
-        else{
-            return (self.songQueue.count)-1;
-        }
+        [GroupQClient sharedClient].queue.count;
     }
     return 0;
 }
 
+/*
+ This method takes in the TableView that the cells are being created for and the index of the cell and creates
+ the cell object that will be placed at that index. 
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Objective C Penis stuff
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -97,8 +86,10 @@
     }
     
     if (indexPath.section == 0){
+        //Sets the inital labels so the user knows to add songs to play.
         NSString *nowPlayingTitle = @"Add a song to play";
         NSString *nowPlayingSubtitle = @"";
+        //handles the now playing cell if the now playing song is an ios song.
         if ([[self.songQueue objectAtIndex:0] isKindOfClass:[MPMediaItem class]]) {
             MPMediaItem * song = [self.songQueue objectAtIndex:0];
             NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
@@ -169,24 +160,14 @@
             
             self.songQueue = [NSMutableArray arrayWithArray:mediaItemCollection.items];
             
-            [self.myPlayer setNowPlayingItem: [self.songQueue objectAtIndex:0]];
-            
-			// apply the new media item collection as a playback queue for the music player
+       		// apply the new media item collection as a playback queue for the music player
             //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
         
             //[myPlayer setQueueWithItemCollection:userMediaItemCollection];
             
             // Obtain the music player's state so it can then be
             //		restored after updating the playback queue.
-		} else {
-            
-			// Take note of whether or not the music player is playing. If it is
-			//		it needs to be started again at the end of this method.
-			BOOL wasPlaying = NO;
-			if (self.myPlayer.playbackState == MPMusicPlaybackStatePlaying) {
-				wasPlaying = YES;
-			}
-			
+		} else {			
 			// Save the now-playing item and its current playback time.
 			MPMediaItem *nowPlayingItem			= self.myPlayer.nowPlayingItem;
 			NSTimeInterval currentPlaybackTime	= self.myPlayer.currentPlaybackTime;

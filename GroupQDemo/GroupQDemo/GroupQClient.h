@@ -24,6 +24,7 @@
 // The delegate class for the GroupQ Client
 @property (strong, nonatomic) id<GroupQClientDelegate> delegate;
 
+
 // Start or stop a Bonjour search for events on the network
 - (void) startSearchingForEvents;
 - (void) stopSearching;

@@ -35,6 +35,10 @@
 @property (strong, nonatomic) GroupQQueue *queue;
 @property (strong, nonatomic) MPMediaItemCollection *ipodLibrary;
 @property (strong, nonatomic) MPMediaQuery *ipodPlaylists;
+@property (strong, nonatomic) MPMediaQuery *ipodSongs;
+@property (strong, nonatomic) MPMediaQuery *ipodArtists;
+@property (strong, nonatomic) MPMediaQuery *ipodAlbums;
+@property (strong, nonatomic) NSMutableArray *pickerSongs;
 
 
 // Start or stop a Bonjour search for events on the network

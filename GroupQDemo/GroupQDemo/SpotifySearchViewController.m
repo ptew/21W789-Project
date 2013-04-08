@@ -38,8 +38,7 @@
 #pragma mark SpotifySearher methods
 
 - (void) searchReturnedResults:(NSArray *)results {
-    NSLog(@"Got %d results.", results.count);
-    self.searchResults = results.copy;
+    self.searchResults = [[NSArray alloc] initWithArray:results.copy];
     [self.tableView reloadData];
 }
 

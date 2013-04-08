@@ -22,6 +22,16 @@
     [super viewDidLoad];
     
     [[SpotifySearcher sharedSearcher] setDelegate:self];
+    
+    [self.searchText becomeFirstResponder];
+    
+    //enable cancel button always.
+    for ( id subview in self.searchText.subviews){
+        if ([subview isKindOfClass:[UIButton class]]) {
+            [subview setEnabled:YES];
+        }
+    }
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

@@ -94,6 +94,9 @@
     else if([elementName isEqualToString:@"album"]){
         self.parserState = ALBUM;
     }
+    else if([elementName isEqualToString:@"length"]){
+        self.parserState = LENGTH;
+    }
 }
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
     if(self.parserState != NONE){
@@ -120,6 +123,9 @@
                 break;
         }
     self.parserState = NONE;
+    }
+    else if ([elementName isEqualToString:@"length"]){
+        self.currentItem.length = [self.buildString doubleValue];
     }
     else if ([elementName isEqualToString:@"tracks"]){
         [self.delegate searchReturnedResults:self.parsedData];

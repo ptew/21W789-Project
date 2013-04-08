@@ -18,6 +18,7 @@ typedef enum parserStateTaypes{
     ALBUM,
     ARTIST,
     TRACK,
+    LENGTH,
 } ParserState;
 
 @property (strong, nonatomic) NSURL *spotifySearchURL;

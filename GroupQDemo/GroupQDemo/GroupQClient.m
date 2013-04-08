@@ -119,12 +119,18 @@
 
 }
 
-- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
-    if([header isEqualToString:@"ipodItems"]){
-        self.ipodLibrary = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {    
+    if([header isEqualToString:@"ipodSongs"]){
+        self.ipodSongs = [NSKeyedUnarchiver unarchiveObjectWithData:message];
     }
     else if([header isEqualToString:@"ipodPlaylists"]){
         self.ipodPlaylists = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+    }
+    else if([header isEqualToString:@"ipodArtists"]){
+        self.ipodArtists = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+    }
+    else if([header isEqualToString:@"ipodAlbums"]){
+        self.ipodAlbums = [NSKeyedUnarchiver unarchiveObjectWithData:message];
     }
     else if([header isEqualToString:@"songQueue"]){
         self.queue = [NSKeyedUnarchiver unarchiveObjectWithData:message];

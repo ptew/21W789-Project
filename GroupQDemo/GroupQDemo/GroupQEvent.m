@@ -20,8 +20,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 @property (strong, nonatomic) MPMusicPlayerController *musicPlayer;
 @property (strong, nonatomic) GroupQQueue *songQueue;
-@property (strong, nonatomic) MPMediaItemCollection *iPodItemCollection;
 @property (strong, nonatomic) MPMediaQuery *iPodPlaylistQuery;
+@property (strong, nonatomic) MPMediaQuery *iPodSongQuery;
+@property (strong, nonatomic) MPMediaQuery *iPodAlbumQuery;
+@property (strong, nonatomic) MPMediaQuery *iPodArtistQuery;
 
 // Private function to handle new connections
 - (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle;
@@ -244,8 +246,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     
     [self.musicPlayer beginGeneratingPlaybackNotifications];
     
-    self.iPodItemCollection = [MPMediaItemCollection collectionWithItems:[MPMediaQuery songsQuery].items];
     self.iPodPlaylistQuery = [MPMediaQuery playlistsQuery];
+    self.iPodArtistQuery = [MPMediaQuery artistsQuery];
+    self.iPodSongQuery = [MPMediaQuery songsQuery];
+    self.iPodAlbumQuery = [MPMediaQuery albumsQuery];
 }
 
 - (void) handle_PlaybackStateChanged: (id) notification {
@@ -277,8 +281,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 }
 
 - (void) sendItemsAndQueueTo:(GroupQConnection *)who {
-    [self broadcastObject:self.iPodItemCollection withHeader:@"ipodItems"];
+    [self broadcastObject:self.iPodSongQuery withHeader:@"ipodSongs"];
     [self broadcastObject:self.iPodPlaylistQuery withHeader:@"ipodPlaylists"];
+    [self broadcastObject:self.iPodArtistQuery withHeader:@"ipodArtists"];
+    [self broadcastObject:self.iPodAlbumQuery withHeader:@"ipodArtists"];
     [self broadcastObject:self.songQueue withHeader:@"songQueue"];
 }
 

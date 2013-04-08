@@ -39,6 +39,7 @@
 		B86510DA1710D7D500495318 /* SpotifySearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9D8DF91710B54F001145B8 /* SpotifySearcher.m */; };
 		B86510DD1710EC0900495318 /* NewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86510DC1710EC0900495318 /* NewEventViewController.m */; };
 		B8824DF517129EE9002C8C30 /* GroupQMusicCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B8824DF417129EE9002C8C30 /* GroupQMusicCollection.m */; };
+		B899DD8A1713366800334312 /* iOSQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B899DD891713366800334312 /* iOSQueueItem.m */; };
 		B8A999DE1710C6B4004E037D /* Icon.psd in Resources */ = {isa = PBXBuildFile; fileRef = B8A999D91710C6B4004E037D /* Icon.psd */; };
 		B8A999DF1710C6B4004E037D /* Icon_LARGE.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999DA1710C6B4004E037D /* Icon_LARGE.png */; };
 		B8A999E01710C6B4004E037D /* ICON_SMALL.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999DB1710C6B4004E037D /* ICON_SMALL.png */; };
@@ -147,6 +148,8 @@
 		B86510DC1710EC0900495318 /* NewEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEventViewController.m; sourceTree = "<group>"; };
 		B8824DF317129EE9002C8C30 /* GroupQMusicCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupQMusicCollection.h; sourceTree = "<group>"; };
 		B8824DF417129EE9002C8C30 /* GroupQMusicCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupQMusicCollection.m; sourceTree = "<group>"; };
+		B899DD881713366800334312 /* iOSQueueItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSQueueItem.h; sourceTree = "<group>"; };
+		B899DD891713366800334312 /* iOSQueueItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSQueueItem.m; sourceTree = "<group>"; };
 		B8A999D91710C6B4004E037D /* Icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icon.psd; sourceTree = "<group>"; };
 		B8A999DA1710C6B4004E037D /* Icon_LARGE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_LARGE.png; sourceTree = "<group>"; };
 		B8A999DB1710C6B4004E037D /* ICON_SMALL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ICON_SMALL.png; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				DECFD890171249C60077003E /* AddArtistViewController.m */,
 				DECFD892171249E10077003E /* AddAlbumViewController.h */,
 				DECFD893171249E10077003E /* AddAlbumViewController.m */,
+				B899DD881713366800334312 /* iOSQueueItem.h */,
+				B899DD891713366800334312 /* iOSQueueItem.m */,
 				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
 			);
 			path = GroupQDemo;
@@ -570,6 +575,7 @@
 				DECFD894171249E10077003E /* AddAlbumViewController.m in Sources */,
 				4C7B8FA717127E9300FFCC14 /* SpotifySearchViewController.m in Sources */,
 				B8824DF517129EE9002C8C30 /* GroupQMusicCollection.m in Sources */,
+				B899DD8A1713366800334312 /* iOSQueueItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -45,14 +45,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [[[[GroupQClient sharedClient].library.artistSectionNames objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist];
+    NSString *artistName = ((iOSQueueItem*)[[[GroupQClient sharedClient].library.artistCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).artist;
     
+    if(artistName.length == 0) {
+        cell.textLabel.text = @"Blank artist";
+    }
+    else {
+        cell.textLabel.text = artistName;
+    }
     
     return cell;
 }
@@ -67,7 +73,7 @@
 
 
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
-    [[GroupQClient sharedClient].queue addSongs:[MPMediaItemCollection collectionWithItems:[GroupQClient sharedClient].pickerSongs]];
+    [[GroupQClient sharedClient].queue addSongs:[GroupQClient sharedClient].pickerSongs];
     [GroupQClient sharedClient].pickerSongs = nil;
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
 }

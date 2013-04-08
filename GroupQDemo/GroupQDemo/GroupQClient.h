@@ -18,7 +18,7 @@
     bool isDJ;
     bool isHost;
 }
-- (void) tellServerToAddSongs:(MPMediaItemCollection *)songs;
+- (void) tellServerToAddSongs:(NSArray *)songs;
 - (void) tellServerToMoveSongFrom:(int)index To:(int)newIndex;
 - (void) tellServerToDeleteSong:(int)index;
 - (void) tellServerToPlaySong:(int)index;

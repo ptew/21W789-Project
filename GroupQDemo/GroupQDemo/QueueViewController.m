@@ -23,7 +23,6 @@
 
 @interface QueueViewController ()
 
-//@property (nonatomic, strong)	MPMediaItemCollection	*userMediaItemCollection;
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender;
 @property (nonatomic, weak) UIActionSheet *songActionSheet;
 @property (nonatomic, weak) UIActionSheet *mediaActionSheet;
@@ -105,18 +104,15 @@
     
     if (indexPath.section == 0){
         //handles the now playing cell if the now playing song is an ios song.
-        if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[MPMediaItem class]]) {
-            MPMediaItem * song = [GroupQClient sharedClient].queue.nowPlaying;
-            NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
-            NSString * album   = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
-            NSString * artist  = [song valueForProperty:MPMediaItemPropertyArtist];
+        if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
+            iOSQueueItem * song = [GroupQClient sharedClient].queue.nowPlaying;
             if (song) {
-                nowPlayingTitle = title;
-                if ([album isEqualToString:@""]) {
-                    nowPlayingSubtitle = artist;
+                nowPlayingTitle = song.title;
+                if ([song.album isEqualToString:@""]) {
+                    nowPlayingSubtitle = song.artist;
                 }
                 else{
-                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",song.artist, song.album];
                 }
             }
         }
@@ -138,18 +134,15 @@
     }
     else if(indexPath.section == 1) {
         //handles the now playing cell if the now playing song is an ios song.
-        if ([[[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row] isKindOfClass:[MPMediaItem class]]) {
-            MPMediaItem * song = [[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row];
-            NSString * title   = [song valueForProperty:MPMediaItemPropertyTitle];
-            NSString * album   = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
-            NSString * artist  = [song valueForProperty:MPMediaItemPropertyArtist];
+        if ([[[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row] isKindOfClass:[iOSQueueItem class]]) {
+            iOSQueueItem * song = [[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row];
             if (song) {
-                nowPlayingTitle = title;
-                if ([album isEqualToString:@""]) {
-                    nowPlayingSubtitle = artist;
+                nowPlayingTitle = song.title;
+                if ([song.album isEqualToString:@""]) {
+                    nowPlayingSubtitle = song.artist;
                 }
                 else{
-                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",song.artist, song.album];
                 }
             }
         }
@@ -178,58 +171,6 @@
     
     [tableView deselectRowAtIndexPath: indexPath animated: YES];
     return cell;
-}
-
-// Invoked by the delegate of the media item picker when the user is finished picking music.
-//		The delegate is either this class or the table view controller, depending on the
-//		state of the application.
-- (void) updatePlayerQueueWithMediaCollection: (MPMediaItemCollection *) mediaItemCollection {
-	// Configure the music player, but only if the user chose at least one song to play
-/*	if (mediaItemCollection) {
-        
-		// If there's no playback queue yet...
-		if (self.songQueue == nil) {
-            
-            self.songQueue = [NSMutableArray arrayWithArray:mediaItemCollection.items];
-            
-       		// apply the new media item collection as a playback queue for the music player
-            //userMediaItemCollection = [MPMediaItemCollection collectionWithItems:songQueue];
-        
-            //[myPlayer setQueueWithItemCollection:userMediaItemCollection];
-            
-            // Obtain the music player's state so it can then be
-            //		restored after updating the playback queue.
-		} else {			
-			// Save the now-playing item and its current playback time.
-			MPMediaItem *nowPlayingItem			= self.myPlayer.nowPlayingItem;
-			NSTimeInterval currentPlaybackTime	= self.myPlayer.currentPlaybackTime;
-            
-			// Combine the previously-existing media item collection with the new one
-			NSMutableArray *combinedMediaItems	= [[self.userMediaItemCollection items] mutableCopy];
-			NSArray *newMediaItems				= [mediaItemCollection items];
-			[combinedMediaItems addObjectsFromArray: newMediaItems];
-			
-            [self.songQueue addObjectsFromArray: newMediaItems];
-            
-			//[self setUserMediaItemCollection: [MPMediaItemCollection collectionWithItems: songQueue]];
-            
-			// Apply the new media item collection as a playback queue for the music player.
-			//[musicPlayer setQueueWithItemCollection: userMediaItemCollection];
-			
-			// Restore the now-playing item and its current playback time.
-			self.myPlayer.nowPlayingItem			= nowPlayingItem;
-			self.myPlayer.currentPlaybackTime		= currentPlaybackTime;
-			
-			// If the music player was playing, get it playing again.
-			if (wasPlaying) {
-				[self.myPlayer play];
-			}
-		}
-        [self.tableView reloadData];
-        
-    
-	}
-*/
 }
 
 
@@ -285,7 +226,6 @@
         [[GroupQClient sharedClient] tellServerToMoveSongFrom:self.currentlySelectedSong.row To:0];
     }
     else if([choice isEqualToString:@"Add Content"]){
-        [[GroupQClient sharedClient] tellServerToAddSongs:[MPMediaItemCollection collectionWithItems:[[MPMediaQuery songsQuery].items objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 10)]]]];
         [self performSegueWithIdentifier:@"addSongPicker" sender:self];
     }
     else if([choice isEqualToString:@"Add from Spotify"]){
@@ -313,7 +253,5 @@
 }
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender {
     NSLog(@"This is %@", [[GroupQClient sharedClient].library.songCollection objectAtIndex:0]);
-    //MPMediaItem *test = (MPMediaItem*)[[[GroupQClient sharedClient].library.songCollection objectAtIndex:0] objectAtIndex:0];
-    //NSLog(@"First item is %@ by %@", [test valueForProperty:MPMediaItemPropertyTitle], [test valueForProperty:MPMediaItemPropertyArtist]);
 }
 @end

@@ -48,8 +48,8 @@
         [self.queuedSongs removeObjectAtIndex:position];
     }
 }
-- (void) addSongs: (MPMediaItemCollection*) songs; {
-    [self.queuedSongs addObjectsFromArray:songs.items];
+- (void) addSongs: (NSArray*) songs; {
+    [self.queuedSongs addObjectsFromArray:songs];
 }
 - (void) deleteSong: (int) index {
     if(index >= self.queuedSongs.count)

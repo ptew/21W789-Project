@@ -29,6 +29,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"There are %d rows in playlists", [[GroupQClient sharedClient].library.playlistSectionNames count]);
     return [[GroupQClient sharedClient].library.playlistSectionNames count];
 }
 
@@ -40,9 +41,9 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
     cell.textLabel.text = [[GroupQClient sharedClient].library.playlistSectionNames objectAtIndex:indexPath.row];
     
+    NSLog(@"Playlist title: %@", cell.textLabel.text);
     return cell;
 }
 
@@ -56,7 +57,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
-    [[GroupQClient sharedClient].queue addSongs:[MPMediaItemCollection collectionWithItems:[GroupQClient sharedClient].pickerSongs]];
+    [[GroupQClient sharedClient].queue addSongs:[GroupQClient sharedClient].pickerSongs];
     [GroupQClient sharedClient].pickerSongs = nil;
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
     

@@ -123,9 +123,6 @@
     if([header isEqualToString:@"library"]){
         self.library = [NSKeyedUnarchiver unarchiveObjectWithData:message];
     }
-    else if([header isEqualToString:@"testObject"]) {
-       // [MPMediaItem alloc]
-    }
     else if([header isEqualToString:@"songQueue"]){
         self.queue = [NSKeyedUnarchiver unarchiveObjectWithData:message];
     }
@@ -167,7 +164,7 @@
     }
 }
 
-- (void) tellServerToAddSongs:(MPMediaItemCollection *)songs {
+- (void) tellServerToAddSongs:(NSArray *)songs {
     [self.connectionToServer sendObject:songs withHeader:@"addSongs"];
 }
 - (void) tellServerToMoveSongFrom:(int)index To:(int)newIndex {

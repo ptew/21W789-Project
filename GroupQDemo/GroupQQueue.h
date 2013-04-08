@@ -15,7 +15,7 @@
 @property (strong, nonatomic) NSMutableArray *queuedSongs;
 
 - (void) moveSong: (int)position to: (int)destination;
-- (void) addSongs: (MPMediaItemCollection*) songs;
+- (void) addSongs: (NSArray*) songs;
 - (void) deleteSong: (int) index;
 - (void) playSong: (int) index;
 - (void) addSpotifySong: (SpotifyQueueItem *) song;

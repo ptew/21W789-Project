@@ -31,7 +31,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 - (void) sendItemsAndQueueTo: (GroupQConnection *) who;
 
-- (void) tellClientsToAddSongs: (MPMediaItemCollection *) songs;
+- (void) tellClientsToAddSongs: (NSArray *) songs;
 - (void) tellClientsToMoveSongFrom: (int) oldPos to: (int) newPos;
 - (void) tellClientsToDeleteSong: (int) position;
 - (void) tellClientsToPlaySong: (int) position;
@@ -204,7 +204,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 - (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
     if ([header isEqualToString:@"addSongs"]) {
-        MPMediaItemCollection *songs = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        NSArray *songs = [NSKeyedUnarchiver unarchiveObjectWithData:message];
         [self.songQueue addSongs:songs];
         [self tellClientsToAddSongs:songs];
     }
@@ -265,9 +265,24 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     if (self.songQueue.nowPlaying == nil)
         return;
     
-    if ([self.songQueue.nowPlaying isKindOfClass:[MPMediaItem class]]) {
-        [self.musicPlayer setNowPlayingItem: self.songQueue.nowPlaying];
-        [self.musicPlayer play];
+    if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
+        MPMediaItem *song;
+        MPMediaPropertyPredicate *predicate;
+        MPMediaQuery *songQuery;
+        
+        predicate = [MPMediaPropertyPredicate predicateWithValue: ((iOSQueueItem*)self.songQueue.nowPlaying).persistentID forProperty:MPMediaItemPropertyPersistentID];
+        songQuery = [[MPMediaQuery alloc] init];
+        [songQuery addFilterPredicate: predicate];
+        if (songQuery.items.count > 0)
+        {
+            //song exists
+            song = [songQuery.items objectAtIndex:0];
+            [self.musicPlayer setNowPlayingItem: song];
+            [self.musicPlayer play];
+        }
+        else {
+            [self songDidStopPlaying];
+        }
     }
     else{
         [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying];

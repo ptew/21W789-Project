@@ -25,7 +25,13 @@
     for (MPMediaQuerySection *section in sections) {
         NSMutableArray *sectionToFill = [[NSMutableArray alloc] init];
         for(int i=0; i<section.range.length; i++) {
-            [sectionToFill addObject:[songs.items objectAtIndex:i+section.range.location]];
+            MPMediaItem *nextItem = (MPMediaItem*)[songs.items objectAtIndex:i+section.range.location];
+            iOSQueueItem *queueItem = [[iOSQueueItem alloc] init];
+            queueItem.title = [nextItem valueForProperty:MPMediaItemPropertyTitle];
+            queueItem.artist = [nextItem valueForProperty:MPMediaItemPropertyArtist];
+            queueItem.album = [nextItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+            queueItem.persistentID = [nextItem valueForProperty:MPMediaItemPropertyPersistentID];
+            [sectionToFill addObject:queueItem];
         }
         [self.songSectionNames addObject:section.title];
         [self.songCollection addObject:sectionToFill];
@@ -35,7 +41,13 @@
     for (MPMediaQuerySection *section in sections) {
         NSMutableArray *sectionToFill = [[NSMutableArray alloc] init];
         for(int i=0; i<section.range.length; i++) {
-            [sectionToFill addObject:[artists.items objectAtIndex:i+section.range.location]];
+            MPMediaItem *nextItem = (MPMediaItem*)[artists.items objectAtIndex:i+section.range.location];
+            iOSQueueItem *queueItem = [[iOSQueueItem alloc] init];
+            queueItem.title = [nextItem valueForProperty:MPMediaItemPropertyTitle];
+            queueItem.artist = [nextItem valueForProperty:MPMediaItemPropertyArtist];
+            queueItem.album = [nextItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+            queueItem.persistentID = [nextItem valueForProperty:MPMediaItemPropertyPersistentID];
+            [sectionToFill addObject:queueItem];
         }
         [self.artistSectionNames addObject:section.title];
         [self.artistCollection addObject:sectionToFill];
@@ -45,7 +57,13 @@
     for (MPMediaQuerySection *section in sections) {
         NSMutableArray *sectionToFill = [[NSMutableArray alloc] init];
         for(int i=0; i<section.range.length; i++) {
-            [sectionToFill addObject:[playlists.items objectAtIndex:i+section.range.location]];
+            MPMediaItem *nextItem = (MPMediaItem*)[playlists.items objectAtIndex:i+section.range.location];
+            iOSQueueItem *queueItem = [[iOSQueueItem alloc] init];
+            queueItem.title = [nextItem valueForProperty:MPMediaItemPropertyTitle];
+            queueItem.artist = [nextItem valueForProperty:MPMediaItemPropertyArtist];
+            queueItem.album = [nextItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+            queueItem.persistentID = [nextItem valueForProperty:MPMediaItemPropertyPersistentID];
+            [sectionToFill addObject:queueItem];
         }
         [self.playlistSectionNames addObject:section.title];
         [self.playlistCollection addObject:sectionToFill];
@@ -55,7 +73,13 @@
     for (MPMediaQuerySection *section in sections) {
         NSMutableArray *sectionToFill = [[NSMutableArray alloc] init];
         for(int i=0; i<section.range.length; i++) {
-            [sectionToFill addObject:[albums.items objectAtIndex:i+section.range.location]];
+            MPMediaItem *nextItem = (MPMediaItem*)[albums.items objectAtIndex:i+section.range.location];
+            iOSQueueItem *queueItem = [[iOSQueueItem alloc] init];
+            queueItem.title = [nextItem valueForProperty:MPMediaItemPropertyTitle];
+            queueItem.artist = [nextItem valueForProperty:MPMediaItemPropertyArtist];
+            queueItem.album = [nextItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+            queueItem.persistentID = [nextItem valueForProperty:MPMediaItemPropertyPersistentID];
+            [sectionToFill addObject:queueItem];
         }
         [self.albumSectionNames addObject:section.title];
         [self.albumCollection addObject:sectionToFill];

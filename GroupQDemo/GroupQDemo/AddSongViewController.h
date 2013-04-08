@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "GroupQNetworking.h"
-#import <MediaPlayer/MPMediaItemCollection.h>
 
 @interface AddSongViewController : UITableViewController
 - (IBAction)donePressed:(UIBarButtonItem *)sender;

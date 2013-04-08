@@ -237,7 +237,7 @@
         if ([[GroupQClient sharedClient] hostHasSpotify]) {
             spotifyTitle = @"Add from Spotify";
         }
-        UIActionSheet *mediaActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Content" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Content", @"Add from Spotify", nil];
+        UIActionSheet *mediaActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Content" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Content", spotifyTitle, nil];
         [mediaActionSheet showFromBarButtonItem:sender animated:YES];
     }
     

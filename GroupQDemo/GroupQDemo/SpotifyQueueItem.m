@@ -2,7 +2,7 @@
 //  SpotifyQueueItem.m
 //  SpotifyProofOfConcept
 //
-//  Created by T. S. Cobb on 4/5/13.
+//  Created by Bradley Gross on 4/5/13.
 //  Copyright (c) 2013 Awesome. All rights reserved.
 //
 
@@ -16,10 +16,6 @@
     self.album = album;
     self.trackURI = trackURI;
     self.length = length;
-    return self;
-}
-
-- (SpotifyQueueItem*) init{
     return self;
 }
 

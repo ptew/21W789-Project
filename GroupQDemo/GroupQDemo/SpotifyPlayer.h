@@ -2,7 +2,7 @@
 //  SpotifyPlayer.h
 //  SpotifyProofOfConcept
 //
-//  Created by T. S. Cobb on 4/4/13.
+//  Created by Bradley Gross on 4/4/13.
 //  Copyright (c) 2013 Awesome. All rights reserved.
 //
 
@@ -11,13 +11,16 @@
 #import "SpotifyQueueItem.h"
 #import "SpotifyPlayerDelegate.h"
 
-@interface SpotifyPlayer : SPPlaybackManager {
-    // Public member variables (NOT PROPERTIES)
-}
+@interface SpotifyPlayer : SPPlaybackManager
 
 @property (strong, nonatomic) id<SpotifyPlayerDelegate> playerDelegate;
 
-- (IBAction)playTrack:(SpotifyQueueItem *) trackURL;
+/*
+ Plays a given spotify queue item based on the given track's trackURL. This requires and
+ authenticated SPSession object which is done in the SpotifyConnection Class.
+ */
+- (IBAction)playTrack:(SpotifyQueueItem *) songToPlay;
 
+//Singleton class instatnce used for playing songs from spotify throughout host.
 + (SpotifyPlayer *) sharedPlayer;
 @end

@@ -29,7 +29,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[GroupQClient sharedClient].ipodPlaylists collections].count;
+    return [[GroupQClient sharedClient].library.playlistSectionNames count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -41,8 +41,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    MPMediaPlaylist *playlist = [[[GroupQClient sharedClient].ipodPlaylists collections] objectAtIndex:indexPath.row];
-    cell.textLabel.text = [playlist valueForProperty:MPMediaPlaylistPropertyName];
+    cell.textLabel.text = [[GroupQClient sharedClient].library.playlistSectionNames objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -51,11 +50,8 @@
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleInsert)
     {
-        MPMediaPlaylist *playlist = [[[GroupQClient sharedClient].ipodPlaylists collections] objectAtIndex:indexPath.row];
-        //handle insert...
-        for (MPMediaItem *song in playlist.items) {
-            [[GroupQClient sharedClient].pickerSongs addObject:song];
-        }
+        NSArray *playlist = [[GroupQClient sharedClient].library.playlistCollection objectAtIndex:indexPath.row];
+        [[GroupQClient sharedClient].pickerSongs addObjectsFromArray:playlist];
     }
 }
 

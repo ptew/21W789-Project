@@ -20,39 +20,28 @@
     [self setEditing:TRUE animated:TRUE];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger numberOfSections = [GroupQClient sharedClient].ipodSongs.itemSections.count;
-    return numberOfSections > 0 ? numberOfSections : 1;
+    return [GroupQClient sharedClient].library.songSectionNames.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    __block NSInteger sectionIndex = 0;
-    [[[GroupQClient sharedClient].ipodSongs itemSections] enumerateObjectsUsingBlock:^(MPMediaQuerySection *querySection, NSUInteger idx, BOOL *stop) {
-        if([[querySection title] isEqualToString:title]) {
-            sectionIndex = idx;
-            *stop = YES;
-        }
+    return [[GroupQClient sharedClient].library.songSectionNames indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if ([(NSString*)obj isEqualToString:title])
+            return TRUE;
+        return FALSE;
     }];
-    
-    return sectionIndex;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger numberOfRows = [GroupQClient sharedClient].ipodSongs.items.count;
-    if([GroupQClient sharedClient].ipodSongs.itemSections.count) {
-        MPMediaQuerySection *querySection = [[[GroupQClient sharedClient].ipodSongs itemSections] objectAtIndex:section];
-        numberOfRows = querySection.range.length;
-    }
-    return numberOfRows;
+    return [[[GroupQClient sharedClient].library.songCollection objectAtIndex:section] count];
+}
+
+- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [[GroupQClient sharedClient].library.songSectionNames objectAtIndex:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,11 +53,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [[[[[GroupQClient sharedClient].ipodSongs collections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyTitle];
+    MPMediaItem *songItem = [[[GroupQClient sharedClient].library.songCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    cell.textLabel.text = [songItem valueForProperty:MPMediaItemPropertyTitle];
     
-    NSString *album = [[[[[GroupQClient sharedClient].ipodSongs collections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyAlbumTitle];
+    NSString *album = [songItem valueForProperty:MPMediaItemPropertyAlbumTitle];;
     
-    NSString *artist = [[[[[GroupQClient sharedClient].ipodSongs collections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist];
+    NSString *artist = [songItem valueForProperty:MPMediaItemPropertyArtist];
     
     if ([album isEqualToString:@""]) {
         cell.detailTextLabel.text = artist;
@@ -84,7 +74,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleInsert) {
-        [[GroupQClient sharedClient].pickerSongs addObject:[[[[GroupQClient sharedClient].ipodSongs collections] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+        MPMediaItem *songItem = [[[GroupQClient sharedClient].library.songCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        [[GroupQClient sharedClient].pickerSongs addObject:songItem];
     }   
 }
 

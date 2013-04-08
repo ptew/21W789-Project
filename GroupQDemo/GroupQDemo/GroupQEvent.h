@@ -18,6 +18,7 @@
 #import "GroupQConnection.h"
 #import "GroupQEventDelegate.h"
 #import "GroupQClient.h"
+#import "GroupQMusicCollection.h"
 
 @interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate, SpotifyPlayerDelegate>
 

@@ -20,10 +20,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 @property (strong, nonatomic) MPMusicPlayerController *musicPlayer;
 @property (strong, nonatomic) GroupQQueue *songQueue;
-@property (strong, nonatomic) MPMediaQuery *iPodPlaylistQuery;
-@property (strong, nonatomic) MPMediaQuery *iPodSongQuery;
-@property (strong, nonatomic) MPMediaQuery *iPodAlbumQuery;
-@property (strong, nonatomic) MPMediaQuery *iPodArtistQuery;
+@property (strong, nonatomic) GroupQMusicCollection *library;
 
 // Private function to handle new connections
 - (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle;
@@ -165,7 +162,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) connectionDidConnect:(GroupQConnection *)connection {
     NSLog(@"Connected to user.");
     [self.userConnections addObject:connection];
-    //[self sendItemsAndQueueTo: connection];
+    [self sendItemsAndQueueTo: connection];
 }
 
 - (void) connectionDidNotConnect:(GroupQConnection *)connection {}
@@ -246,10 +243,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     
     [self.musicPlayer beginGeneratingPlaybackNotifications];
     
-    self.iPodPlaylistQuery = [MPMediaQuery playlistsQuery];
-    self.iPodArtistQuery = [MPMediaQuery artistsQuery];
-    self.iPodSongQuery = [MPMediaQuery songsQuery];
-    self.iPodAlbumQuery = [MPMediaQuery albumsQuery];
+    self.library = [[GroupQMusicCollection alloc] initWithSongs:[MPMediaQuery songsQuery] artists:[MPMediaQuery artistsQuery] albums:[MPMediaQuery albumsQuery] playlists:[MPMediaQuery playlistsQuery]];
 }
 
 - (void) handle_PlaybackStateChanged: (id) notification {
@@ -281,10 +275,9 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 }
 
 - (void) sendItemsAndQueueTo:(GroupQConnection *)who {
-    [self broadcastObject:self.iPodSongQuery withHeader:@"ipodSongs"];
-    [self broadcastObject:self.iPodPlaylistQuery withHeader:@"ipodPlaylists"];
-    [self broadcastObject:self.iPodArtistQuery withHeader:@"ipodArtists"];
-    [self broadcastObject:self.iPodAlbumQuery withHeader:@"ipodArtists"];
+    MPMediaItem *test = (MPMediaItem*)[[self.library.songCollection objectAtIndex:0] objectAtIndex:0];
+    NSLog(@"First item is %@ by %@", [test valueForProperty:MPMediaItemPropertyTitle], [test valueForProperty:MPMediaItemPropertyArtist]);
+    [self broadcastObject:self.library withHeader:@"library"];
     [self broadcastObject:self.songQueue withHeader:@"songQueue"];
 }
 

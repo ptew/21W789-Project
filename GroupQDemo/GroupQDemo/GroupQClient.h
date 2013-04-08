@@ -12,6 +12,7 @@
 #import "GroupQClientDelegate.h"
 #import "GroupQQueue.h"
 #import "GroupQEvent.h"
+#import "GroupQMusicCollection.h"
 
 @interface GroupQClient : NSObject <NSNetServiceBrowserDelegate, GroupQConnectionDelegate> {
     bool isDJ;
@@ -33,10 +34,7 @@
 @property (strong, nonatomic) id<GroupQClientDelegate> delegate;
 
 @property (strong, nonatomic) GroupQQueue *queue;
-@property (strong, nonatomic) MPMediaQuery *ipodPlaylists;
-@property (strong, nonatomic) MPMediaQuery *ipodSongs;
-@property (strong, nonatomic) MPMediaQuery *ipodArtists;
-@property (strong, nonatomic) MPMediaQuery *ipodAlbums;
+@property (strong, nonatomic) GroupQMusicCollection *library;
 @property (strong, nonatomic) NSMutableArray *pickerSongs;
 
 

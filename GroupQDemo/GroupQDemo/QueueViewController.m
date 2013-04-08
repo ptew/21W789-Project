@@ -20,6 +20,7 @@
 #import "Spotify.h"
 
 
+
 @interface QueueViewController ()
 
 //@property (nonatomic, strong)	MPMediaItemCollection	*userMediaItemCollection;
@@ -296,5 +297,7 @@
     [self performSegueWithIdentifier:@"leaveEvent" sender:self];
 }
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender {
+    MPMediaItem *test = (MPMediaItem*)[[[GroupQClient sharedClient].library.songCollection objectAtIndex:0] objectAtIndex:0];
+    NSLog(@"First item is %@ by %@", [test valueForProperty:MPMediaItemPropertyTitle], [test valueForProperty:MPMediaItemPropertyArtist]);
 }
 @end

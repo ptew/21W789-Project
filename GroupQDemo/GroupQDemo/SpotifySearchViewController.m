@@ -60,7 +60,7 @@
 }
 
 - (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    searchBar.text = @"";
+    [self performSegueWithIdentifier:@"doneWithSpotify" sender:self];
 }
 #pragma mark - Table view data source
 
@@ -167,6 +167,7 @@
         case 1:
             //Add to Queue Button
             [[GroupQClient sharedClient] tellServerToaddSpotifySong:[self.searchResults objectAtIndex:self.currentlySelectedSong.row]];
+            [self performSegueWithIdentifier:@"doneWithSpotify" sender:self];
             break;
         default:
             break;

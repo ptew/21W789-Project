@@ -279,10 +279,7 @@
         
     }
     else if([choice isEqualToString:@"Add from Spotify"]){
-        ///////////////////////////////////////////////////////
-        ////////Open Spotify Search view///////////////////////
-        ////////For Brad to Implement/////////////////////////
-        //////////////////////////////////////////////////////
+        [self performSegueWithIdentifier:@"spotifySearch" sender:self];
     }
 }
 

@@ -97,9 +97,7 @@
 }
 
 #pragma mark - GroupQEvent delegate methods
-- (void) eventCreated {
-    [[GroupQEvent sharedEvent] broadcastEvent];
-}
+- (void) eventCreated {}
 
 - (void) eventNotCreated {
     [self dismissViewControllerAnimated:NO completion:NULL];

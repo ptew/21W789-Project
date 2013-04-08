@@ -29,6 +29,7 @@
 - (ActivityViewController *) initWithActivityText:(NSString *)text {
     self = [super init];
     self.text = text;
+    counter = 0;
     return self;
 }
 
@@ -36,6 +37,7 @@
 {
     [super viewDidLoad];
     self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateText) userInfo:nil repeats:YES];
+    //[self updateText];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

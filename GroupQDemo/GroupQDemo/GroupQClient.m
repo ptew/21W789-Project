@@ -31,6 +31,7 @@
     
     self.queue = [[GroupQQueue alloc] init];
     
+    self.pickerSongs = [[NSMutableArray alloc] init];
     [self setHost:false];
     return self;
 }
@@ -80,7 +81,6 @@
 }
 
 - (void) connectionDidConnect:(GroupQConnection *)connection {
-    [self.delegate didConnectToEvent];
 }
 
 - (void) connectionDidNotConnect:(GroupQConnection *)connection {
@@ -119,12 +119,14 @@
 
 }
 
-- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {    
+- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
+    NSLog(@"Received object with header: %@", header);
     if([header isEqualToString:@"library"]){
         self.library = [NSKeyedUnarchiver unarchiveObjectWithData:message];
     }
     else if([header isEqualToString:@"songQueue"]){
         self.queue = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        [self.delegate didConnectToEvent];
     }
     else if([header isEqualToString:@"addSongs"]){
         [self.queue addSongs:[NSKeyedUnarchiver unarchiveObjectWithData:message]];

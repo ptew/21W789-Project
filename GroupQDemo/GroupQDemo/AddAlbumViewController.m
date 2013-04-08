@@ -76,13 +76,13 @@
 
 
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
-    [[GroupQClient sharedClient].queue addSongs:[GroupQClient sharedClient].pickerSongs];
-    [GroupQClient sharedClient].pickerSongs = nil;
+    [[GroupQClient sharedClient] tellServerToAddSongs:[GroupQClient sharedClient].pickerSongs];
+    [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
 }
 
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender {
-    [GroupQClient sharedClient].pickerSongs = nil;
+    [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
 }
 @end

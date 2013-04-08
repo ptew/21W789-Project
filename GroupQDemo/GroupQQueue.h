@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "Spotify.h"
+#import "GroupQQueueDelegate.h"
 
 @interface GroupQQueue : NSObject <NSCoding>
 @property (strong, nonatomic) id nowPlaying;
 @property (strong, nonatomic) NSMutableArray *queuedSongs;
+@property (strong, nonatomic) id<GroupQQueueDelegate> delegate;
 
 - (void) moveSong: (int)position to: (int)destination;
 - (void) addSongs: (NSArray*) songs;

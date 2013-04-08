@@ -11,7 +11,7 @@
 #import "GroupQClient.h"
 
 @interface SpotifySearchViewController : UITableViewController <SpotifySearcherDelegate, UIActionSheetDelegate, UISearchBarDelegate>
-@property (weak, nonatomic) IBOutlet UISearchBar *searchText;
 @property (strong, nonatomic) NSArray *searchResults;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchText;
 
 @end

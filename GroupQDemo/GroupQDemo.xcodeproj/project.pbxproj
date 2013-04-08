@@ -281,7 +281,6 @@
 				B8A999E81710C9B8004E037D /* SplashScreenViewController.m */,
 				B86510DB1710EC0900495318 /* NewEventViewController.h */,
 				B86510DC1710EC0900495318 /* NewEventViewController.m */,
-				4C4694B817133C7F00B0CE6B /* SpotifyConnectionDelegate.h */,
 				B82E6C2B1711E23600767DF8 /* QueueViewController.h */,
 				B82E6C2C1711E23600767DF8 /* QueueViewController.m */,
 				4C7B8FA417127E9300FFCC14 /* SpotifySearchViewController.h */,
@@ -393,6 +392,7 @@
 		4C9D8E0A1710B607001145B8 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				4C4694B817133C7F00B0CE6B /* SpotifyConnectionDelegate.h */,
 				4C9D8DFA1710B54F001145B8 /* SpotifySearcherDelegate.h */,
 				B8F46F511711F12F00846F82 /* SpotifyPlayerDelegate.h */,
 			);

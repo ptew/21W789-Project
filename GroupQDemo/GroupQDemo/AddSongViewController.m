@@ -82,9 +82,10 @@
         iOSQueueItem *songItem = [[[GroupQClient sharedClient].library.songCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         [[GroupQClient sharedClient].pickerSongs addObject:songItem];
         
-        [[self.tableView cellForRowAtIndexPath:indexPath] accessoryType:UITableViewCellAccessoryCheckmark];
+        [self.tableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
     }   
 }
+
 
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
     [[GroupQClient sharedClient].queue addSongs:[GroupQClient sharedClient].pickerSongs];

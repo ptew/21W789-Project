@@ -302,8 +302,5 @@
     [self performSegueWithIdentifier:@"leaveEvent" sender:self];
 }
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender {
-    NSLog(@"Currently have %d songs in library", [GroupQClient sharedClient].ipodLibrary.items.count);
-    MPMediaItem *testItem = (MPMediaItem*)[[GroupQClient sharedClient].ipodLibrary.items objectAtIndex:0];
-    NSLog(@"First song is %@ by %@", [testItem valueForProperty:MPMediaItemPropertyTitle], [testItem valueForProperty:MPMediaItemPropertyArtist]);
 }
 @end

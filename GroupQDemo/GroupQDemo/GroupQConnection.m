@@ -264,7 +264,7 @@
         }
         case NSStreamEventEndEncountered: {
             [self.delegate connectionDisconnected:self];
-            [self disconnectStreams:TRUE];
+            [self disconnectStreams:NO];
             break;
         }
         default: {

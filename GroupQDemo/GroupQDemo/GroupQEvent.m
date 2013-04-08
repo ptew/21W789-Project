@@ -275,8 +275,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 }
 
 - (void) sendItemsAndQueueTo:(GroupQConnection *)who {
-    MPMediaItem *test = (MPMediaItem*)[[self.library.songCollection objectAtIndex:0] objectAtIndex:0];
-    NSLog(@"First item is %@ by %@", [test valueForProperty:MPMediaItemPropertyTitle], [test valueForProperty:MPMediaItemPropertyArtist]);
     [self broadcastObject:self.library withHeader:@"library"];
     [self broadcastObject:self.songQueue withHeader:@"songQueue"];
 }

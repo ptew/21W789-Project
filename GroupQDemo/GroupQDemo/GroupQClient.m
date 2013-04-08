@@ -123,6 +123,9 @@
     if([header isEqualToString:@"library"]){
         self.library = [NSKeyedUnarchiver unarchiveObjectWithData:message];
     }
+    else if([header isEqualToString:@"testObject"]) {
+       // [MPMediaItem alloc]
+    }
     else if([header isEqualToString:@"songQueue"]){
         self.queue = [NSKeyedUnarchiver unarchiveObjectWithData:message];
     }

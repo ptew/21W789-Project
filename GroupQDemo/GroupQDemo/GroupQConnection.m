@@ -7,6 +7,7 @@
 //
 
 #import "GroupQConnection.h"
+#import "GroupQMusicCollection.h"
 
 @interface GroupQConnection () {
     // Read and write streams
@@ -130,6 +131,7 @@
 - (void) sendObject: (id) what withHeader: (NSString*) header {
     NSLog(@"Sending object with header '%@'", header);
     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:what];
+    GroupQMusicCollection *unencoded = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
     // Appends the outgoing text after encoding it as ASCII bytes
     char delimiter = ((char)2);
     NSString *headerString = [NSString stringWithFormat:@"%@%co%c%d%c", header, delimiter, delimiter, encodedObject.length, delimiter];

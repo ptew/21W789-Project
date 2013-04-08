@@ -32,6 +32,7 @@
     self.queue = [[GroupQQueue alloc] init];
     
     isSongPlaying = false;
+    hostHasSpotify = false;
     songVolume = 0;
     songProgress = 0;
     
@@ -122,6 +123,12 @@
     }
     else if([header isEqualToString:@"resumeSong"]) {
         isSongPlaying = true;
+    }
+    else if([header isEqualToString:@"loggedInToSpotify"]) {
+        hostHasSpotify = true;
+    }
+    else if([header isEqualToString:@"loggedOutOfSpotify"]) {
+        hostHasSpotify = false;
     }
     else{
         NSLog(@"Unrecognized header: %@ parsed in recievedMessages.", header);
@@ -215,6 +222,22 @@
 
 - (bool) isHost {
     return isHost;
+}
+
+- (bool)isSongPlaying {
+    return isSongPlaying;
+}
+
+- (bool) hostHasSpotify {
+    return hostHasSpotify;
+}
+
+- (float) songVolume {
+    return songVolume;
+}
+
+- (float) songProgress {
+    return songProgress;
 }
 
 - (void) setHost:(bool)isTheHost {

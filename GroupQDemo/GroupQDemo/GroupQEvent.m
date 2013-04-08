@@ -40,11 +40,17 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) tellClientsToResumeSong;
 - (void) tellClientsToPauseSong;
 - (void) tellClientsToSetVolume: (NSNumber *) level;
+- (void) tellClientsAboutSpotifyStatus;
 @end
 
 
 @implementation GroupQEvent
 
+- (GroupQEvent*) init {
+    self = [super init];
+    hasSpotify = false;
+    return self;
+}
 - (void) createEventWithName: (NSString*) name andPassword: (NSString*) password {
     NSLog(@"GQ Creating event.");
     
@@ -168,6 +174,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) connectionDidConnect:(GroupQConnection *)connection {
     NSLog(@"GQ Connected to user.");
     [self.userConnections addObject:connection];
+    [self tellClientsAboutSpotifyStatus];
     [self sendItemsAndQueueTo: connection];
 }
 
@@ -354,6 +361,14 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     }
 }
 
+- (void) setSpotify:(bool)doesHaveSpotify {
+    hasSpotify = doesHaveSpotify;
+}
+
+- (bool) hasSpotify {
+    return hasSpotify;
+}
+
 - (void) sendItemsAndQueueTo:(GroupQConnection *)who {
     NSLog(@"GQ Sending items and queue.");
     [self broadcastObject:self.library withHeader:@"library"];
@@ -379,6 +394,15 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) tellClientsToPlaySong:(int)position {
     NSLog(@"GQ telling clients to play song.");
     [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"playSong"];
+}
+
+- (void) tellClientsAboutSpotifyStatus {
+    if (hasSpotify) {
+        [self broadcastMessage:@"" withHeader:@"loggedInToSpotify"];
+    }
+    else {
+        [self broadcastMessage:@"" withHeader:@"loggedOutOfSpotify"];
+    }
 }
 
 - (void) tellClientsToResumeSong{

@@ -232,6 +232,11 @@
     if (self.mediaActionSheet) {
         // do nothing
     } else {
+        //Only adds the spotify option if the server is logged into spotify.
+        NSString *spotifyTitle = nil;
+        if ([[GroupQClient sharedClient] hostHasSpotify]) {
+            spotifyTitle = @"Add from Spotify";
+        }
         UIActionSheet *mediaActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Content" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Content", @"Add from Spotify", nil];
         [mediaActionSheet showFromBarButtonItem:sender animated:YES];
     }

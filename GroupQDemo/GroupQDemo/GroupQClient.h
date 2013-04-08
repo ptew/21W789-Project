@@ -18,6 +18,7 @@
     bool isDJ;
     bool isHost;
     bool isSongPlaying;
+    bool hostHasSpotify;
     float songVolume;
     float songProgress;
 }
@@ -63,6 +64,11 @@
 
 - (bool) isHost;
 - (void) setHost:(bool)isHost;
+
+- (bool) isSongPlaying;
+- (bool) hostHasSpotify;
+- (float) songVolume;
+- (float) songProgress;
 
 + (GroupQClient *) sharedClient;
 @end

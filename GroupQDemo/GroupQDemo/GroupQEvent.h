@@ -20,7 +20,9 @@
 #import "GroupQClient.h"
 #import "GroupQMusicCollection.h"
 
-@interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate, SpotifyPlayerDelegate>
+@interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate, SpotifyPlayerDelegate> {
+    bool hasSpotify;
+}
 
 // Creates an event with a given name
 - (void) createEventWithName: (NSString*) name andPassword: (NSString*) password;
@@ -49,6 +51,7 @@
 
 - (void) broadcastMessage: (NSString *) message withHeader: (NSString *) header;
 - (void) broadcastObject: (id) object withHeader: (NSString *) header;
-
+- (void) setSpotify: (bool) hasSpotify;
+- (bool) hasSpotify;
 + (GroupQEvent *) sharedEvent;
 @end

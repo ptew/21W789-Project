@@ -30,6 +30,7 @@
             queueItem.title = [nextItem valueForProperty:MPMediaItemPropertyTitle];
             queueItem.artist = [nextItem valueForProperty:MPMediaItemPropertyArtist];
             queueItem.album = [nextItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+            queueItem.playbackDuration = [nextItem valueForProperty:MPMediaItemPropertyPlaybackDuration];
             queueItem.persistentID = [nextItem valueForProperty:MPMediaItemPropertyPersistentID];
             [sectionToFill addObject:queueItem];
         }
@@ -46,6 +47,7 @@
             queueItem.title = [nextItem valueForProperty:MPMediaItemPropertyTitle];
             queueItem.artist = [nextItem valueForProperty:MPMediaItemPropertyArtist];
             queueItem.album = [nextItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+            queueItem.playbackDuration = [nextItem valueForProperty:MPMediaItemPropertyPlaybackDuration];
             queueItem.persistentID = [nextItem valueForProperty:MPMediaItemPropertyPersistentID];
             [sectionToFill addObject:queueItem];
         }
@@ -62,6 +64,7 @@
             queueItem.title = [nextItem valueForProperty:MPMediaItemPropertyTitle];
             queueItem.artist = [nextItem valueForProperty:MPMediaItemPropertyArtist];
             queueItem.album = [nextItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+            queueItem.playbackDuration = [nextItem valueForProperty:MPMediaItemPropertyPlaybackDuration];
             queueItem.persistentID = [nextItem valueForProperty:MPMediaItemPropertyPersistentID];
             [sectionToFill addObject:queueItem];
         }
@@ -78,6 +81,7 @@
             queueItem.title = [nextItem valueForProperty:MPMediaItemPropertyTitle];
             queueItem.artist = [nextItem valueForProperty:MPMediaItemPropertyArtist];
             queueItem.album = [nextItem valueForProperty:MPMediaItemPropertyAlbumTitle];
+            queueItem.playbackDuration = [nextItem valueForProperty:MPMediaItemPropertyPlaybackDuration];
             queueItem.persistentID = [nextItem valueForProperty:MPMediaItemPropertyPersistentID];
             [sectionToFill addObject:queueItem];
         }

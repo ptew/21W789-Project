@@ -71,6 +71,11 @@
     }   
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return  UITableViewCellEditingStyleInsert;
+}
+
 
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
     [[GroupQClient sharedClient].queue addSongs:[GroupQClient sharedClient].pickerSongs];

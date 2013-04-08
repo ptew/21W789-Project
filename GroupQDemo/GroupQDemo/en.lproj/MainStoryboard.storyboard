@@ -624,6 +624,7 @@
                 <relationship kind="outlet" name="eventPassword" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="spotifyConnectedLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="spotifyLoginButton" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="spotifyLoginLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="QueueViewController" superclassName="UITableViewController">

@@ -81,6 +81,8 @@
     if (editingStyle == UITableViewCellEditingStyleInsert) {
         iOSQueueItem *songItem = [[[GroupQClient sharedClient].library.songCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         [[GroupQClient sharedClient].pickerSongs addObject:songItem];
+        
+        [[self.tableView cellForRowAtIndexPath:indexPath] accessoryType:UITableViewCellAccessoryCheckmark];
     }   
 }
 

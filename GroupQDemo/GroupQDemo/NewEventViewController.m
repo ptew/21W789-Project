@@ -82,7 +82,7 @@
     self.connectedLabelCell.accessoryType = UITableViewCellAccessoryCheckmark;
     self.spotifyLoginButton.userInteractionEnabled = false;
     self.spotifyLoginLabel.textColor = [UIColor grayColor];
-    
+    [[GroupQEvent sharedEvent] setSpotify:true];
 }
 - (void)loggedOutOfSpotify{
     [self.spotifyConnectedLabel setText:@"Not Connected"];
@@ -90,6 +90,7 @@
     self.connectedLabelCell.accessoryType = UITableViewCellAccessoryNone;
     self.spotifyLoginButton.userInteractionEnabled = true;
     self.spotifyLoginLabel.textColor = [UIColor blackColor];
+    [[GroupQEvent sharedEvent] setSpotify:false];
 }
 
 - (void)failedToLoginToSpotifyWithError:(NSError*)error{
@@ -97,9 +98,7 @@
 }
 
 #pragma mark - GroupQEvent delegate methods
-- (void) eventCreated {
-    [[GroupQEvent sharedEvent] broadcastEvent];
-}
+- (void) eventCreated {}
 
 - (void) eventNotCreated {
     [self dismissViewControllerAnimated:NO completion:NULL];

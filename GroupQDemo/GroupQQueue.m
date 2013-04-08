@@ -63,6 +63,7 @@
 - (void) playSong: (int) index {
     if(index >= self.queuedSongs.count) {
         self.nowPlaying = nil;
+        [self.delegate queueDidChange];
         return;
     }
     

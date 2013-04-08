@@ -17,6 +17,10 @@
 @interface GroupQClient : NSObject <NSNetServiceBrowserDelegate, GroupQConnectionDelegate> {
     bool isDJ;
     bool isHost;
+    bool isSongPlaying;
+    bool hostHasSpotify;
+    float songVolume;
+    float songProgress;
 }
 - (void) tellServerToAddSongs:(NSArray *)songs;
 - (void) tellServerToMoveSongFrom:(int)index To:(int)newIndex;
@@ -36,7 +40,6 @@
 @property (strong, nonatomic) GroupQQueue *queue;
 @property (strong, nonatomic) GroupQMusicCollection *library;
 @property (strong, nonatomic) NSMutableArray *pickerSongs;
-
 
 // Start or stop a Bonjour search for events on the network
 - (void) startSearchingForEvents;
@@ -61,6 +64,11 @@
 
 - (bool) isHost;
 - (void) setHost:(bool)isHost;
+
+- (bool) isSongPlaying;
+- (bool) hostHasSpotify;
+- (float) songVolume;
+- (float) songProgress;
 
 + (GroupQClient *) sharedClient;
 @end

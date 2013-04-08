@@ -10,11 +10,12 @@
 
 @implementation SpotifyQueueItem
 
-- (SpotifyQueueItem*) initWithTitle:(NSString *)title artist:(NSString *)artist album:(NSString *)album trackURI:(NSURL *)trackURI {
+- (SpotifyQueueItem*) initWithTitle:(NSString *)title artist:(NSString *)artist album:(NSString *)album trackURI:(NSURL *)trackURI length:(double) length{
     self.title = title;
     self.artist = artist;
     self.album = album;
     self.trackURI = trackURI;
+    self.length = length;
     return self;
 }
 
@@ -27,6 +28,7 @@
     self.artist = [decoder decodeObjectForKey:@"artist"];
     self.album =   [decoder decodeObjectForKey:@"album"];
     self.trackURI = [decoder decodeObjectForKey:@"trackURI"];
+    self.length = [decoder decodeDoubleForKey:@"length"];
     return self;
 }
 
@@ -35,5 +37,6 @@
     [encoder encodeObject:self.artist forKey:@"artist"];
     [encoder encodeObject:self.album forKey:@"album"];
     [encoder encodeObject:self.trackURI forKey:@"trackURI"];
+    [encoder encodeDouble:self.length forKey:@"length"];
 }
 @end

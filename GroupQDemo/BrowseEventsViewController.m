@@ -74,8 +74,8 @@
 - (void) joinEvent {
     ActivityViewController *activityCont = [[ActivityViewController alloc] initWithActivityText:[NSString stringWithFormat:@"joining %@", [self getName:self.eventToJoin.name]]];
     [self presentViewController:activityCont animated:NO completion:^{}];
-    [[GroupQClient sharedClient] stopSearching];
-    [[GroupQClient sharedClient] connectToEvent:self.eventToJoin];
+        [[GroupQClient sharedClient] stopSearching];
+        [[GroupQClient sharedClient] connectToEvent:self.eventToJoin];
 }
 
 - (NSString *) getPassword: (NSString*) eventInfo {

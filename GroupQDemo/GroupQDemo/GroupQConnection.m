@@ -35,7 +35,7 @@
 
 // Acquires i/o streams using the other end's Bonjour service
 - (void) connectWithService:(NSNetService *)service {
-    NSLog(@"Connecting to service %@", service.name);
+    NSLog(@"GC Connecting to service %@", service.name);
     // Get the streams
     [service getInputStream:&readStream outputStream:&writeStream];
     
@@ -45,7 +45,7 @@
 
 // Acquires i/o streams using the other end's socket handle
 - (void) connectWithSocketHandle:(CFSocketNativeHandle)handle {
-    NSLog(@"Connecting to a client.");
+    NSLog(@"GC Connecting to a client.");
     connectionSocket = handle;
     // Convert the NSStreams to CFStreams
     CFReadStreamRef readRef;
@@ -63,7 +63,7 @@
 }
 
 - (void) setUpStreams {
-    NSLog(@"Setting up streams.");
+    NSLog(@"GC Setting up streams.");
     // Make sure we got them
     // Set the stream delegates
     readStream.delegate = self;
@@ -88,17 +88,17 @@
     [writeStream open];
     
     if (readStream != nil && writeStream != nil) {
-        NSLog(@"Connected!");
+        NSLog(@"GC Connected!");
         [self.delegate connectionDidConnect:self];
     }
     else {
-        NSLog(@"Could not connect.");
+        NSLog(@"GC Could not connect.");
         [self.delegate connectionDidNotConnect:self];
     }
 }
 
 - (void) disconnectStreams:(BOOL)sendDisconnect {
-    NSLog(@"Disconnecting streams");
+    NSLog(@"GC Disconnecting streams");
     if (sendDisconnect) {
         char delimiter = ((char)2);
         NSString *outString = [NSString stringWithFormat:@"terminate%c", delimiter];
@@ -115,7 +115,7 @@
 
 // Adds text to the outgoing data buffer
 - (void) sendMessage: (NSString*) message withHeader: (NSString*) header {
-    NSLog(@"Sending '%@' with header '%@", message, header);
+    NSLog(@"GC Sending message with header %@", header);
     // Appends the outgoing text after encoding it as ASCII bytes
     char delimiter = ((char)2);
     NSData *messageBytes = [message dataUsingEncoding:NSASCIIStringEncoding];
@@ -129,9 +129,8 @@
 
 // Adds text to the outgoing data buffer
 - (void) sendObject: (id) what withHeader: (NSString*) header {
-    NSLog(@"Sending object with header '%@'", header);
+    NSLog(@"GC Sending object with header %@", header);
     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:what];
-    GroupQMusicCollection *unencoded = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
     // Appends the outgoing text after encoding it as ASCII bytes
     char delimiter = ((char)2);
     NSString *headerString = [NSString stringWithFormat:@"%@%co%c%d%c", header, delimiter, delimiter, encodedObject.length, delimiter];
@@ -160,7 +159,6 @@
         (void)memcpy(buf, readBytes, len);
         // Send the bytes. len will store the amount of bytes that were actually sent.
         NSInteger bytesSent = [writeStream write:(const uint8_t *)buf maxLength:len];
-        NSLog(@"Writing %d bytes to stream", bytesSent);
         if (bytesSent < 0)
             return;
         // Remove the sent bytes from the buffer.
@@ -210,6 +208,7 @@
                 bytesRead++;
             }
             if (bytesRead >= numberOfBytesToRead) {
+                NSLog(@"GC Received Data Packet");
                 NSString *header = [NSString stringWithString:self.currentHeaderBeingRead];
                 if([self.currentTypeBeingRead isEqualToString:@"s"]) {
                     NSString *message = [[NSString alloc] initWithData:self.currentMessageBeingRead encoding:NSASCIIStringEncoding];
@@ -259,7 +258,6 @@
         }
         // Here, we need to close the connection
         case NSStreamEventErrorOccurred: {
-            NSLog(@"Delegate is: %@", self.delegate);
             [self disconnectStreams:TRUE];
             [self.delegate connectionDisconnected:self];
             break;

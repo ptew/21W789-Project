@@ -163,7 +163,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) connectionDidConnect:(GroupQConnection *)connection {
     NSLog(@"Connected to user.");
     [self.userConnections addObject:connection];
-    [self sendItemsAndQueueTo: connection];
+    //[self sendItemsAndQueueTo: connection];
 }
 
 - (void) connectionDidNotConnect:(GroupQConnection *)connection {}

@@ -273,10 +273,7 @@
         [self performSegueWithIdentifier:@"addSongPicker" sender:self];
     }
     else if([choice isEqualToString:@"Add from Spotify"]){
-        ///////////////////////////////////////////////////////
-        ////////Open Spotify Search view///////////////////////
-        ////////For Brad to Implement/////////////////////////
-        //////////////////////////////////////////////////////
+        [self performSegueWithIdentifier:@"spotifySearch" sender:self];
     }
 }
 
@@ -299,8 +296,5 @@
     [self performSegueWithIdentifier:@"leaveEvent" sender:self];
 }
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender {
-    NSLog(@"Currently have %d songs in library", [GroupQClient sharedClient].ipodLibrary.items.count);
-    MPMediaItem *testItem = (MPMediaItem*)[[GroupQClient sharedClient].ipodLibrary.items objectAtIndex:0];
-    NSLog(@"First song is %@ by %@", [testItem valueForProperty:MPMediaItemPropertyTitle], [testItem valueForProperty:MPMediaItemPropertyArtist]);
 }
 @end

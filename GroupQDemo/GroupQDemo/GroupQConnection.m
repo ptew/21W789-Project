@@ -258,13 +258,13 @@
         // Here, we need to close the connection
         case NSStreamEventErrorOccurred: {
             NSLog(@"Delegate is: %@", self.delegate);
-            [self.delegate connectionDisconnected:self];
             [self disconnectStreams:TRUE];
+            [self.delegate connectionDisconnected:self];
             break;
         }
         case NSStreamEventEndEncountered: {
+            [self disconnectStreams:NO];
             [self.delegate connectionDisconnected:self];
-            [self disconnectStreams:TRUE];
             break;
         }
         default: {

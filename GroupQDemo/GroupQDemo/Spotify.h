@@ -11,3 +11,4 @@
 #import "SpotifyQueueItem.h"
 #import "SpotifySearcher.h"
 #import "SpotifySearcherDelegate.h"
+#import "SpotifyConnectionDelegate.h"

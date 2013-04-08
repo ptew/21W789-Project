@@ -42,10 +42,11 @@
 }
 
 -(void)sessionDidLoginSuccessfully:(SPSession *)aSession; {
+    [self.delegate loggedInToSpotifySuccessfully];
 }
 
 -(void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error; {
-	// Invoked by SPSession after a failed login.
+	[self.delegate failedToLoginToSpotifyWithError:error];
 }
 
 -(void)sessionDidLogOut:(SPSession *)aSession {
@@ -58,6 +59,7 @@
 	
 	[self.parent presentViewController:controller
 											   animated:YES completion:NULL];
+    [self.delegate loggedOutOfSpotify];
 }
 
 -(void)session:(SPSession *)aSession didEncounterNetworkError:(NSError *)error; {}

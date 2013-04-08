@@ -678,14 +678,92 @@
         <image name="Speaker.png" width="227" height="224"/>
         <image name="spotify-logo.png" width="892" height="896"/>
     </resources>
+    <classes>
+        <class className="AddAlbumViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddAlbumViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelPressed:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="donePressed:" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="AddArtistViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddArtistViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelPressed:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="donePressed:" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="AddPlaylistViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddPlaylistViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelPressed:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="donePressed:" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="AddSongViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddSongViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelPressed:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="donePressed:" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="BrowseEventsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrowseEventsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NewEventViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewEventViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="createEvent:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="connectedLabelCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="eventName" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="eventPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="spotifyConnectedLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="spotifyLoginButton" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="spotifyLoginLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="NowPlayingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NowPlayingViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="nextButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="playButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="previousButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="artist" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="songProgressBar" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="songTitle" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="QueueViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QueueViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="leaveEvent:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="showMediaPicker:"/>
+            </relationships>
+        </class>
+        <class className="SplashScreenViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplashScreenViewController.h"/>
+        </class>
+        <class className="SpotifySearchViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SpotifySearchViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchText" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="VEM-PN-mcH"/>
-        <segue reference="ox9-Ag-TPa"/>
         <segue reference="CFf-8j-zex"/>
+        <segue reference="VLV-MW-W54"/>
+        <segue reference="VEM-PN-mcH"/>
     </inferredMetricsTieBreakers>
 </document>

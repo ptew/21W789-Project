@@ -17,6 +17,8 @@
 #import "GroupQQueue.h"
 #import "GroupQConnection.h"
 #import "GroupQEventDelegate.h"
+#import "GroupQClient.h"
+
 @interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate, SpotifyPlayerDelegate>
 
 // Creates an event with a given name
@@ -40,6 +42,8 @@
 @property (strong, nonatomic) id<GroupQEventDelegate> delegate;
 
 @property (strong, nonatomic) NSNetService *eventService;   // The Bonjour service to broadcast the
+
+
 // listening socket of the event on
 
 - (void) broadcastMessage: (NSString *) message withHeader: (NSString *) header;

@@ -11,9 +11,11 @@
 #import "GroupQConnectionDelegate.h"
 #import "GroupQClientDelegate.h"
 #import "GroupQQueue.h"
+#import "GroupQEvent.h"
 
 @interface GroupQClient : NSObject <NSNetServiceBrowserDelegate, GroupQConnectionDelegate> {
     bool isDJ;
+    bool isHost;
 }
 - (void) tellServerToAddSongs:(MPMediaItemCollection *)songs;
 - (void) tellServerToMoveSongFrom:(int)index To:(int)newIndex;
@@ -52,12 +54,16 @@
 
 - (void) sendObject: (id) object withHeader:(NSString *)header;
 
+- (void) connectAsHost;
 
 // Get a list of all of the current Bonjour events
 - (NSArray *) getEvents;
 
 - (bool) isDJ;
 - (void) setDJ:(bool)dj;
+
+- (bool) isHost;
+- (void) setHost:(bool)isHost;
 
 + (GroupQClient *) sharedClient;
 @end

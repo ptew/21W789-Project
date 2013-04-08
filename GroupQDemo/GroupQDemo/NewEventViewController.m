@@ -73,9 +73,7 @@
 
 #pragma mark - GroupQEvent delegate methods
 - (void) eventCreated {
-    [self dismissViewControllerAnimated:NO completion:NULL];
     [[GroupQEvent sharedEvent] broadcastEvent];
-    [self performSegueWithIdentifier:@"createEvent" sender:@"self"];
 }
 
 - (void) eventNotCreated {
@@ -89,4 +87,13 @@
 - (void) userUpdate{}
 - (void) eventEnded{}
 
+- (void) eventsUpdated {}
+- (void) didConnectToEvent{
+    [self dismissViewControllerAnimated:NO completion:NULL];
+    [self performSegueWithIdentifier:@"createEvent" sender:@"self"];
+}
+- (void) didNotConnectToEvent{
+    [self eventNotCreated];
+}
+- (void) disconnectedFromEvent{}
 @end

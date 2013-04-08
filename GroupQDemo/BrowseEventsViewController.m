@@ -80,12 +80,10 @@
 
 - (NSString *) getPassword: (NSString*) eventInfo {
     NSArray* components = [eventInfo componentsSeparatedByString:@"\n"];
-    if (components.count > 1) {
+    if (![[components objectAtIndex:1] isEqualToString:@""]) {
         return [components objectAtIndex:1];
     }
-    else {
-        return nil;
-    }
+    return nil;
 }
 
 - (NSString *) getName: (NSString *) eventInfo {
@@ -103,6 +101,7 @@
 
 
 - (void) didConnectToEvent {
+    [[GroupQClient sharedClient] setHost:NO];
     [self dismissViewControllerAnimated:NO completion:NULL];
     [self performSegueWithIdentifier:@"joinEvent" sender:self];
 }
@@ -135,7 +134,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];

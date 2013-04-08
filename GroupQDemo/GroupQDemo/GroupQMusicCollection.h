@@ -12,12 +12,12 @@
 @interface GroupQMusicCollection : NSObject <NSCoding>
 - (GroupQMusicCollection *) initWithSongs:(MPMediaQuery*) songs artists: (MPMediaQuery *) artists albums: (MPMediaQuery *) albums playlists: (MPMediaQuery *) playlists;
 
-@property (strong, nonatomic) NSArray *songSectionNames;
-@property (strong, nonatomic) NSArray *artistSectionNames;
-@property (strong, nonatomic) NSArray *albumSectionNames;
-@property (strong, nonatomic) NSArray *playlistSectionNames;
-@property (strong, nonatomic) NSArray *songCollection;
-@property (strong, nonatomic) NSArray *artistCollection;
-@property (strong, nonatomic) NSArray *albumCollection;
-@property (strong, nonatomic) NSArray *playlistCollection;
+@property (strong, nonatomic) NSMutableArray *songSectionNames;
+@property (strong, nonatomic) NSMutableArray *artistSectionNames;
+@property (strong, nonatomic) NSMutableArray *albumSectionNames;
+@property (strong, nonatomic) NSMutableArray *playlistSectionNames;
+@property (strong, nonatomic) NSMutableArray *songCollection;
+@property (strong, nonatomic) NSMutableArray *artistCollection;
+@property (strong, nonatomic) NSMutableArray *albumCollection;
+@property (strong, nonatomic) NSMutableArray *playlistCollection;
 @end

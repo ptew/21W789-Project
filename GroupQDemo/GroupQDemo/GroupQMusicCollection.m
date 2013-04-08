@@ -12,68 +12,61 @@
 
 - (GroupQMusicCollection *) initWithSongs:(MPMediaQuery*) songs artists: (MPMediaQuery *) artists albums: (MPMediaQuery *) albums playlists: (MPMediaQuery *) playlists; {
     self = [super init];
-    
-    NSMutableArray *arrayToFill = [[NSMutableArray alloc] init];
-    NSMutableArray *sectionNames = [[NSMutableArray alloc] init];
+    self.songCollection = [[NSMutableArray alloc] init];
+    self.songSectionNames = [[NSMutableArray alloc] init];
+    self.artistCollection = [[NSMutableArray alloc] init];
+    self.artistSectionNames = [[NSMutableArray alloc] init];
+    self.albumCollection = [[NSMutableArray alloc] init];
+    self.albumSectionNames = [[NSMutableArray alloc] init];
+    self.playlistCollection = [[NSMutableArray alloc] init];
+    self.playlistSectionNames = [[NSMutableArray alloc] init];
+
     NSArray *sections = [songs itemSections];
     for (MPMediaQuerySection *section in sections) {
         NSMutableArray *sectionToFill = [[NSMutableArray alloc] init];
         for(int i=0; i<section.range.length; i++) {
             [sectionToFill addObject:[songs.items objectAtIndex:i+section.range.location]];
         }
-        [sectionNames addObject:section.title];
-        [arrayToFill addObject:sectionToFill];
+        [self.songSectionNames addObject:section.title];
+        [self.songCollection addObject:sectionToFill];
     }
-    self.songSectionNames = [NSArray arrayWithArray:sectionNames];
-    self.songCollection = [NSArray arrayWithArray:arrayToFill];
     
-    arrayToFill = [[NSMutableArray alloc] init];
-    sectionNames = [[NSMutableArray alloc] init];
     sections = [artists itemSections];
     for (MPMediaQuerySection *section in sections) {
         NSMutableArray *sectionToFill = [[NSMutableArray alloc] init];
         for(int i=0; i<section.range.length; i++) {
             [sectionToFill addObject:[artists.items objectAtIndex:i+section.range.location]];
         }
-        [sectionNames addObject:section.title];
-        [arrayToFill addObject:sectionToFill];
+        [self.artistSectionNames addObject:section.title];
+        [self.artistCollection addObject:sectionToFill];
     }
-    self.artistSectionNames = [NSArray arrayWithArray:sectionNames];
-    self.artistCollection = [NSArray arrayWithArray:arrayToFill];
     
-    
-    arrayToFill = [[NSMutableArray alloc] init];
-    sectionNames = [[NSMutableArray alloc] init];
     sections = [playlists itemSections];
     for (MPMediaQuerySection *section in sections) {
         NSMutableArray *sectionToFill = [[NSMutableArray alloc] init];
         for(int i=0; i<section.range.length; i++) {
             [sectionToFill addObject:[playlists.items objectAtIndex:i+section.range.location]];
         }
-        [sectionNames addObject:section.title];
-        [arrayToFill addObject:sectionToFill];
+        [self.playlistSectionNames addObject:section.title];
+        [self.playlistCollection addObject:sectionToFill];
     }
-    self.playlistSectionNames = [NSArray arrayWithArray:sectionNames];
-    self.playlistCollection = [NSArray arrayWithArray:arrayToFill];
     
-    arrayToFill = [[NSMutableArray alloc] init];
-    sectionNames = [[NSMutableArray alloc] init];
     sections = [albums itemSections];
     for (MPMediaQuerySection *section in sections) {
         NSMutableArray *sectionToFill = [[NSMutableArray alloc] init];
         for(int i=0; i<section.range.length; i++) {
             [sectionToFill addObject:[albums.items objectAtIndex:i+section.range.location]];
         }
-        [sectionNames addObject:section.title];
-        [arrayToFill addObject:sectionToFill];
+        [self.albumSectionNames addObject:section.title];
+        [self.albumCollection addObject:sectionToFill];
     }
-    self.albumSectionNames = [NSArray arrayWithArray:sectionNames];
-    self.albumCollection = [NSArray arrayWithArray:arrayToFill];
     return self;
 }
 
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
+    NSLog(@"Song collection has %d items.", self.songCollection.count);
+    NSLog(@"First section is %@", [self.songCollection objectAtIndex:0]);
     [aCoder encodeObject:self.songCollection forKey:@"songs"];
     [aCoder encodeObject:self.artistCollection forKey:@"artists"];
     [aCoder encodeObject:self.albumCollection forKey:@"albums"];
@@ -86,6 +79,7 @@
 
 - (id) initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
+    NSLog(@"Starting decoding");
     self.songCollection = [aDecoder decodeObjectForKey:@"songs"];
     self.artistCollection = [aDecoder decodeObjectForKey:@"artists"];
     self.albumCollection = [aDecoder decodeObjectForKey:@"albums"];
@@ -94,6 +88,7 @@
     self.artistSectionNames = [aDecoder decodeObjectForKey:@"nameartists"];
     self.albumSectionNames = [aDecoder decodeObjectForKey:@"namealbums"];
     self.playlistSectionNames = [aDecoder decodeObjectForKey:@"nameplaylists"];
+    NSLog(@"Finished decoding");
     return self;
 }
 @end

@@ -38,8 +38,13 @@
 #pragma mark SpotifySearher methods
 
 - (void) searchReturnedResults:(NSArray *)results {
-    self.searchResults = [[NSArray alloc] initWithArray:results.copy];
-    [self.tableView reloadData];
+    if(results.count > 0){
+        self.searchResults = [[NSArray alloc] initWithArray:results.copy];
+        [self.tableView reloadData];
+    }
+    else{
+        self.searchResults = nil;
+    }
 }
 
 - (void) searchResultedInError {
@@ -86,14 +91,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    SpotifyQueueItem *song = [self.searchResults objectAtIndex:indexPath.row];
-    NSString * title   = song.title;
-    NSString * album   = song.album;
-    NSString * artist  = song.artist;
-    
-    cell.textLabel.text = title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",artist, album];
-    
+    if(self.searchResults == nil){
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"Search Returned No Results";
+            cell.textLabel.textColor = [UIColor grayColor];
+        }
+    }
+    else {
+        SpotifyQueueItem *song = [self.searchResults objectAtIndex:indexPath.row];
+        NSString * title   = song.title;
+        NSString * album   = song.album;
+        NSString * artist  = song.artist;
+        cell.textLabel.text = title;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",artist, album];
+    }
     [tableView deselectRowAtIndexPath: indexPath animated: YES];
     
     return cell;

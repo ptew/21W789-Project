@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C05C6471713586A00C285D2 /* NowPlayingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C05C6461713586A00C285D2 /* NowPlayingViewController.m */; };
 		4C7B8FA717127E9300FFCC14 /* SpotifySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B8FA517127E9300FFCC14 /* SpotifySearchViewController.m */; };
 		4C9D8DB61710B432001145B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB51710B432001145B8 /* UIKit.framework */; };
 		4C9D8DB81710B432001145B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB71710B432001145B8 /* Foundation.framework */; };
@@ -87,6 +88,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C05C6451713586A00C285D2 /* NowPlayingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NowPlayingViewController.h; path = ../NowPlayingViewController.h; sourceTree = "<group>"; };
+		4C05C6461713586A00C285D2 /* NowPlayingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NowPlayingViewController.m; path = ../NowPlayingViewController.m; sourceTree = "<group>"; };
 		4C1B917B17134BEB00102D9E /* GroupQQueueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GroupQQueueDelegate.h; path = ../GroupQQueueDelegate.h; sourceTree = "<group>"; };
 		4C4694B817133C7F00B0CE6B /* SpotifyConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotifyConnectionDelegate.h; sourceTree = "<group>"; };
 		4C7B8FA417127E9300FFCC14 /* SpotifySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifySearchViewController.h; sourceTree = "<group>"; };
@@ -299,6 +302,8 @@
 				DECFD893171249E10077003E /* AddAlbumViewController.m */,
 				B899DD881713366800334312 /* iOSQueueItem.h */,
 				B899DD891713366800334312 /* iOSQueueItem.m */,
+				4C05C6451713586A00C285D2 /* NowPlayingViewController.h */,
+				4C05C6461713586A00C285D2 /* NowPlayingViewController.m */,
 				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
 			);
 			path = GroupQDemo;
@@ -580,6 +585,7 @@
 				4C7B8FA717127E9300FFCC14 /* SpotifySearchViewController.m in Sources */,
 				B8824DF517129EE9002C8C30 /* GroupQMusicCollection.m in Sources */,
 				B899DD8A1713366800334312 /* iOSQueueItem.m in Sources */,
+				4C05C6471713586A00C285D2 /* NowPlayingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

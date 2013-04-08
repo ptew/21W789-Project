@@ -11,6 +11,6 @@
 #import "ActivityViewController.h"
 #import "Spotify.h"
 
-@interface NewEventViewController : UITableViewController <UITextFieldDelegate, GroupQEventDelegate>
+@interface NewEventViewController : UITableViewController <UITextFieldDelegate, GroupQEventDelegate, GroupQClientDelegate>
 
 @end

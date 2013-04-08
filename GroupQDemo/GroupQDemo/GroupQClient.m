@@ -31,6 +31,7 @@
     
     self.queue = [[GroupQQueue alloc] init];
     
+    [self setHost:false];
     return self;
 }
 
@@ -101,6 +102,7 @@
 }
 
 - (void) connection:(GroupQConnection *)connection receivedMessage:(NSString *)message withHeader:(NSString *)header {
+    NSLog(@"Received message: %@ with header: %@", message, header);
     if([header isEqualToString:@"deleteSong"]){
         [self.queue deleteSong:[message integerValue]];
     }
@@ -112,7 +114,7 @@
         [self.queue playSong:[message integerValue]];
     }
     else{
-        NSLog(@"Unrecognized header parsed in recievedMessages.");
+        NSLog(@"Unrecognized header: %@ parsed in recievedMessages.", header);
     }
 
 }
@@ -134,7 +136,7 @@
         [self.queue addSpotifySong:[NSKeyedUnarchiver unarchiveObjectWithData:message]];
     }
     else{
-        NSLog(@"Unrecognized header parsed in recievedObjects.");
+        NSLog(@"Unrecognized header: %@ parsed in recievedObjects.", header);
     }       
 }
 //end GroupQConnection methods
@@ -181,4 +183,16 @@
     [self.connectionToServer sendObject:song withHeader:@"addSpotifySong"];
 }
 
+- (bool) isHost {
+    return isHost;
+}
+
+- (void) setHost:(bool)isTheHost {
+    isHost = isTheHost;
+}
+
+- (void) connectAsHost {
+    [self setHost:true];
+    
+}
 @end

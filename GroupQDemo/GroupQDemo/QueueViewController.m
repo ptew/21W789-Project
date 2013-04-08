@@ -23,6 +23,7 @@
 @interface QueueViewController ()
 
 //@property (nonatomic, strong)	MPMediaItemCollection	*userMediaItemCollection;
+- (IBAction)leaveEvent:(UIBarButtonItem *)sender;
 @property (nonatomic, weak) UIActionSheet *songActionSheet;
 @property (nonatomic, weak) UIActionSheet *mediaActionSheet;
 @property (nonatomic, strong) NSIndexPath *currentlySelectedSong;
@@ -37,8 +38,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[GroupQClient sharedClient] setDelegate:self];
      self.clearsSelectionOnViewWillAppear = NO;
-    
     [self setEditing:TRUE animated:TRUE];
 
 }
@@ -305,5 +306,10 @@
 - (void) didNotConnectToEvent{}
 - (void) disconnectedFromEvent{
     [self performSegueWithIdentifier:@"leaveEvent" sender:self];
+}
+- (IBAction)leaveEvent:(UIBarButtonItem *)sender {
+    NSLog(@"Currently have %d songs in library", [GroupQClient sharedClient].ipodLibrary.items.count);
+    MPMediaItem *testItem = (MPMediaItem*)[[GroupQClient sharedClient].ipodLibrary.items objectAtIndex:0];
+    NSLog(@"First song is %@ by %@", [testItem valueForProperty:MPMediaItemPropertyTitle], [testItem valueForProperty:MPMediaItemPropertyArtist]);
 }
 @end

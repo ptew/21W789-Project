@@ -43,6 +43,8 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 @implementation GroupQEvent
 
 - (void) createEventWithName: (NSString*) name andPassword: (NSString*) password {
+    NSLog(@"Creating event.");
+    
     // Store the event name and set up the user list
     self.eventName = name;
     self.eventPassword = password;
@@ -88,6 +90,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 // Broadcasts the listening socket on Bonjour
 - (void) broadcastEvent {
+    NSLog(@"Broadcasting event");
     // Create a new Bonjour service
  	self.eventService = [[NSNetService alloc] initWithDomain:@"" type:@"_groupq._tcp." name:[NSString stringWithFormat:@"%@\n%@", self.eventName, self.eventPassword] port:port];
     
@@ -104,6 +107,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 // Ends the event
 - (void) endEvent {
+    NSLog(@"Ending event.");
     // Stop broadcasting on Bonjour
     [self.eventService stop];
     [self.eventService removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
@@ -123,6 +127,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 // The socket callback function will be called whenever a new socket connects to the listening socket
 void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef address, const void *data, void *info) {
+    NSLog(@"Found new socket.");
     // Get the event of the listening socket. This is a class method, so we otherwise have no reference to it.
     GroupQEvent *server = (__bridge GroupQEvent*)info;
     
@@ -141,12 +146,14 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 }
 
 - (void) broadcastMessage:(NSString *)message withHeader:(NSString *)header {
+    NSLog(@"Broadcasting message to %d clients.", self.userConnections.count);
     for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
         [connection sendMessage:message withHeader:header];
     }
 }
 
 - (void) broadcastObject:(id)object withHeader:(NSString *)header {
+    NSLog(@"Broadcasting object to %d clients.", self.userConnections.count);
     for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
         [connection sendObject:object withHeader:header];
     }
@@ -154,6 +161,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 #pragma mark Connection Delegate Methods
 - (void) connectionDidConnect:(GroupQConnection *)connection {
+    NSLog(@"Connected to user.");
     [self.userConnections addObject:connection];
     [self sendItemsAndQueueTo: connection];
 }

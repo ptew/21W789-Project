@@ -270,9 +270,7 @@
     }
     else if([choice isEqualToString:@"Add Song"]){
         [[GroupQClient sharedClient] tellServerToAddSongs:[MPMediaItemCollection collectionWithItems:[[MPMediaQuery songsQuery].items objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 10)]]]];
-        ///////////////////////////////////////////////////////
-        ////////FOR PARKER TO IMPLEMENT///////////////////////
-        //////////////////////////////////////////////////////
+        [self performSegueWithIdentifier:@"addSongPicker" sender:self];
     }
     else if([choice isEqualToString:@"Add Playlist"]){
         ///////////////////////////////////////////////////////

@@ -45,6 +45,7 @@
     else{
         self.searchResults = nil;
     }
+    [self.tableView reloadData];
 }
 
 - (void) searchResultedInError {

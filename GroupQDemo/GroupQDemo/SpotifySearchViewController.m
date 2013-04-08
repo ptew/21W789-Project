@@ -10,8 +10,8 @@
 
 @interface SpotifySearchViewController ()
 @property (strong, nonatomic) NSIndexPath *currentlySelectedSong;
-@property (weak, nonatomic) UIActionSheet *songActionSheet;
-@property (weak, nonatomic) UIActionSheet *errorActionSheet;
+@property (strong, nonatomic) UIActionSheet *songActionSheet;
+@property (strong, nonatomic) UIActionSheet *errorActionSheet;
 @end
 
 @implementation SpotifySearchViewController

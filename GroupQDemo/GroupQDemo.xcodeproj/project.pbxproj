@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C7B8FA617127E9300FFCC14 /* SpotifySearchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C7B8FA317127E9300FFCC14 /* SpotifySearchStoryboard.storyboard */; };
 		4C7B8FA717127E9300FFCC14 /* SpotifySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B8FA517127E9300FFCC14 /* SpotifySearchViewController.m */; };
 		4C9D8DB61710B432001145B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB51710B432001145B8 /* UIKit.framework */; };
 		4C9D8DB81710B432001145B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DB71710B432001145B8 /* Foundation.framework */; };
@@ -62,7 +61,6 @@
 		DEBCDD401712765400C5EE4E /* Playlists@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD341712765400C5EE4E /* Playlists@2x.png */; };
 		DEBCDD411712765400C5EE4E /* Songs.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD351712765400C5EE4E /* Songs.png */; };
 		DEBCDD421712765400C5EE4E /* Songs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD361712765400C5EE4E /* Songs@2x.png */; };
-		DECFD88517123ADF0077003E /* AddContentStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DECFD88417123ADF0077003E /* AddContentStoryboard.storyboard */; };
 		DECFD88B1712498B0077003E /* AddPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFD88A1712498B0077003E /* AddPlaylistViewController.m */; };
 		DECFD88E171249A80077003E /* AddSongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFD88D171249A80077003E /* AddSongViewController.m */; };
 		DECFD891171249C60077003E /* AddArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFD890171249C60077003E /* AddArtistViewController.m */; };
@@ -87,7 +85,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4C7B8FA317127E9300FFCC14 /* SpotifySearchStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SpotifySearchStoryboard.storyboard; sourceTree = "<group>"; };
 		4C7B8FA417127E9300FFCC14 /* SpotifySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifySearchViewController.h; sourceTree = "<group>"; };
 		4C7B8FA517127E9300FFCC14 /* SpotifySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifySearchViewController.m; sourceTree = "<group>"; };
 		4C8D19E91710B8C9006A3BA9 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -174,7 +171,6 @@
 		DEBCDD341712765400C5EE4E /* Playlists@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Playlists@2x.png"; sourceTree = "<group>"; };
 		DEBCDD351712765400C5EE4E /* Songs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Songs.png; sourceTree = "<group>"; };
 		DEBCDD361712765400C5EE4E /* Songs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Songs@2x.png"; sourceTree = "<group>"; };
-		DECFD88417123ADF0077003E /* AddContentStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddContentStoryboard.storyboard; sourceTree = "<group>"; };
 		DECFD8891712498B0077003E /* AddPlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPlaylistViewController.h; sourceTree = "<group>"; };
 		DECFD88A1712498B0077003E /* AddPlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPlaylistViewController.m; sourceTree = "<group>"; };
 		DECFD88C171249A80077003E /* AddSongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSongViewController.h; sourceTree = "<group>"; };
@@ -276,7 +272,6 @@
 				B8A999F11710CB7D004E037D /* BrowseEventsViewController.h */,
 				B8A999F21710CB7D004E037D /* BrowseEventsViewController.m */,
 				B8A999E71710C9B8004E037D /* SplashScreenViewController.h */,
-				4C7B8FA317127E9300FFCC14 /* SpotifySearchStoryboard.storyboard */,
 				B8A999E81710C9B8004E037D /* SplashScreenViewController.m */,
 				B86510DB1710EC0900495318 /* NewEventViewController.h */,
 				B86510DC1710EC0900495318 /* NewEventViewController.m */,
@@ -284,8 +279,6 @@
 				B82E6C2C1711E23600767DF8 /* QueueViewController.m */,
 				4C7B8FA417127E9300FFCC14 /* SpotifySearchViewController.h */,
 				4C7B8FA517127E9300FFCC14 /* SpotifySearchViewController.m */,
-				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
-				DECFD88417123ADF0077003E /* AddContentStoryboard.storyboard */,
 				DECFD8891712498B0077003E /* AddPlaylistViewController.h */,
 				DECFD88A1712498B0077003E /* AddPlaylistViewController.m */,
 				DECFD88C171249A80077003E /* AddSongViewController.h */,
@@ -294,6 +287,7 @@
 				DECFD890171249C60077003E /* AddArtistViewController.m */,
 				DECFD892171249E10077003E /* AddAlbumViewController.h */,
 				DECFD893171249E10077003E /* AddAlbumViewController.m */,
+				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
 			);
 			path = GroupQDemo;
 			sourceTree = "<group>";
@@ -528,7 +522,6 @@
 				B8A999F71710D027004E037D /* NoLock.png in Resources */,
 				B86510D01710D2E800495318 /* ActivityView.xib in Resources */,
 				B846E3211710ED3800B8E2AD /* spotify-logo.png in Resources */,
-				DECFD88517123ADF0077003E /* AddContentStoryboard.storyboard in Resources */,
 				DEBCDD371712765400C5EE4E /* AlbumArtPlaceholder.png in Resources */,
 				DEBCDD381712765400C5EE4E /* AlbumArtPlaceholder@2x.png in Resources */,
 				DEBCDD391712765400C5EE4E /* AlbumArtPlaceholderLarge.png in Resources */,
@@ -541,7 +534,6 @@
 				DEBCDD401712765400C5EE4E /* Playlists@2x.png in Resources */,
 				DEBCDD411712765400C5EE4E /* Songs.png in Resources */,
 				DEBCDD421712765400C5EE4E /* Songs@2x.png in Resources */,
-				4C7B8FA617127E9300FFCC14 /* SpotifySearchStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

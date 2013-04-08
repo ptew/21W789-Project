@@ -268,15 +268,9 @@
     else if([choice isEqualToString:@"Play Next"]){
         [[GroupQClient sharedClient] tellServerToMoveSongFrom:self.currentlySelectedSong.row To:0];
     }
-    else if([choice isEqualToString:@"Add Song"]){
+    else if([choice isEqualToString:@"Add Content"]){
         [[GroupQClient sharedClient] tellServerToAddSongs:[MPMediaItemCollection collectionWithItems:[[MPMediaQuery songsQuery].items objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 10)]]]];
         [self performSegueWithIdentifier:@"addSongPicker" sender:self];
-    }
-    else if([choice isEqualToString:@"Add Playlist"]){
-        ///////////////////////////////////////////////////////
-        ////////FOR PARKER TO IMPLEMENT///////////////////////
-        //////////////////////////////////////////////////////
-        
     }
     else if([choice isEqualToString:@"Add from Spotify"]){
         [self performSegueWithIdentifier:@"spotifySearch" sender:self];
@@ -287,7 +281,7 @@
     if (self.mediaActionSheet) {
         // do nothing
     } else {
-        UIActionSheet *mediaActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Content" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Song",@"Add Playlist", @"Add from Spotify", nil];
+        UIActionSheet *mediaActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Content" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Content", @"Add from Spotify", nil];
         [mediaActionSheet showFromBarButtonItem:sender animated:YES];
     }
     

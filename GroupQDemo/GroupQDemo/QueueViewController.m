@@ -27,7 +27,6 @@
 @property (nonatomic, weak) UIActionSheet *songActionSheet;
 @property (nonatomic, weak) UIActionSheet *mediaActionSheet;
 @property (nonatomic, strong) NSIndexPath *currentlySelectedSong;
-@property (nonatomic, strong) GroupQQueue *songQueue;
 
 - (IBAction)showMediaPicker:(id)sender;
 
@@ -39,23 +38,19 @@
 {
     [super viewDidLoad];
     [[GroupQClient sharedClient] setDelegate:self];
+    [[GroupQClient sharedClient].queue setDelegate:self];
      self.clearsSelectionOnViewWillAppear = NO;
     [self setEditing:TRUE animated:TRUE];
-    
-    //add observer to watch queue changes.
-    [self.songQueue.queuedSongs addObserver:self forKeyPath:@"queue" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [self.tableView reloadData];
 }
 
-#pragma mark observers for the songQueue
+#pragma mark groupQ Queue delegate methods
 
-- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if([keyPath isEqualToString:@"queue"]){
-        [self.tableView reloadData];
-    }
+- (void) queueDidChange{
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source

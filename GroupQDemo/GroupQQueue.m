@@ -47,16 +47,19 @@
         [self.queuedSongs insertObject:songToMove atIndex:destination];
         [self.queuedSongs removeObjectAtIndex:position];
     }
+    [self.delegate queueDidChange];
 }
 - (void) addSongs: (NSArray*) songs; {
     [self.queuedSongs addObjectsFromArray:songs];
+    [self.delegate queueDidChange];
 }
 - (void) deleteSong: (int) index {
     if(index >= self.queuedSongs.count)
         return;
     
     [self.queuedSongs removeObjectAtIndex:index];
-};
+    [self.delegate queueDidChange];
+}
 - (void) playSong: (int) index {
     if(index >= self.queuedSongs.count) {
         self.nowPlaying = nil;
@@ -65,9 +68,11 @@
     
     self.nowPlaying = [self.queuedSongs objectAtIndex:index];
     [self deleteSong:index];
+    //doesn't call queue did change because that is called in delete song.
 }
 - (void) addSpotifySong: (SpotifyQueueItem *) song {
     [self.queuedSongs addObject:song];
+    [self.delegate queueDidChange];
 }
 
 @end

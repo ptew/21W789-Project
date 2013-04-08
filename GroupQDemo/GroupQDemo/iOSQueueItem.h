@@ -12,5 +12,6 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *album;
 @property (strong, nonatomic) NSString *artist;
+@property (strong, nonatomic) NSNumber *playbackDuration;
 @property (strong, nonatomic) NSNumber *persistentID;
 @end

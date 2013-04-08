@@ -31,6 +31,10 @@
     
     self.queue = [[GroupQQueue alloc] init];
     
+    isSongPlaying = false;
+    songVolume = 0;
+    songProgress = 0;
+    
     self.pickerSongs = [[NSMutableArray alloc] init];
     [self setHost:false];
     return self;
@@ -113,6 +117,12 @@
     else if([header isEqualToString:@"playSong"]){
         [self.queue playSong:[message integerValue]];
     }
+    else if([header isEqualToString:@"pauseSong"]) {
+        isSongPlaying = false;
+    }
+    else if([header isEqualToString:@"resumeSong"]) {
+        isSongPlaying = true;
+    }
     else{
         NSLog(@"Unrecognized header: %@ parsed in recievedMessages.", header);
     }
@@ -133,6 +143,14 @@
     }
     else if([header isEqualToString:@"addSpotifySong"]){
         [self.queue addSpotifySong:[NSKeyedUnarchiver unarchiveObjectWithData:message]];
+    }
+    else if([header isEqualToString:@"setVolume"]) {
+        NSNumber *volume = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        songVolume = [volume floatValue];
+    }
+    else if([header isEqualToString:@"currentPlaybackTime"]) {
+        NSNumber *time = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        songProgress = [time floatValue];
     }
     else{
         NSLog(@"Unrecognized header: %@ parsed in recievedObjects.", header);
@@ -180,6 +198,19 @@
 }
 - (void) tellServerToaddSpotifySong:(SpotifyQueueItem *)song{
     [self.connectionToServer sendObject:song withHeader:@"addSpotifySong"];
+}
+
+- (void) tellServerToResumeSong{
+    [self.connectionToServer sendMessage:@"" withHeader:@"resumeSong"];
+}
+- (void) tellServerToPauseSong{
+    [self.connectionToServer sendMessage:@"" withHeader:@"pauseSong"];
+}
+- (void) tellServerToSetVolume: (NSNumber *) level {
+    [self.connectionToServer sendObject:level withHeader:@"setVolume"];
+}
+- (void) tellServerToSendPlaybackDetail {
+    [self.connectionToServer sendMessage:@"" withHeader:@"requestPlaybackDetail"];
 }
 
 - (bool) isHost {

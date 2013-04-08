@@ -21,6 +21,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 @property (strong, nonatomic) MPMusicPlayerController *musicPlayer;
 @property (strong, nonatomic) GroupQQueue *songQueue;
 @property (strong, nonatomic) GroupQMusicCollection *library;
+@property (strong, nonatomic) MPMediaItem *nowPlayingHandle;
 
 // Private function to handle new connections
 - (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle;
@@ -245,23 +246,24 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
     [notificationCenter addObserver: self
-                           selector: @selector (handle_PlaybackStateChanged:)
-                               name: MPMusicPlayerControllerPlaybackStateDidChangeNotification
+                           selector: @selector (handle_ItemChanged:)
+                               name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification
                              object: self.musicPlayer];
     
     [self.musicPlayer beginGeneratingPlaybackNotifications];
     
     self.library = [[GroupQMusicCollection alloc] initWithSongs:[MPMediaQuery songsQuery] artists:[MPMediaQuery artistsQuery] albums:[MPMediaQuery albumsQuery] playlists:[MPMediaQuery playlistsQuery]];
+    
+    [[SpotifyPlayer sharedPlayer] setPlayerDelegate:self];
     NSLog(@"GQ Music player set up.");
 }
 
-- (void) handle_PlaybackStateChanged: (id) notification {
+- (void) handle_ItemChanged: (id) notification {
     NSLog(@"GQ Playback state changed.");
-    MPMusicPlaybackState playbackState = [self.musicPlayer playbackState];
-    if (playbackState == MPMusicPlaybackStateStopped) {
-        NSLog(@"GQ Playback stopped.");
+    NSLog(@"GQ Playback stopped.");
+    if ([self.musicPlayer nowPlayingItem] != self.nowPlayingHandle) {
         [self songDidStopPlaying];
-	}
+    }
 }
 
 - (void) songDidStopPlaying {
@@ -288,6 +290,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         {
             //song exists
             song = [songQuery.items objectAtIndex:0];
+            self.nowPlayingHandle = song;
+            NSArray *temp = [NSArray arrayWithObject:song];
+            [self.musicPlayer setRepeatMode:MPMusicRepeatModeNone];
+            [self.musicPlayer setQueueWithItemCollection:[MPMediaItemCollection collectionWithItems:temp]];
             [self.musicPlayer setNowPlayingItem: song];
             [self.musicPlayer play];
         }

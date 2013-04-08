@@ -159,7 +159,6 @@
         (void)memcpy(buf, readBytes, len);
         // Send the bytes. len will store the amount of bytes that were actually sent.
         NSInteger bytesSent = [writeStream write:(const uint8_t *)buf maxLength:len];
-        NSLog(@"GC Wrote %d bytes to stream", bytesSent);
         if (bytesSent < 0)
             return;
         // Remove the sent bytes from the buffer.

@@ -87,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C1B917B17134BEB00102D9E /* GroupQQueueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GroupQQueueDelegate.h; path = ../GroupQQueueDelegate.h; sourceTree = "<group>"; };
 		4C4694B817133C7F00B0CE6B /* SpotifyConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotifyConnectionDelegate.h; sourceTree = "<group>"; };
 		4C7B8FA417127E9300FFCC14 /* SpotifySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifySearchViewController.h; sourceTree = "<group>"; };
 		4C7B8FA517127E9300FFCC14 /* SpotifySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifySearchViewController.m; sourceTree = "<group>"; };
@@ -342,6 +343,7 @@
 		4C9D8E061710B5CB001145B8 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				4C1B917B17134BEB00102D9E /* GroupQQueueDelegate.h */,
 				4C9D8E041710B588001145B8 /* GroupQClientDelegate.h */,
 				4C9D8DFD1710B57F001145B8 /* GroupQConnectionDelegate.h */,
 				4C9D8E001710B57F001145B8 /* GroupQEventDelegate.h */,

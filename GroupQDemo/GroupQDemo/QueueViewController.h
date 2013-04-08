@@ -10,5 +10,5 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "GroupQNetworking.h"
 
-@interface QueueViewController : UITableViewController<UIActionSheetDelegate, GroupQClientDelegate>
+@interface QueueViewController : UITableViewController<UIActionSheetDelegate, GroupQClientDelegate, GroupQQueueDelegate>
 @end

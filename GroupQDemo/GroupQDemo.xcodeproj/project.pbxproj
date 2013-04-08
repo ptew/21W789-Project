@@ -87,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C4694B817133C7F00B0CE6B /* SpotifyConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotifyConnectionDelegate.h; sourceTree = "<group>"; };
 		4C7B8FA417127E9300FFCC14 /* SpotifySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotifySearchViewController.h; sourceTree = "<group>"; };
 		4C7B8FA517127E9300FFCC14 /* SpotifySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotifySearchViewController.m; sourceTree = "<group>"; };
 		4C8D19E91710B8C9006A3BA9 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -280,6 +281,7 @@
 				B8A999E81710C9B8004E037D /* SplashScreenViewController.m */,
 				B86510DB1710EC0900495318 /* NewEventViewController.h */,
 				B86510DC1710EC0900495318 /* NewEventViewController.m */,
+				4C4694B817133C7F00B0CE6B /* SpotifyConnectionDelegate.h */,
 				B82E6C2B1711E23600767DF8 /* QueueViewController.h */,
 				B82E6C2C1711E23600767DF8 /* QueueViewController.m */,
 				4C7B8FA417127E9300FFCC14 /* SpotifySearchViewController.h */,

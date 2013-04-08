@@ -11,6 +11,8 @@
 @interface NewEventViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *eventName;
 @property (weak, nonatomic) IBOutlet UITextField *eventPassword;
+@property (strong, nonatomic) SpotifyConnection *loginConnection;
+@property (strong, nonatomic) SPLoginViewController *spLoginController;
 - (IBAction)createEvent:(UIBarButtonItem *)sender;
 
 @end
@@ -43,15 +45,16 @@
         //********************
         // LOG IN TO SPOTIFY
         //********************
-        SpotifyConnection *connection = [[SpotifyConnection alloc] initWithParent:self];
-        [connection connect];
-        SPLoginViewController *loginController = [connection getLoginScreen];
-        [self presentViewController:loginController animated:NO completion:NULL];
-        //need to fire some event to show that spotify has logged in.
-        //use the loginviewcontrollerdelegate to do this future brad. I hope last night was fun.
-        //If she was ugly just own up to it in chapter, no shame.
-        
+        self.loginConnection = [[SpotifyConnection alloc] initWithParent:self];
+        [self.loginConnection setDelegate:self];
+        [self.loginConnection connect];
+        [self performSelector:@selector(showSpotifyLogin) withObject:nil afterDelay:0.0];
     }
+}
+
+- (void) showSpotifyLogin {
+    self.spLoginController = [self.loginConnection getLoginScreen];
+    [self presentViewController:self.spLoginController animated:NO completion:NULL];
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
@@ -69,6 +72,28 @@
     [self presentViewController:creatingActivity animated:NO completion:NULL];
     [[GroupQEvent sharedEvent] setDelegate: self];
     [[GroupQEvent sharedEvent] createEventWithName:self.eventName.text andPassword:self.eventPassword.text];
+}
+
+#pragma mark - Spotify Connection delegate methods
+
+- (void)loggedInToSpotifySuccessfully{
+    [self.spotifyConnectedLabel setText:@"Connected"];
+    self.spotifyConnectedLabel.textColor = [UIColor blackColor];
+    self.connectedLabelCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    self.spotifyLoginButton.userInteractionEnabled = false;
+    self.spotifyLoginLabel.textColor = [UIColor grayColor];
+    
+}
+- (void)loggedOutOfSpotify{
+    [self.spotifyConnectedLabel setText:@"Not Connected"];
+    self.spotifyConnectedLabel.textColor = [UIColor grayColor];
+    self.connectedLabelCell.accessoryType = UITableViewCellAccessoryNone;
+    self.spotifyLoginButton.userInteractionEnabled = true;
+    self.spotifyLoginLabel.textColor = [UIColor blackColor];
+}
+
+- (void)failedToLoginToSpotifyWithError:(NSError*)error{
+    NSLog(@"A spotify login error occored");
 }
 
 #pragma mark - GroupQEvent delegate methods

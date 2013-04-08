@@ -119,7 +119,7 @@
 
 }
 
-- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {    
+- (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
     if([header isEqualToString:@"ipodItems"]){
         self.ipodLibrary = [NSKeyedUnarchiver unarchiveObjectWithData:message];
     }

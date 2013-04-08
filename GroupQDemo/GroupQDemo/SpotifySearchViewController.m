@@ -38,11 +38,13 @@
 #pragma mark SpotifySearher methods
 
 - (void) searchReturnedResults:(NSArray *)results {
+    NSLog(@"Got %d results.", results.count);
     self.searchResults = results.copy;
     [self.tableView reloadData];
 }
 
 - (void) searchResultedInError {
+    NSLog(@"Search error");
     self.errorActionSheet = [[UIActionSheet alloc] initWithTitle:@"An Error Occored" delegate:self cancelButtonTitle:@"Try Again" destructiveButtonTitle:nil otherButtonTitles:nil, nil, nil];
 }
 

@@ -94,7 +94,8 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
     if([elementName isEqualToString:@"track"]){
         [self.parsedData addObject:self.currentItem];
-    } else if ([elementName isEqualToString:@"name"]){
+    }
+    else if ([elementName isEqualToString:@"name"]){
         switch (self.parserState) {
             case TRACK:
                 self.currentItem.title = [self.buildString copy];
@@ -110,9 +111,11 @@
         }
     self.parserState = NONE;
     }
+    else if ([elementName isEqualToString:@"tracks"]){
+        [self.delegate searchReturnedResults:self.parsedData];
+    }
 }
 
 -(void)parserDidEndDocument:(NSXMLParser *)parser{
-    [self.delegate searchReturnedResults:self.parsedData];
 }
 @end

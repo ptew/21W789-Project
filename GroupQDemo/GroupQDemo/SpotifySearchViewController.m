@@ -16,19 +16,12 @@
 
 @implementation SpotifySearchViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    [[SpotifySearcher sharedSearcher] setDelegate:self];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -57,6 +50,7 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [[SpotifySearcher sharedSearcher] search:searchBar.text];
+    [searchBar resignFirstResponder];
 }
 
 - (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar{
@@ -75,20 +69,23 @@
         return 0;
     }
     else {
-        return self.searchResults.count;
+        if (self.searchResults.count > 10)
+            return 10;
+        else
+            return self.searchResults.count;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    SpotifyQueueItem *song = [[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row];
+    SpotifyQueueItem *song = [self.searchResults objectAtIndex:indexPath.row];
     NSString * title   = song.title;
     NSString * album   = song.album;
     NSString * artist  = song.artist;
@@ -162,16 +159,13 @@
 #pragma mark UIActionSheet delegate methods
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *buttonText = [actionSheet buttonTitleAtIndex:buttonIndex];
     if([actionSheet isEqual:self.songActionSheet]){
-    switch (buttonIndex) {
-        case 1:
+        if([buttonText isEqualToString:@"Add to Queue"]) {
             //Add to Queue Button
             [[GroupQClient sharedClient] tellServerToaddSpotifySong:[self.searchResults objectAtIndex:self.currentlySelectedSong.row]];
             [self performSegueWithIdentifier:@"doneWithSpotify" sender:self];
-            break;
-        default:
-            break;
-    }
+        }
     }
     else if([actionSheet isEqual:self.errorActionSheet]){
         //do error handling if needed.

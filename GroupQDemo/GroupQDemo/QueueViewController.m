@@ -42,6 +42,21 @@
     [[GroupQClient sharedClient] setDelegate:self];
      self.clearsSelectionOnViewWillAppear = NO;
     [self setEditing:TRUE animated:TRUE];
+    
+    //add observer to watch queue changes.
+    [self.songQueue.queuedSongs addObserver:self forKeyPath:@"queue" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [self.tableView reloadData];
+}
+
+#pragma mark observers for the songQueue
+
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if([keyPath isEqualToString:@"queue"]){
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - Table view data source
@@ -139,7 +154,7 @@
             }
         }
         else if ([[[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row] isKindOfClass:[SpotifyQueueItem class]]){
-            SpotifyQueueItem *song = [GroupQClient sharedClient].queue.nowPlaying;
+            SpotifyQueueItem *song = [[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row];
             NSString * title   = song.title;
             NSString * album   = song.album;
             NSString * artist  = song.artist;

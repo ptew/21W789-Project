@@ -12,6 +12,8 @@
 @property (strong, nonatomic) NSMutableArray *parsedData;
 @property (strong, nonatomic) SpotifyQueueItem *currentItem;
 @property (strong, nonatomic) NSMutableString *buildString;
+@property (strong, nonatomic) NSXMLParser *parser;
+@property (strong, nonatomic) NSMutableData *httpData;
 @property ParserState parserState;
 @end
 
@@ -29,11 +31,17 @@
  Returns a bool of if the open was preformed succesfully.
  */
 - (void)search: (NSString *)query{
+    NSLog(@"Searching");
     NSMutableString *searchString = [[NSMutableString alloc] initWithString:@"http://ws.spotify.com/search/1/track?q="];
-    [searchString appendString:query];
+    
+    NSString *formattedQuery = [query stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+     
+    [searchString appendString:formattedQuery];
     
     NSURL *newSearch = [NSURL alloc];
     newSearch = [NSURL URLWithString:searchString];
+    
+    self.httpData = [[NSMutableData alloc] init];
     
     //returns the initalized connection.
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:newSearch] delegate:self];
@@ -53,15 +61,17 @@
 #pragma mark NSURLConnection Methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
-    //xml parser
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-    [parser setDelegate:self];
-    [parser parse];
+    [self.httpData appendData:data];
     
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
+    //xml parser
+    self.parser = [[NSXMLParser alloc] initWithData:self.httpData];
+    NSLog(@"Starting parser johnson!");
+    [self.parser setDelegate:self];
+    [self.parser parse];
 }
 
 #pragma mark NSXMLParser Methods
@@ -114,8 +124,14 @@
     else if ([elementName isEqualToString:@"tracks"]){
         [self.delegate searchReturnedResults:self.parsedData];
     }
+    self.parser = nil;
 }
 
 -(void)parserDidEndDocument:(NSXMLParser *)parser{
+    self.parser = nil;
+}
+
+-(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
+    self.parser = nil;
 }
 @end

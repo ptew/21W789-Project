@@ -16,6 +16,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     uint16_t port;          // The event's port
     CFSocketRef socketRef;  // The listening socket of the event
     
+    NSTimeInterval pauseTime;
     bool isSongPlaying;
 }
 
@@ -241,7 +242,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
             [self.musicPlayer play];
         }
         else {
-            [SpotifyPlayer sharedPlayer].isPlaying = YES;
+            [self playNextSongInQueue];
         }
         [self tellClientsPlaybackDetails];
     }
@@ -253,6 +254,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
             [self.musicPlayer pause];
         }
         else {
+            pauseTime = [SpotifyPlayer sharedPlayer].trackPosition;
             [SpotifyPlayer sharedPlayer].isPlaying = NO;
         }
         [self tellClientsPlaybackDetails];
@@ -298,7 +300,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     // Initialize properties
     self.songQueue = [[GroupQQueue alloc] init];
     self.musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
-    
+    pauseTime = 0;
     // Configure media player notifications so we know when to update the queue
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
@@ -325,6 +327,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 - (void) songDidStopPlaying {
     NSLog(@"GQ Song stopped playing");
+    pauseTime = 0;
     [self.songQueue playSong:0];
     [self tellClientsToPlaySong:0];
     [self playNextSongInQueue];
@@ -359,6 +362,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     }
     else{
         [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying];
+        [[SpotifyPlayer sharedPlayer] seekToTrackPosition:pauseTime];
     }
 }
 

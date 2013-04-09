@@ -2,7 +2,7 @@
 //  SpotifyPlayer.m
 //  SpotifyProofOfConcept
 //
-//  Created by T. S. Cobb on 4/4/13.
+//  Created by Bradley Gross on 4/4/13.
 //  Copyright (c) 2013 Awesome. All rights reserved.
 //
 
@@ -49,10 +49,6 @@
     return;
 }
 
-- (void) sessionDidEndPlayback:(id<SPSessionPlaybackProvider>)aSession {
-    [self.playerDelegate songDidStopPlaying];
-}
-
 + (SpotifyPlayer *) sharedPlayer {
     static SpotifyPlayer *sharedPlayer = nil;
     static dispatch_once_t onceToken;
@@ -60,5 +56,11 @@
         sharedPlayer = [[SpotifyPlayer alloc] init];
     });
     return sharedPlayer;
+}
+
+#pragma mark SpotifyPlayer Delegate method
+
+- (void) sessionDidEndPlayback:(id<SPSessionPlaybackProvider>)aSession {
+    [self.playerDelegate songDidStopPlaying];
 }
 @end

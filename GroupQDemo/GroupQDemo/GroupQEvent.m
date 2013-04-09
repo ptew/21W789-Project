@@ -233,6 +233,30 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         [self playNextSongInQueue];
         [self tellClientsToPlaySong:pos];
     }
+    else if([header isEqualToString:@"resumeSong"]) {
+        if(self.songQueue.nowPlaying == nil)
+            return;
+        isSongPlaying = true;
+        if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
+            [self.musicPlayer play];
+        }
+        else {
+            [SpotifyPlayer sharedPlayer].isPlaying = YES;
+        }
+        [self tellClientsPlaybackDetails];
+    }
+    else if([header isEqualToString:@"pauseSong"]) {
+        if(self.songQueue.nowPlaying == nil)
+            return;
+        isSongPlaying = false;
+        if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
+            [self.musicPlayer pause];
+        }
+        else {
+            [SpotifyPlayer sharedPlayer].isPlaying = NO;
+        }
+        [self tellClientsPlaybackDetails];
+    }
     else if([header isEqualToString:@"requestPlaybackDetail"]) {
         [self tellClientsPlaybackDetails];
     }
@@ -249,6 +273,12 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         SpotifyQueueItem *song = [NSKeyedUnarchiver unarchiveObjectWithData:message];
         [self.songQueue addSpotifySong:song];
         [self tellClientsToAddSpotifySong:song];
+    }
+    else if([header isEqualToString:@"setVolume"]) {
+        NSNumber *volumeLevel = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        [self.musicPlayer setVolume:[volumeLevel floatValue]];
+        [SpotifyPlayer sharedPlayer].volume = [volumeLevel doubleValue];
+        [self tellClientsPlaybackDetails];
     }
 }
 

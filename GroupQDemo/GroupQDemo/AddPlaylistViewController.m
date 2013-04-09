@@ -18,6 +18,8 @@
 {
     [super viewDidLoad];
     [self setEditing:TRUE animated:TRUE];
+    
+    
 }
 
 #pragma mark - Table view data source

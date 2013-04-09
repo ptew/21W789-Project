@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GroupQNetworking.h"
 
-@interface AddSongViewController : UITableViewController
+@interface AddSongViewController : UIViewController<UITabBarControllerDelegate>
 - (IBAction)donePressed:(UIBarButtonItem *)sender;
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender;
 

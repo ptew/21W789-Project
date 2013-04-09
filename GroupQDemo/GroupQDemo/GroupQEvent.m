@@ -16,6 +16,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     uint16_t port;          // The event's port
     CFSocketRef socketRef;  // The listening socket of the event
     
+    NSTimeInterval pauseTime;
     bool isSongPlaying;
 }
 
@@ -233,6 +234,31 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         [self playNextSongInQueue];
         [self tellClientsToPlaySong:pos];
     }
+    else if([header isEqualToString:@"resumeSong"]) {
+        if(self.songQueue.nowPlaying == nil)
+            return;
+        isSongPlaying = true;
+        if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
+            [self.musicPlayer play];
+        }
+        else {
+            [self playNextSongInQueue];
+        }
+        [self tellClientsPlaybackDetails];
+    }
+    else if([header isEqualToString:@"pauseSong"]) {
+        if(self.songQueue.nowPlaying == nil)
+            return;
+        isSongPlaying = false;
+        if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
+            [self.musicPlayer pause];
+        }
+        else {
+            pauseTime = [SpotifyPlayer sharedPlayer].trackPosition;
+            [SpotifyPlayer sharedPlayer].isPlaying = NO;
+        }
+        [self tellClientsPlaybackDetails];
+    }
     else if([header isEqualToString:@"requestPlaybackDetail"]) {
         [self tellClientsPlaybackDetails];
     }
@@ -249,6 +275,12 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         SpotifyQueueItem *song = [NSKeyedUnarchiver unarchiveObjectWithData:message];
         [self.songQueue addSpotifySong:song];
         [self tellClientsToAddSpotifySong:song];
+    }
+    else if([header isEqualToString:@"setVolume"]) {
+        NSNumber *volumeLevel = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        [self.musicPlayer setVolume:[volumeLevel floatValue]];
+        [SpotifyPlayer sharedPlayer].volume = [volumeLevel doubleValue];
+        [self tellClientsPlaybackDetails];
     }
 }
 
@@ -268,7 +300,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     // Initialize properties
     self.songQueue = [[GroupQQueue alloc] init];
     self.musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
-    
+    pauseTime = 0;
     // Configure media player notifications so we know when to update the queue
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
@@ -295,11 +327,15 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 - (void) songDidStopPlaying {
     NSLog(@"GQ Song stopped playing");
+    pauseTime = 0;
     [self.songQueue playSong:0];
     [self tellClientsToPlaySong:0];
     [self playNextSongInQueue];
 }
 
+- (void) songDidStartPlaying {
+    [self tellClientsPlaybackDetails];
+}
 - (void) playNextSongInQueue {
     NSLog(@"GQ Play next song in queue");
     if (self.songQueue.nowPlaying == nil)
@@ -328,7 +364,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         }
     }
     else{
-        [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying];
+        [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying atTime: pauseTime];
     }
 }
 
@@ -360,7 +396,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
             currentTime = [NSNumber numberWithFloat:self.musicPlayer.currentPlaybackTime];
         }
         else {
-            [SpotifyPlayer sharedPlayer].isPlaying = NO;
             currentTime = [NSNumber numberWithFloat:[SpotifyPlayer sharedPlayer].trackPosition];
         }
         details = [[GroupQPlaybackDetail alloc] initWithSongPlaying: isSongPlaying progress:[currentTime floatValue] volume:[volume floatValue]];
@@ -368,6 +403,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     else {
         details = [[GroupQPlaybackDetail alloc] initWithSongPlaying:false progress:-1 volume:[volume floatValue]];
     }
+    NSLog(@"Sending details. Position: %f", details.songProgress);
     [self broadcastObject:details withHeader:@"playbackDetails"];
 }
 

@@ -19,7 +19,7 @@
  Plays a given spotify queue item based on the given track's trackURL. This requires and
  authenticated SPSession object which is done in the SpotifyConnection Class.
  */
-- (IBAction)playTrack:(SpotifyQueueItem *) songToPlay;
+- (IBAction)playTrack:(SpotifyQueueItem *) songToPlay atTime: (NSTimeInterval) time;
 
 //Singleton class instatnce used for playing songs from spotify throughout host.
 + (SpotifyPlayer *) sharedPlayer;

@@ -37,8 +37,8 @@
     [ai startAnimating];
     self.navigationItem.backBarButtonItem.title = @"Cancel";
     
-    self.lockedImage = [[UIImage alloc] initWithContentsOfFile:@"assets/Lock.png"];
-    self.openImage = [[UIImage alloc] initWithContentsOfFile:@"assets/NoLock.png"];
+    self.lockedImage = [UIImage imageNamed:@"Lock"];
+    self.openImage = [UIImage imageNamed:@"NoLock"];
     
     // Start searching for events
     [[GroupQClient sharedClient] setDelegate:self];

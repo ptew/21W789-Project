@@ -11,4 +11,5 @@
 //This delegate is called by the spotify player whenever the current song stops playing.
 @protocol SpotifyPlayerDelegate <NSObject>
 - (void) songDidStopPlaying;
+- (void) songDidStartPlaying;
 @end

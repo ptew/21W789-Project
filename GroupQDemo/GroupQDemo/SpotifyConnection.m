@@ -2,7 +2,7 @@
 //  SpotifyConnection.m
 //  SpotifyProofOfConcept
 //
-//  Created by T. S. Cobb on 4/4/13.
+//  Created by Bradley Gross on 4/4/13.
 //  Copyright (c) 2013 Awesome. All rights reserved.
 //
 
@@ -40,6 +40,8 @@
 -(UIViewController *)viewControllerToPresentLoginViewForSession:(SPSession *)aSession {
 	return self.parent;
 }
+
+#pragma mark SPSession Delegate Methods
 
 -(void)sessionDidLoginSuccessfully:(SPSession *)aSession; {
     [self.delegate loggedInToSpotifySuccessfully];

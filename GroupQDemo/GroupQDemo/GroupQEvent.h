@@ -19,39 +19,34 @@
 #import "GroupQEventDelegate.h"
 #import "GroupQClient.h"
 #import "GroupQMusicCollection.h"
+#import "GroupQPlaybackDetail.h"
 
 @interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate, SpotifyPlayerDelegate> {
-    bool hasSpotify;
+    bool hasSpotify; // Flag if the host has spotify
 }
-
-// Creates an event with a given name
-- (void) createEventWithName: (NSString*) name andPassword: (NSString*) password;
-
-// Broadcasts the event
-- (void) broadcastEvent;
-
-// Ends the event
-- (void) endEvent;
 
 // A list of all current users
 @property (strong, nonatomic) NSMutableArray *userConnections; // List of GroupQConnections
-
 // The event name
 @property (strong, nonatomic) NSString *eventName;
-
 // The event password
 @property (strong, nonatomic) NSString *eventPassword;
-
+// The event service
+@property (strong, nonatomic) NSNetService *eventService;
+// The event's delegate
 @property (strong, nonatomic) id<GroupQEventDelegate> delegate;
 
-@property (strong, nonatomic) NSNetService *eventService;   // The Bonjour service to broadcast the
+#pragma mark - Event management
+// Creates an event with a given name
+- (void) createEventWithName: (NSString*) name andPassword: (NSString*) password;
+// Ends the event
+- (void) endEvent;
 
 
-// listening socket of the event on
-
-- (void) broadcastMessage: (NSString *) message withHeader: (NSString *) header;
-- (void) broadcastObject: (id) object withHeader: (NSString *) header;
+#pragma mark - Accessors
 - (void) setSpotify: (bool) hasSpotify;
 - (bool) hasSpotify;
+
+#pragma mark - Singleton accessor
 + (GroupQEvent *) sharedEvent;
 @end

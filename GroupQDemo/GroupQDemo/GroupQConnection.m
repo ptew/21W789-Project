@@ -13,40 +13,46 @@
     // Read and write streams
     NSInputStream *readStream;
     NSOutputStream *writeStream;
-    CFSocketNativeHandle connectionSocket;
+    
+    // Bytes to read for the next message
     int numberOfBytesToRead;
+    
+    // Total bytes read so far
     int bytesRead;
 }
 
-@property (strong, nonatomic) NSMutableData* currentMessageToWrite; // Buffer storing text to eventually
-                                                                    // send
+// Write buffer
+@property (strong, nonatomic) NSMutableData* currentMessageToWrite;
 
-@property (strong, nonatomic) NSMutableString* currentHeaderBeingRead;
-@property (strong, nonatomic) NSMutableString* currentTypeBeingRead;
-@property (strong, nonatomic) NSMutableData* currentMessageBeingRead;
+// Read buffer
+@property (strong, nonatomic) NSMutableString* currentHeaderBeingRead;  // Message header
+@property (strong, nonatomic) NSMutableString* currentTypeBeingRead;    // Message type
+@property (strong, nonatomic) NSMutableData* currentMessageBeingRead;   // Message contents
 
 // Sets up the read and write streams after acquisition
 - (void) setUpStreams;
+
+// Attempts to write to the write stream
 - (void) tryWriting;
+
+// Processes data from the read stream
 - (void) processText: (NSData*) data;
 @end
 
 @implementation GroupQConnection
 
+#pragma mark - Connecting
+
 // Acquires i/o streams using the other end's Bonjour service
 - (void) connectWithService:(NSNetService *)service {
-    NSLog(@"GC Connecting to service %@", service.name);
     // Get the streams
     [service getInputStream:&readStream outputStream:&writeStream];
     
     // Set up the streams
     [self setUpStreams];
 }
-
 // Acquires i/o streams using the other end's socket handle
 - (void) connectWithSocketHandle:(CFSocketNativeHandle)handle {
-    NSLog(@"GC Connecting to a client.");
-    connectionSocket = handle;
     // Convert the NSStreams to CFStreams
     CFReadStreamRef readRef;
     CFWriteStreamRef writeRef;
@@ -61,10 +67,8 @@
     // Set them up
     [self setUpStreams];
 }
-
+// Sets up the streams and initializes the buffers
 - (void) setUpStreams {
-    NSLog(@"GC Setting up streams.");
-    // Make sure we got them
     // Set the stream delegates
     readStream.delegate = self;
     writeStream.delegate = self;
@@ -87,15 +91,17 @@
     [readStream open];
     [writeStream open];
     
+    // Streams were made successfully?
     if (readStream != nil && writeStream != nil) {
-        NSLog(@"GC Connected!");
         [self.delegate connectionDidConnect:self];
     }
     else {
-        NSLog(@"GC Could not connect.");
         [self.delegate connectionDidNotConnect:self];
     }
 }
+
+
+#pragma mark - Disconnecting
 
 - (void) disconnectStreams:(BOOL)sendDisconnect {
     NSLog(@"GC Disconnecting streams");
@@ -113,6 +119,7 @@
     
 }
 
+#pragma mark - Information transfer
 // Adds text to the outgoing data buffer
 - (void) sendMessage: (NSString*) message withHeader: (NSString*) header {
     NSLog(@"GC Sending message with header %@", header);
@@ -125,8 +132,6 @@
     [self.currentMessageToWrite appendData:messageBytes];
     [self tryWriting];
 }
-
-
 // Adds text to the outgoing data buffer
 - (void) sendObject: (id) what withHeader: (NSString*) header {
     NSLog(@"GC Sending object with header %@", header);
@@ -139,7 +144,7 @@
     [self tryWriting];
 }
 
-// Attempts to send text
+// Attempts to write the write buffer to the write stream
 - (void) tryWriting {
     if ([writeStream streamStatus] == NSStreamStatusClosed)
         return;
@@ -271,13 +276,5 @@
             break;
         }
     }
-}
-
-- (void) setDJ:(bool)yesIfDJ {
-    isDJ = yesIfDJ;
-}
-
-- (BOOL) isDJ {
-    return isDJ;
 }
 @end

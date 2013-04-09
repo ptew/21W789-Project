@@ -10,7 +10,10 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "iOSQueueItem.h"
 
+// Holds a group of iOS Queue Items, sorted by various items
 @interface GroupQMusicCollection : NSObject <NSCoding>
+
+// Build the songs list from querying the device's media library
 - (GroupQMusicCollection *) initWithSongs:(MPMediaQuery*) songs artists: (MPMediaQuery *) artists albums: (MPMediaQuery *) albums playlists: (MPMediaQuery *) playlists;
 
 @property (strong, nonatomic) NSMutableArray *songSectionNames;

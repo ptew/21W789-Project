@@ -11,7 +11,7 @@
 #import <MediaPlayer/MPMediaQuery.h>
 
 
-@interface AddArtistViewController : UITableViewController
+@interface AddArtistViewController : UIViewController
 - (IBAction)donePressed:(UIBarButtonItem *)sender;
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender;
 

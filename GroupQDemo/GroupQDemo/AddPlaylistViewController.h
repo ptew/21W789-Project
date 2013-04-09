@@ -10,7 +10,7 @@
 #import "GroupQNetworking.h"
 #import <MediaPlayer/MPMediaPlaylist.h>
 
-@interface AddPlaylistViewController : UITableViewController
+@interface AddPlaylistViewController : UIViewController
 - (IBAction)donePressed:(UIBarButtonItem *)sender;
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender;
 

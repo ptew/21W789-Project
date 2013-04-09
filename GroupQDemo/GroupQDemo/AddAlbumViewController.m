@@ -9,6 +9,7 @@
 #import "AddAlbumViewController.h"
 
 @interface AddAlbumViewController ()
+@property (nonatomic,strong) UITableView *pickerTableView;
 
 @end
 
@@ -17,6 +18,11 @@
 {
     [super viewDidLoad];
     [self setEditing:TRUE animated:TRUE];
+    
+    _pickerTableView = [[UITableView alloc]init];
+    
+    self.pickerTableView.scrollsToTop = TRUE;
+    self.pickerTableView.showsVerticalScrollIndicator = TRUE;
     
 }
 

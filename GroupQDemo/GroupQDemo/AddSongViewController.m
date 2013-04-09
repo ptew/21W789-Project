@@ -14,6 +14,7 @@
 
 @implementation AddSongViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -24,6 +25,7 @@
     
     self.pickerTableView.scrollsToTop = TRUE;
     self.pickerTableView.showsVerticalScrollIndicator = TRUE;
+
 }
 
 #pragma mark - Table view data source

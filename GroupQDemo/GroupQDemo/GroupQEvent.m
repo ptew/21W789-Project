@@ -333,6 +333,9 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     [self playNextSongInQueue];
 }
 
+- (void) songDidStartPlaying {
+    [self tellClientsPlaybackDetails];
+}
 - (void) playNextSongInQueue {
     NSLog(@"GQ Play next song in queue");
     if (self.songQueue.nowPlaying == nil)
@@ -361,8 +364,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         }
     }
     else{
-        [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying];
-        [[SpotifyPlayer sharedPlayer] seekToTrackPosition:pauseTime];
+        [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying atTime: pauseTime];
     }
 }
 
@@ -394,7 +396,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
             currentTime = [NSNumber numberWithFloat:self.musicPlayer.currentPlaybackTime];
         }
         else {
-            [SpotifyPlayer sharedPlayer].isPlaying = NO;
             currentTime = [NSNumber numberWithFloat:[SpotifyPlayer sharedPlayer].trackPosition];
         }
         details = [[GroupQPlaybackDetail alloc] initWithSongPlaying: isSongPlaying progress:[currentTime floatValue] volume:[volume floatValue]];
@@ -402,6 +403,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     else {
         details = [[GroupQPlaybackDetail alloc] initWithSongPlaying:false progress:-1 volume:[volume floatValue]];
     }
+    NSLog(@"Sending details. Position: %f", details.songProgress);
     [self broadcastObject:details withHeader:@"playbackDetails"];
 }
 

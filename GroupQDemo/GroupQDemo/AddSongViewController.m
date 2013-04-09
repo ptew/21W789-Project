@@ -9,15 +9,23 @@
 #import "AddSongViewController.h"
 
 @interface AddSongViewController ()
+@property (nonatomic,strong) UITableView *pickerTableView;
 @end
 
 @implementation AddSongViewController
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     [self setEditing:TRUE animated:TRUE];
+    
+    _pickerTableView = [[UITableView alloc]init];
+    
+    self.pickerTableView.scrollsToTop = TRUE;
+    self.pickerTableView.showsVerticalScrollIndicator = TRUE;
+
 }
 
 #pragma mark - Table view data source
@@ -82,7 +90,7 @@
         iOSQueueItem *songItem = [[[GroupQClient sharedClient].library.songCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         [[GroupQClient sharedClient].pickerSongs addObject:songItem];
         
-        [self.tableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
+        [self.pickerTableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
     }   
 }
 

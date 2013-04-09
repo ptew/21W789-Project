@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSIndexPath *currentlySelectedSongIndex;
 
 - (IBAction)showMediaPicker:(id)sender;
++ (UITableViewCell*)removeCountLabelsFrom:(UITableViewCell*)cell;
 
 @end
 
@@ -117,7 +118,7 @@
                 }
             }
         }
-        [[cell.contentView viewWithTag:69] removeFromSuperview];
+        cell = [QueueViewController removeCountLabelsFrom:cell];
     }
     else if(indexPath.section == 1) {
         //handles the now playing cell if the now playing song is an ios song.
@@ -148,16 +149,25 @@
                 }
             }
         }
+        cell = [QueueViewController removeCountLabelsFrom:cell];
         UILabel *countLabel = [[UILabel alloc] init];
         countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
         countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
-        countLabel.tag = 69;
         [cell addSubview:countLabel];
     }
     cell.textLabel.text = nowPlayingTitle;
     cell.detailTextLabel.text = nowPlayingSubtitle;
     
     [tableView deselectRowAtIndexPath: indexPath animated: YES];
+    return cell;
+}
+
++ (UITableViewCell*) removeCountLabelsFrom:(UITableViewCell *)cell{
+    for (UIView *subview in [cell subviews]) {
+        if ([subview isKindOfClass:[UIWebView class]]) {
+            [subview removeFromSuperview];
+        }
+    }
     return cell;
 }
 
@@ -207,6 +217,7 @@
     else{
         [self.tableView moveRowAtIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
     }
+    [self.tableView reloadData];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{

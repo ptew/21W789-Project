@@ -101,7 +101,6 @@
 
 
 - (void) didConnectToEvent {
-    [[GroupQClient sharedClient] setHost:NO];
     [self dismissViewControllerAnimated:NO completion:NULL];
     [self performSegueWithIdentifier:@"joinEvent" sender:self];
 }

@@ -12,14 +12,24 @@
 #import "GroupQQueueDelegate.h"
 
 @interface GroupQQueue : NSObject <NSCoding>
-@property (strong, nonatomic) id nowPlaying;
-@property (strong, nonatomic) NSMutableArray *queuedSongs;
+
+@property (strong, nonatomic) id nowPlaying;                // The current song being played
+@property (strong, nonatomic) NSMutableArray *queuedSongs;  // The queue of songs to play
+
 @property (strong, nonatomic) id<GroupQQueueDelegate> delegate;
 
+// Moves a song from 'position' to 'destination' in the queue. Position 0
+// is the top of the queue (separate from nowPlaying). Position (queue.len)
+// is the end of the queue.
 - (void) moveSong: (int)position to: (int)destination;
+// Adds songs to the queue
 - (void) addSongs: (NSArray*) songs;
+// Deletes a song from the queue
 - (void) deleteSong: (int) index;
+// Plays a song from the queue. This will move it to the nowPlaying slot
+// and will delete the item from the queue.
 - (void) playSong: (int) index;
+// Adds a single song from Spotify to the queue
 - (void) addSpotifySong: (SpotifyQueueItem *) song;
 
 @end

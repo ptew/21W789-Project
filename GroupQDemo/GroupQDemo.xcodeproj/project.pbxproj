@@ -290,20 +290,9 @@
 				4C7B8FA417127E9300FFCC14 /* SpotifySearchViewController.h */,
 				4C7B8FA517127E9300FFCC14 /* SpotifySearchViewController.m */,
 				B8A999E71710C9B8004E037D /* SplashScreenViewController.h */,
-				DECFD8891712498B0077003E /* AddPlaylistViewController.h */,
-				DECFD88A1712498B0077003E /* AddPlaylistViewController.m */,
-				B8824DF317129EE9002C8C30 /* GroupQMusicCollection.h */,
-				B8824DF417129EE9002C8C30 /* GroupQMusicCollection.m */,
-				DECFD88C171249A80077003E /* AddSongViewController.h */,
-				DECFD88D171249A80077003E /* AddSongViewController.m */,
-				DECFD88F171249C60077003E /* AddArtistViewController.h */,
-				DECFD890171249C60077003E /* AddArtistViewController.m */,
-				DECFD892171249E10077003E /* AddAlbumViewController.h */,
-				DECFD893171249E10077003E /* AddAlbumViewController.m */,
-				B899DD881713366800334312 /* iOSQueueItem.h */,
-				B899DD891713366800334312 /* iOSQueueItem.m */,
 				4C05C6451713586A00C285D2 /* NowPlayingViewController.h */,
 				4C05C6461713586A00C285D2 /* NowPlayingViewController.m */,
+				B8FEAA50171380F200E83351 /* Picker View Controllers */,
 				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
 			);
 			path = GroupQDemo;
@@ -365,8 +354,6 @@
 				4C9D8DFC1710B57F001145B8 /* GroupQConnection.m */,
 				4C9D8DFE1710B57F001145B8 /* GroupQEvent.h */,
 				4C9D8DFF1710B57F001145B8 /* GroupQEvent.m */,
-				B8F46F52171203AE00846F82 /* GroupQQueue.h */,
-				B8F46F53171203AE00846F82 /* GroupQQueue.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -446,10 +433,39 @@
 		B8A999ED1710C9D9004E037D /* Custom Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				B8FEAA4D171380BD00E83351 /* GroupQQ */,
 				4C9D8E051710B5C1001145B8 /* GroupQNetworking */,
 				4C9D8E081710B5EB001145B8 /* Spotify */,
 			);
 			name = "Custom Libraries";
+			sourceTree = "<group>";
+		};
+		B8FEAA4D171380BD00E83351 /* GroupQQ */ = {
+			isa = PBXGroup;
+			children = (
+				B8824DF317129EE9002C8C30 /* GroupQMusicCollection.h */,
+				B8824DF417129EE9002C8C30 /* GroupQMusicCollection.m */,
+				B899DD881713366800334312 /* iOSQueueItem.h */,
+				B899DD891713366800334312 /* iOSQueueItem.m */,
+				B8F46F52171203AE00846F82 /* GroupQQueue.h */,
+				B8F46F53171203AE00846F82 /* GroupQQueue.m */,
+			);
+			name = GroupQQ;
+			sourceTree = "<group>";
+		};
+		B8FEAA50171380F200E83351 /* Picker View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DECFD88C171249A80077003E /* AddSongViewController.h */,
+				DECFD88D171249A80077003E /* AddSongViewController.m */,
+				DECFD88F171249C60077003E /* AddArtistViewController.h */,
+				DECFD890171249C60077003E /* AddArtistViewController.m */,
+				DECFD892171249E10077003E /* AddAlbumViewController.h */,
+				DECFD893171249E10077003E /* AddAlbumViewController.m */,
+				DECFD8891712498B0077003E /* AddPlaylistViewController.h */,
+				DECFD88A1712498B0077003E /* AddPlaylistViewController.m */,
+			);
+			name = "Picker View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

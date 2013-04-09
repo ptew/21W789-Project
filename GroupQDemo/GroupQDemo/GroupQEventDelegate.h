@@ -9,10 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @protocol GroupQEventDelegate <NSObject>
-
 // Sent when an event was successfully created (not yet broadcasted)
 - (void) eventCreated;
-
 // Sent when an event could not be created
 - (void) eventNotCreated;
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+// Represents a queue item on the host iOS device.
 @interface iOSQueueItem : NSObject <NSCoding>
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *album;

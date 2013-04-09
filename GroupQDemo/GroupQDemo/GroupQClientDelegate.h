@@ -15,10 +15,16 @@
 
 // Sent when a connection to an event was made
 - (void) didConnectToEvent;
-
 // Sent when a connection to an event failed
 - (void) didNotConnectToEvent;
-
 // Sent when the connection was terminated
 - (void) disconnectedFromEvent;
+
+// Send when the event's information is received
+- (void) initialInformationReceived;
+// Sent when new playback details are available
+- (void) playbackDetailsReceived;
+// Sent when new information about a Spotify connection is available
+- (void) spotifyInfoReceived;
+
 @end

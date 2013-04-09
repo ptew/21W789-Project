@@ -16,10 +16,11 @@
 @property (nonatomic, weak) UIActionSheet *songActionSheet;
 @property (nonatomic, weak) UIActionSheet *mediaActionSheet;
 @property (nonatomic, strong) NSIndexPath *currentlySelectedSongIndex;
+@property (strong, nonatomic) UISwipeGestureRecognizer* deleteGestureRecognizer;
+@property (strong, nonatomic) NSIndexPath *cellToDelete;
 
 - (IBAction)showMediaPicker:(id)sender;
 + (UITableViewCell*)removeCountLabelsFrom:(UITableViewCell*)cell;
-
 @end
 
 
@@ -32,10 +33,20 @@
     [[GroupQClient sharedClient].queue setDelegate:self];
      self.clearsSelectionOnViewWillAppear = NO;
     [self setEditing:TRUE animated:TRUE];
+    
+    self.deleteGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftFrom:)];
+    [self.view addGestureRecognizer:self.deleteGestureRecognizer];
+    self.cellToDelete = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [[GroupQClient sharedClient] setDelegate:self];
+    [self.tableView reloadData];
+}
+
+- (void)handleSwipeLeftFrom:(UIGestureRecognizer *)recognizer{
+    CGPoint touchPoint = [recognizer locationOfTouch:0 inView:self.view];
+    self.cellToDelete = [self.tableView indexPathForRowAtPoint:touchPoint];
     [self.tableView reloadData];
 }
 
@@ -206,6 +217,7 @@
 
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    self.cellToDelete = nil;
     //Does not allow movement of the first section. ie section 0.
     if (sourceIndexPath.section == 1 && destinationIndexPath.section == 1){
         [[GroupQClient sharedClient] tellServerToMoveSongFrom:sourceIndexPath.row To:destinationIndexPath.row];
@@ -221,11 +233,16 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return UITableViewCellEditingStyleNone;
+    if ([self.cellToDelete isEqual:indexPath]){
+        return UITableViewCellEditingStyleDelete;
+    } else{
+        return UITableViewCellEditingStyleNone;
+    }
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    self.cellToDelete = nil;
     NSString *choice = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([choice isEqualToString:@"Play Now"]){
         [[GroupQClient sharedClient] tellServerToPlaySong:self.currentlySelectedSongIndex.row];
@@ -258,6 +275,18 @@
     }
     
     [self.tableView reloadData];
+}
+
+#pragma mark UITableView Delegate
+
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle != UITableViewCellEditingStyleDelete) {
+        return;
+    }
+    if([self.cellToDelete isEqual:indexPath]){
+        [[GroupQClient sharedClient] tellServerToDeleteSong:indexPath.row];
+        self.cellToDelete = nil;
+    }
 }
 
 #pragma mark GroupQClient Delegate Methods

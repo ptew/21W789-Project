@@ -11,7 +11,9 @@
 #import "ActivityViewController.h"
 #import "Spotify.h"
 
-@interface NewEventViewController : UITableViewController <UITextFieldDelegate, GroupQEventDelegate, GroupQClientDelegate, SpotifyConnectionDelegate>
+@interface NewEventViewController : UITableViewController <UITextFieldDelegate, GroupQEventDelegate, SpotifyConnectionDelegate>
+
+// Outlets
 @property (weak, nonatomic) IBOutlet UILabel *spotifyConnectedLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *connectedLabelCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *spotifyLoginButton;

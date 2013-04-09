@@ -19,7 +19,7 @@
     self = [super initWithPlaybackSession:[SPSession sharedSession]];
     return self;
 }
-- (void)playTrack:(SpotifyQueueItem *) songToPlay{
+- (void)playTrack:(SpotifyQueueItem *) songToPlay atTime:(NSTimeInterval)time{
     NSURL *trackURL = songToPlay.trackURI;
     
     //checks if there are no songs in the track queue.
@@ -41,6 +41,8 @@
                                                               otherButtonTitles:nil];
                         [alert show];
                     } else{
+                        [self seekToTrackPosition:time];
+                        [self.playerDelegate songDidStartPlaying];
                     }
                 }];
             }];

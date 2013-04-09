@@ -10,6 +10,8 @@
 
 @implementation GroupQQueue
 
+#pragma mark - Initialization and encoding/decoding
+
 - (GroupQQueue*) init {
     self = [super init];
     self.nowPlaying = nil;
@@ -30,6 +32,9 @@
     return self;
 }
 
+
+#pragma mark - Queue management
+
 - (void) moveSong: (int)position to: (int)destination {
     if (position == destination)
         return;
@@ -49,10 +54,12 @@
     }
     [self.delegate queueDidChange];
 }
+
 - (void) addSongs: (NSArray*) songs; {
     [self.queuedSongs addObjectsFromArray:songs];
     [self.delegate queueDidChange];
 }
+
 - (void) deleteSong: (int) index {
     if(index >= self.queuedSongs.count)
         return;
@@ -60,17 +67,17 @@
     [self.queuedSongs removeObjectAtIndex:index];
     [self.delegate queueDidChange];
 }
+
 - (void) playSong: (int) index {
     if(index >= self.queuedSongs.count) {
         self.nowPlaying = nil;
         [self.delegate queueDidChange];
         return;
     }
-    
     self.nowPlaying = [self.queuedSongs objectAtIndex:index];
     [self deleteSong:index];
-    //doesn't call queue did change because that is called in delete song.
 }
+
 - (void) addSpotifySong: (SpotifyQueueItem *) song {
     [self.queuedSongs addObject:song];
     [self.delegate queueDidChange];

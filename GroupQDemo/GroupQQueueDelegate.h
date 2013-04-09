@@ -9,5 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol GroupQQueueDelegate <NSObject>
-- (void)queueDidChange;
+
+// Called whenever the queue or 'Now Playing' item changed
+- (void) queueDidChange;
 @end

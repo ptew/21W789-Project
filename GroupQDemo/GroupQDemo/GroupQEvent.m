@@ -17,34 +17,53 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     CFSocketRef socketRef;  // The listening socket of the event
 }
 
-
+// The music player
 @property (strong, nonatomic) MPMusicPlayerController *musicPlayer;
-@property (strong, nonatomic) GroupQQueue *songQueue;
-@property (strong, nonatomic) GroupQMusicCollection *library;
+// The current music item being played
 @property (strong, nonatomic) MPMediaItem *nowPlayingHandle;
 
-// Private function to handle new connections
-- (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle;
 
+// The song queue and library
+@property (strong, nonatomic) GroupQQueue *songQueue;
+@property (strong, nonatomic) GroupQMusicCollection *library;
+
+// Event creation
+- (void) setupListeningSocket;
+- (void) broadcastEvent;
+
+// Queue and player management
 - (void) setupMusicPlayer;
-
 - (void) playNextSongInQueue;
 
-- (void) sendItemsAndQueueTo: (GroupQConnection *) who;
+// Handles new connections
+- (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle;
 
+
+// Functions for sending messages to clients
+- (void) broadcastMessage: (NSString *) message withHeader: (NSString *) header;
+- (void) broadcastObject: (id) object withHeader: (NSString *) header;
+
+// Event information
+- (void) sendItemsAndQueueTo: (GroupQConnection *) who;
+- (void) tellClientsAboutSpotifyStatus;
+
+// Queue management
 - (void) tellClientsToAddSongs: (NSArray *) songs;
 - (void) tellClientsToMoveSongFrom: (int) oldPos to: (int) newPos;
 - (void) tellClientsToDeleteSong: (int) position;
 - (void) tellClientsToPlaySong: (int) position;
 - (void) tellClientsToAddSpotifySong: (SpotifyQueueItem *) song;
+
+// Playback management
 - (void) tellClientsToResumeSong;
 - (void) tellClientsToPauseSong;
 - (void) tellClientsToSetVolume: (NSNumber *) level;
-- (void) tellClientsAboutSpotifyStatus;
 @end
 
 
 @implementation GroupQEvent
+
+#pragma mark - Event initialization and closing
 
 - (GroupQEvent*) init {
     self = [super init];
@@ -52,8 +71,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     return self;
 }
 - (void) createEventWithName: (NSString*) name andPassword: (NSString*) password {
-    NSLog(@"GQ Creating event.");
-    
     // Store the event name and set up the user list
     self.eventName = name;
     self.eventPassword = password;
@@ -61,6 +78,12 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     
     [self setupMusicPlayer];
     
+    [self setupListeningSocket];
+    
+    [self broadcastEvent];
+}
+
+- (void) setupListeningSocket {
     // Create an empty listening socket -- give it a pointer to this event for callback purposes
     CFSocketContext socketCtxt = {0, (__bridge void *)(self), NULL, NULL, NULL};
     socketRef = CFSocketCreate(kCFAllocatorDefault,PF_INET,SOCK_STREAM,IPPROTO_TCP, kCFSocketAcceptCallBack, socketCallBack, &socketCtxt);
@@ -94,7 +117,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     CFRunLoopRef currentRunLoop = CFRunLoopGetCurrent();
     CFRunLoopSourceRef runLoopSource = CFSocketCreateRunLoopSource(kCFAllocatorDefault, socketRef, 0);
     CFRunLoopAddSource(currentRunLoop, runLoopSource, kCFRunLoopCommonModes);
-    [self broadcastEvent];
 }
 
 // Broadcasts the listening socket on Bonjour
@@ -136,6 +158,9 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     [self.userConnections removeAllObjects];
 }
 
+
+#pragma mark - Connection management
+
 // The socket callback function will be called whenever a new socket connects to the listening socket
 void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef address, const void *data, void *info) {
     NSLog(@"GQ Found new socket.");
@@ -148,29 +173,12 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     [server handleNewNativeSocket:nativeSocketHandle];
 }
 
-
-// Handle new connections
 - (void)handleNewNativeSocket:(CFSocketNativeHandle)nativeSocketHandle {
     GroupQConnection* connection = [[GroupQConnection alloc] init];
     connection.delegate = self;
     [connection connectWithSocketHandle:nativeSocketHandle];
 }
 
-- (void) broadcastMessage:(NSString *)message withHeader:(NSString *)header {
-    NSLog(@"GQ Broadcasting message to %d clients.", self.userConnections.count);
-    for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
-        [connection sendMessage:message withHeader:header];
-    }
-}
-
-- (void) broadcastObject:(id)object withHeader:(NSString *)header {
-    NSLog(@"GQ Broadcasting object to %d clients.", self.userConnections.count);
-    for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
-        [connection sendObject:object withHeader:header];
-    }
-}
-
-#pragma mark Connection Delegate Methods
 - (void) connectionDidConnect:(GroupQConnection *)connection {
     NSLog(@"GQ Connected to user.");
     [self.userConnections addObject:connection];
@@ -187,17 +195,27 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     [self.userConnections removeObject:connection];
 }
 
+
+
+#pragma mark - Information transfer and management
+
+- (void) broadcastMessage:(NSString *)message withHeader:(NSString *)header {
+    NSLog(@"GQ Broadcasting message to %d clients.", self.userConnections.count);
+    for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
+        [connection sendMessage:message withHeader:header];
+    }
+}
+
+- (void) broadcastObject:(id)object withHeader:(NSString *)header {
+    NSLog(@"GQ Broadcasting object to %d clients.", self.userConnections.count);
+    for (GroupQConnection* connection in [[GroupQEvent sharedEvent] userConnections]) {
+        [connection sendObject:object withHeader:header];
+    }
+}
+
 - (void) connection:(GroupQConnection *)connection receivedMessage:(NSString *)message withHeader:(NSString *)header {
     NSLog(@"GQ Received message with header %@", header);
-    if ([header isEqualToString:@"registerUser"]) {
-        if([message isEqualToString:@"dj"]) {
-            [connection setDJ:true];
-        }
-        else {
-            [connection setDJ:false];
-        }
-    }
-    else if([header isEqualToString:@"moveSong"]) {
+    if([header isEqualToString:@"moveSong"]) {
         NSArray *indexes = [message componentsSeparatedByString:@"-"];
         NSString* posSt = (NSString*) [indexes objectAtIndex:0];
         NSString* destSt = (NSString*) [indexes objectAtIndex:1];
@@ -278,19 +296,17 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     }
 }
 
-+ (GroupQEvent *) sharedEvent {
-    static GroupQEvent *sharedEvent = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedEvent = [[GroupQEvent alloc] init];
-    });
-    return sharedEvent;
+#pragma mark - Accessors
+
+- (void) setSpotify:(bool)doesHaveSpotify {
+    hasSpotify = doesHaveSpotify;
 }
 
+- (bool) hasSpotify {
+    return hasSpotify;
+}
 
-//**********==================
-// MUSIC PLAYER METHODS
-//**********==================
+#pragma mark - Music player methods
 - (void) setupMusicPlayer {
     NSLog(@"GQ Setting up music player");
     // Initialize properties
@@ -361,20 +377,25 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     }
 }
 
-- (void) setSpotify:(bool)doesHaveSpotify {
-    hasSpotify = doesHaveSpotify;
-}
+#pragma mark - Sending messages to clients
 
-- (bool) hasSpotify {
-    return hasSpotify;
-}
-
+// Event information
 - (void) sendItemsAndQueueTo:(GroupQConnection *)who {
     NSLog(@"GQ Sending items and queue.");
     [self broadcastObject:self.library withHeader:@"library"];
     [self broadcastObject:self.songQueue withHeader:@"songQueue"];
 }
 
+- (void) tellClientsAboutSpotifyStatus {
+    if (hasSpotify) {
+        [self broadcastMessage:@"a" withHeader:@"loggedInToSpotify"];
+    }
+    else {
+        [self broadcastMessage:@"a" withHeader:@"loggedOutOfSpotify"];
+    }
+}
+
+// Queue management
 - (void) tellClientsToAddSongs:(MPMediaItemCollection *)songs {
     NSLog(@"GQ telling clients to add song.");
     [self broadcastObject:songs withHeader:@"addSongs"];
@@ -396,22 +417,24 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"playSong"];
 }
 
-- (void) tellClientsAboutSpotifyStatus {
-    if (hasSpotify) {
-        [self broadcastMessage:@"" withHeader:@"loggedInToSpotify"];
-    }
-    else {
-        [self broadcastMessage:@"" withHeader:@"loggedOutOfSpotify"];
-    }
-}
-
+// Playback management
 - (void) tellClientsToResumeSong{
-    [self broadcastMessage:@"" withHeader:@"resumeSong"];
+    [self broadcastMessage:@"a" withHeader:@"resumeSong"];
 }
 - (void) tellClientsToPauseSong{
-    [self broadcastMessage:@"" withHeader:@"pauseSong"];
+    [self broadcastMessage:@"a" withHeader:@"pauseSong"];
 }
 - (void) tellClientsToSetVolume: (NSNumber *) level {
     [self broadcastObject:level withHeader:@"setVolume"];
+}
+
+#pragma mark - Singleton accessor
++ (GroupQEvent *) sharedEvent {
+    static GroupQEvent *sharedEvent = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedEvent = [[GroupQEvent alloc] init];
+    });
+    return sharedEvent;
 }
 @end

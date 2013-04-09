@@ -113,7 +113,7 @@
 - (void) didConnectToEvent{}
 - (void) didNotConnectToEvent{}
 - (void) disconnectedFromEvent{
-    //perform segway to transition out
+    [self.parentViewController performSegueWithIdentifier:@"leaveEvent" sender:self];
 }
 - (void) initialInformationReceived{}
 - (void) spotifyInfoReceived {}

@@ -249,10 +249,11 @@
 - (void) didConnectToEvent{}
 - (void) didNotConnectToEvent{}
 - (void) disconnectedFromEvent{
-    [self performSegueWithIdentifier:@"leaveEvent" sender:self];
+    [self.parentViewController performSegueWithIdentifier:@"leaveEvent" sender:self];
 }
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender {
-    NSLog(@"This is %@", [[GroupQClient sharedClient].library.songCollection objectAtIndex:0]);
+    [[GroupQClient sharedClient] disconnect];
+    [self disconnectedFromEvent];
 }
 - (void) playbackDetailsReceived{}
 - (void) spotifyInfoReceived {}

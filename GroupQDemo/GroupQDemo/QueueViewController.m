@@ -117,6 +117,7 @@
                 }
             }
         }
+        [[cell.contentView viewWithTag:69] removeFromSuperview];
     }
     else if(indexPath.section == 1) {
         //handles the now playing cell if the now playing song is an ios song.
@@ -150,6 +151,7 @@
         UILabel *countLabel = [[UILabel alloc] init];
         countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
         countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
+        countLabel.tag = 69;
         [cell addSubview:countLabel];
     }
     cell.textLabel.text = nowPlayingTitle;
@@ -201,6 +203,9 @@
     //make the moved song the now playing song and delete the song that is now playing.
     else if(sourceIndexPath.section == 1 && destinationIndexPath.section == 0){
         [[GroupQClient sharedClient] tellServerToPlaySong:sourceIndexPath.row];
+    }
+    else{
+        [self.tableView moveRowAtIndexPath:destinationIndexPath toIndexPath:sourceIndexPath];
     }
 }
 

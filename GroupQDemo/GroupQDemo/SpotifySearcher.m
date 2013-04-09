@@ -121,6 +121,7 @@
     }
     else if([elementName isEqualToString:@"length"]){
         self.parserState = LENGTH;
+        self.buildString = [[NSMutableString alloc] init];
     }
 }
 
@@ -165,6 +166,7 @@
     }
     else if ([elementName isEqualToString:@"length"]){
         self.currentItem.length = [self.buildString doubleValue];
+        self.parserState = NONE;
     }
     else if ([elementName isEqualToString:@"tracks"]){
         [self.delegate searchReturnedResults:self.parsedData];

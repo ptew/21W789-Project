@@ -194,7 +194,7 @@
     [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d-%d", index, newIndex] withHeader:@"moveSong"];
 }
 - (void) tellServerToDeleteSong:(int)index {
-    [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"moveSong"];
+    [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"deleteSong"];
 }
 - (void) tellServerToPlaySong:(int)index{
     [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"playSong"];

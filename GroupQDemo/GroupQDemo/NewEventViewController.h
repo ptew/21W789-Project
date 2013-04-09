@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *connectedLabelCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *spotifyLoginButton;
 @property (weak, nonatomic) IBOutlet UILabel *spotifyLoginLabel;
+- (IBAction)eventNameChanged:(UITextField *)sender;
 
 @end

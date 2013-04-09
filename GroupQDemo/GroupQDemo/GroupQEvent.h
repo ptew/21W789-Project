@@ -19,6 +19,7 @@
 #import "GroupQEventDelegate.h"
 #import "GroupQClient.h"
 #import "GroupQMusicCollection.h"
+#import "GroupQPlaybackDetail.h"
 
 @interface GroupQEvent : NSObject <NSNetServiceDelegate, GroupQConnectionDelegate, SpotifyPlayerDelegate> {
     bool hasSpotify; // Flag if the host has spotify

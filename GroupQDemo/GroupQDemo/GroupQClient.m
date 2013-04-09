@@ -107,14 +107,6 @@
     else if([header isEqualToString:@"playSong"]){
         [self.queue playSong:[message integerValue]];
     }
-    else if([header isEqualToString:@"pauseSong"]) {
-        isSongPlaying = false;
-        [self.delegate playbackDetailsReceived];
-    }
-    else if([header isEqualToString:@"resumeSong"]) {
-        isSongPlaying = true;
-        [self.delegate playbackDetailsReceived];
-    }
     else if([header isEqualToString:@"loggedInToSpotify"]) {
         hostHasSpotify = true;
         [self.delegate spotifyInfoReceived];
@@ -144,14 +136,11 @@
     else if([header isEqualToString:@"addSpotifySong"]){
         [self.queue addSpotifySong:[NSKeyedUnarchiver unarchiveObjectWithData:message]];
     }
-    else if([header isEqualToString:@"setVolume"]) {
-        NSNumber *volume = [NSKeyedUnarchiver unarchiveObjectWithData:message];
-        songVolume = [volume floatValue];
-        [self.delegate playbackDetailsReceived];
-    }
-    else if([header isEqualToString:@"currentPlaybackTime"]) {
-        NSNumber *time = [NSKeyedUnarchiver unarchiveObjectWithData:message];
-        songProgress = [time floatValue];
+    else if([header isEqualToString:@"playbackDetails"]) {
+        GroupQPlaybackDetail *details = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        isSongPlaying = [details isSongPlaying];
+        songProgress = [details songProgress];
+        songVolume = [details songVolume];
         [self.delegate playbackDetailsReceived];
     }
     else{

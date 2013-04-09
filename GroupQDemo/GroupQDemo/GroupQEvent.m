@@ -15,6 +15,8 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 @interface GroupQEvent () {
     uint16_t port;          // The event's port
     CFSocketRef socketRef;  // The listening socket of the event
+    
+    bool isSongPlaying;
 }
 
 // The music player
@@ -46,6 +48,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 // Event information
 - (void) sendItemsAndQueueTo: (GroupQConnection *) who;
 - (void) tellClientsAboutSpotifyStatus;
+- (void) tellClientsPlaybackDetails;
 
 // Queue management
 - (void) tellClientsToAddSongs: (NSArray *) songs;
@@ -53,11 +56,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) tellClientsToDeleteSong: (int) position;
 - (void) tellClientsToPlaySong: (int) position;
 - (void) tellClientsToAddSpotifySong: (SpotifyQueueItem *) song;
-
-// Playback management
-- (void) tellClientsToResumeSong;
-- (void) tellClientsToPauseSong;
-- (void) tellClientsToSetVolume: (NSNumber *) level;
 @end
 
 
@@ -235,44 +233,8 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         [self playNextSongInQueue];
         [self tellClientsToPlaySong:pos];
     }
-    else if([header isEqualToString:@"resumeSong"]) {
-        if(self.songQueue.nowPlaying == nil)
-            return;
-        if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
-            [self.musicPlayer play];
-        }
-        else {
-            [SpotifyPlayer sharedPlayer].isPlaying = YES;
-        }
-        [self tellClientsToResumeSong];
-    }
-    else if([header isEqualToString:@"pauseSong"]) {
-        if(self.songQueue.nowPlaying == nil)
-            return;
-        if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
-            [self.musicPlayer pause];
-        }
-        else {
-            [SpotifyPlayer sharedPlayer].isPlaying = NO;
-        }
-        [self tellClientsToPauseSong];
-    }
     else if([header isEqualToString:@"requestPlaybackDetail"]) {
-        if(self.songQueue.nowPlaying == nil)
-            return;
-        NSNumber *currentTime;
-        NSNumber *volume;
-        if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
-            volume = [NSNumber numberWithFloat:self.musicPlayer.volume];
-            currentTime = [NSNumber numberWithFloat:self.musicPlayer.currentPlaybackTime];
-        }
-        else {
-            [SpotifyPlayer sharedPlayer].isPlaying = NO;
-            volume = [NSNumber numberWithFloat:[SpotifyPlayer sharedPlayer].volume];
-            currentTime = [NSNumber numberWithFloat:[SpotifyPlayer sharedPlayer].trackPosition];
-        }
-        [connection sendObject:volume withHeader:@"setVolume"];
-        [connection sendObject:currentTime withHeader:@"currentPlaybackTime"];
+        [self tellClientsPlaybackDetails];
     }
 }
 
@@ -287,12 +249,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         SpotifyQueueItem *song = [NSKeyedUnarchiver unarchiveObjectWithData:message];
         [self.songQueue addSpotifySong:song];
         [self tellClientsToAddSpotifySong:song];
-    }
-    else if([header isEqualToString:@"setVolume"]) {
-        NSNumber *volumeLevel = [NSKeyedUnarchiver unarchiveObjectWithData:message];
-        [self.musicPlayer setVolume:[volumeLevel floatValue]];
-        [SpotifyPlayer sharedPlayer].volume = [volumeLevel doubleValue];
-        [self tellClientsToSetVolume:volumeLevel];
     }
 }
 
@@ -348,7 +304,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     NSLog(@"GQ Play next song in queue");
     if (self.songQueue.nowPlaying == nil)
         return;
-    
     if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
         MPMediaItem *song;
         MPMediaPropertyPredicate *predicate;
@@ -395,6 +350,27 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     }
 }
 
+- (void) tellClientsPlaybackDetails {
+    GroupQPlaybackDetail *details;
+    NSNumber *volume;
+    volume = [NSNumber numberWithFloat:self.musicPlayer.volume];
+    if(self.songQueue.nowPlaying != nil) {
+        NSNumber *currentTime;
+        if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
+            currentTime = [NSNumber numberWithFloat:self.musicPlayer.currentPlaybackTime];
+        }
+        else {
+            [SpotifyPlayer sharedPlayer].isPlaying = NO;
+            currentTime = [NSNumber numberWithFloat:[SpotifyPlayer sharedPlayer].trackPosition];
+        }
+        details = [[GroupQPlaybackDetail alloc] initWithSongPlaying: isSongPlaying progress:[currentTime floatValue] volume:[volume floatValue]];
+    }
+    else {
+        details = [[GroupQPlaybackDetail alloc] initWithSongPlaying:false progress:-1 volume:[volume floatValue]];
+    }
+    [self broadcastObject:details withHeader:@"playbackDetails"];
+}
+
 // Queue management
 - (void) tellClientsToAddSongs:(MPMediaItemCollection *)songs {
     NSLog(@"GQ telling clients to add song.");
@@ -414,18 +390,8 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 }
 - (void) tellClientsToPlaySong:(int)position {
     NSLog(@"GQ telling clients to play song.");
+    isSongPlaying = true;
     [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"playSong"];
-}
-
-// Playback management
-- (void) tellClientsToResumeSong{
-    [self broadcastMessage:@"a" withHeader:@"resumeSong"];
-}
-- (void) tellClientsToPauseSong{
-    [self broadcastMessage:@"a" withHeader:@"pauseSong"];
-}
-- (void) tellClientsToSetVolume: (NSNumber *) level {
-    [self broadcastObject:level withHeader:@"setVolume"];
 }
 
 #pragma mark - Singleton accessor

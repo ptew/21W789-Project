@@ -17,7 +17,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setEditing:TRUE animated:TRUE];
+    [self.pickerTableView setEditing:TRUE animated:TRUE];
+    
+    self.pickerTableView.scrollsToTop = TRUE;
+    self.pickerTableView.showsVerticalScrollIndicator = TRUE;
     
 }
 

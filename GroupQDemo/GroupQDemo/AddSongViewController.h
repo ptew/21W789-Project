@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GroupQNetworking.h"
 
-@interface AddSongViewController : UITableViewController
+@interface AddSongViewController : UIViewController<UITableViewDelegate>
 - (IBAction)donePressed:(UIBarButtonItem *)sender;
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender;
+@property (weak, nonatomic) IBOutlet UITableView *pickerTableView;
 
 @end

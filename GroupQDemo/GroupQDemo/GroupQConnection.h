@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "GroupQConnectionDelegate.h"
+#import "GroupQEvent.h"
 
 @interface GroupQConnection : NSObject <NSStreamDelegate>
 
@@ -19,6 +20,8 @@
 - (void) connectWithService: (NSNetService*) service;
 // Connects to a socket handle
 - (void) connectWithSocketHandle: (CFSocketNativeHandle) handle;
+// Connects as host
+- (void) connectAsHost;
 
 #pragma mark - Disconnecting
 // Disconnects everything

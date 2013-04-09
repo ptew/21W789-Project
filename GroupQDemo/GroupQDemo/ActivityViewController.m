@@ -40,6 +40,10 @@
     //[self updateText];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    NSLog(@"View appeared.");
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [self.animationTimer invalidate];
 }

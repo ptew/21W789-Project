@@ -231,8 +231,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     else if([header isEqualToString:@"playSong"]) {
         int pos = [message integerValue];
         [self.songQueue playSong:pos];
+        pauseTime = 0;
         [self playNextSongInQueue];
         [self tellClientsToPlaySong:pos];
+        [self tellClientsPlaybackDetails];
     }
     else if([header isEqualToString:@"resumeSong"]) {
         if(self.songQueue.nowPlaying == nil)
@@ -328,6 +330,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) songDidStopPlaying {
     NSLog(@"GQ Song stopped playing");
     pauseTime = 0;
+    self.songQueue.nowPlaying = nil;
     [self.songQueue playSong:0];
     [self tellClientsToPlaySong:0];
     [self playNextSongInQueue];

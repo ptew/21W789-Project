@@ -149,7 +149,7 @@
 - (void) receivedMessage:(NSString *)message withHeader:(NSString *)header{}
 - (void) playbackDetailsReceived{}
 - (void) spotifyInfoReceived{}
-- (void) disconnectedFromEvent{}
+- (void) disconnectedFromEvent{[self didNotConnectToEvent];}
 
 #pragma mark - Action sheet delegate
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

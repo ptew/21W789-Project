@@ -35,6 +35,8 @@
     songVolume = 0;
     songProgress = 0;
     
+    // Initially assume we are not the host
+    isHost = false;
     return self;
 }
 
@@ -66,6 +68,13 @@
     self.connectionToServer = [[GroupQConnection alloc] init];
     self.connectionToServer.delegate = self;
     [self.connectionToServer connectWithService:whichEvent];
+}
+
+- (void) connectAsHost {
+    isHost = true;
+    self.connectionToServer = [[GroupQConnection alloc] init];
+    self.connectionToServer.delegate = self;
+    [self.connectionToServer connectAsHost];
 }
 
 - (NSArray *) getEvents {
@@ -152,6 +161,8 @@
 
 - (bool)    isDJ            {return isDJ; }
 - (void)    setDJ:(bool)dj  {isDJ = dj;}
+
+- (bool)    isHost          {return isHost;}
 
 - (bool)    isSongPlaying   {return isSongPlaying;}
 - (bool)    hostHasSpotify  {return hostHasSpotify;}

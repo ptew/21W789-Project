@@ -15,6 +15,8 @@
 #import "GroupQMusicCollection.h"
 
 @interface GroupQClient : NSObject <NSNetServiceBrowserDelegate, GroupQConnectionDelegate> {
+    bool isHost;            // Flag if this client is actually the event host
+    
     bool isDJ;              // Flag if this client is a DJ or a listener
     bool isSongPlaying;     // Flag if the music player is currently playing a song
     bool hostHasSpotify;    // Flag if the host has Spotify functionality
@@ -44,6 +46,8 @@
 - (void) stopSearching;
 // Connect to a Bonjour service, or disconnect from the currently connected service
 - (void) connectToEvent: (NSNetService*) whichEvent;
+// Connect as a host
+- (void) connectAsHost;
 - (void) disconnect;
 // Get a list of all of the current Bonjour events
 - (NSArray *) getEvents;
@@ -57,6 +61,7 @@
 - (bool) isDJ;
 - (void) setDJ:(bool)dj;
 
+- (bool) isHost;
 - (bool) isSongPlaying;
 - (bool) hostHasSpotify;
 - (float) songVolume;

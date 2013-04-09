@@ -489,6 +489,10 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3vm-fe-wfz">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="St0-a1-sag" id="e3E-sh-SSI"/>
+                                    <outlet property="delegate" destination="St0-a1-sag" id="8Rk-VT-1Wx"/>
+                                </connections>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="ioT-zp-1VC">
                                 <items>
@@ -519,6 +523,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Songs" image="Songs.png" id="Aff-nm-dvv"/>
+                    <connections>
+                        <outlet property="pickerTableView" destination="3vm-fe-wfz" id="1Af-Dy-bpZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXx-FT-303" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -564,6 +571,10 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hKa-54-Hhh">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="8cH-fJ-93z" id="AYz-vP-bKg"/>
+                                    <outlet property="delegate" destination="8cH-fJ-93z" id="2Mn-Rk-Q5X"/>
+                                </connections>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="Aww-pP-Cth">
                                 <items>
@@ -594,6 +605,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Albums" image="Albums.png" id="PgC-eQ-EEU"/>
+                    <connections>
+                        <outlet property="pickerTableView" destination="hKa-54-Hhh" id="b0I-JN-P6g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b79-pM-RrL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -609,6 +623,10 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Vsb-uW-RYa">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="HXa-QH-WWq" id="mQm-WM-6rQ"/>
+                                    <outlet property="delegate" destination="HXa-QH-WWq" id="Cet-3n-ItZ"/>
+                                </connections>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="dQ7-hm-FCV">
                                 <items>
@@ -639,6 +657,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Playlists" image="Playlists.png" id="zod-37-7cX"/>
+                    <connections>
+                        <outlet property="pickerTableView" destination="Vsb-uW-RYa" id="To8-ov-ny7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbG-jt-1MS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -654,6 +675,10 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lG2-OT-EGR">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Nab-IV-YvJ" id="I9e-U3-4Sm"/>
+                                    <outlet property="delegate" destination="Nab-IV-YvJ" id="88D-p3-sji"/>
+                                </connections>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="01W-rh-nSA">
                                 <items>
@@ -684,6 +709,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Artists" image="Artists.png" id="04c-os-TNN"/>
+                    <connections>
+                        <outlet property="pickerTableView" destination="lG2-OT-EGR" id="xkg-2H-7N5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nRc-B0-zaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -711,6 +739,7 @@
             <relationships>
                 <relationship kind="action" name="cancelPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="donePressed:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="pickerTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="AddPlaylistViewController" superclassName="UIViewController">
@@ -718,6 +747,7 @@
             <relationships>
                 <relationship kind="action" name="cancelPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="donePressed:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="pickerTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="AddSongViewController" superclassName="UIViewController">
@@ -725,6 +755,7 @@
             <relationships>
                 <relationship kind="action" name="cancelPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="donePressed:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="pickerTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="BrowseEventsViewController" superclassName="UITableViewController">

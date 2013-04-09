@@ -10,8 +10,10 @@
 #import "GroupQNetworking.h"
 #import <MediaPlayer/MPMediaQuery.h>
 
-@interface AddAlbumViewController : UIViewController
+@interface AddAlbumViewController : UIViewController<UITableViewDelegate>
+
 - (IBAction)donePressed:(UIBarButtonItem *)sender;
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender;
+@property (weak, nonatomic) IBOutlet UITableView *pickerTableView;
 
 @end

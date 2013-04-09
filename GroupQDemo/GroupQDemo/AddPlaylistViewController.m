@@ -10,7 +10,6 @@
 
 @interface AddPlaylistViewController ()
 @property (nonatomic,weak) NSString *type;
-@property (nonatomic,strong) UITableView *pickerTableView;
 
 @end
 
@@ -19,9 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setEditing:TRUE animated:TRUE];
-    
-    _pickerTableView = [[UITableView alloc]init];
+    [self.pickerTableView setEditing:TRUE animated:TRUE];
     
     self.pickerTableView.scrollsToTop = TRUE;
     self.pickerTableView.showsVerticalScrollIndicator = TRUE;

@@ -9,7 +9,7 @@
 #import "AddSongViewController.h"
 
 @interface AddSongViewController ()
-@property (nonatomic,strong) UITableView *pickerTableView;
+
 @end
 
 @implementation AddSongViewController
@@ -19,14 +19,14 @@
 {
     [super viewDidLoad];
 
-    [self setEditing:TRUE animated:TRUE];
-    
-    _pickerTableView = [[UITableView alloc]init];
+    [self.pickerTableView setEditing:TRUE animated:TRUE];
     
     self.pickerTableView.scrollsToTop = TRUE;
     self.pickerTableView.showsVerticalScrollIndicator = TRUE;
 
 }
+
+
 
 #pragma mark - Table view data source
 

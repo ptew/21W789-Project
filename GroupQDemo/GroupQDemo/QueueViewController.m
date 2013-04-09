@@ -7,13 +7,6 @@
 //  Copyright (c) 2013 Parker Allen Tew. All rights reserved.
 //
 
-/*
-    Things left to do:
-        -null currently playing when selecting a song that is playing
-        -do we want to be able to add song multiple times to queue?
-        -adding entire playlist
-*/
-
 
 #import "QueueViewController.h"
 
@@ -22,7 +15,7 @@
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender;
 @property (nonatomic, weak) UIActionSheet *songActionSheet;
 @property (nonatomic, weak) UIActionSheet *mediaActionSheet;
-@property (nonatomic, strong) NSIndexPath *currentlySelectedSong;
+@property (nonatomic, strong) NSIndexPath *currentlySelectedSongIndex;
 
 - (IBAction)showMediaPicker:(id)sender;
 
@@ -165,7 +158,6 @@
     return cell;
 }
 
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return @"Now Playing";
@@ -178,7 +170,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section==1) {
-        self.currentlySelectedSong = indexPath;
+        self.currentlySelectedSongIndex = indexPath;
         if (self.songActionSheet) {
             // do nothing
         } else {
@@ -201,7 +193,14 @@
 
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    [[GroupQClient sharedClient] tellServerToMoveSongFrom:sourceIndexPath.row To:destinationIndexPath.row];
+    //Does not allow movement of the first section. ie section 0.
+    if (sourceIndexPath.section == 1 && destinationIndexPath.section == 1){
+        [[GroupQClient sharedClient] tellServerToMoveSongFrom:sourceIndexPath.row To:destinationIndexPath.row];
+    }
+    //make the moved song the now playing song and delete the song that is now playing.
+    else if(sourceIndexPath.section == 1 && destinationIndexPath.section == 0){
+        [[GroupQClient sharedClient] tellServerToPlaySong:sourceIndexPath.row];
+    }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -212,10 +211,10 @@
 {
     NSString *choice = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([choice isEqualToString:@"Play Now"]){
-        [[GroupQClient sharedClient] tellServerToPlaySong:self.currentlySelectedSong.row];
+        [[GroupQClient sharedClient] tellServerToPlaySong:self.currentlySelectedSongIndex.row];
     }
     else if([choice isEqualToString:@"Play Next"]){
-        [[GroupQClient sharedClient] tellServerToMoveSongFrom:self.currentlySelectedSong.row To:0];
+        [[GroupQClient sharedClient] tellServerToMoveSongFrom:self.currentlySelectedSongIndex.row To:0];
     }
     else if([choice isEqualToString:@"Add Content"]){
         [self performSegueWithIdentifier:@"addSongPicker" sender:self];
@@ -225,6 +224,9 @@
     }
 }
 
+/*
+ This function is envoked when the user wants to add songs from the host's ios library
+ */
 - (IBAction)showMediaPicker:(id)sender {
     if (self.mediaActionSheet) {
         // do nothing
@@ -251,4 +253,7 @@
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender {
     NSLog(@"This is %@", [[GroupQClient sharedClient].library.songCollection objectAtIndex:0]);
 }
+- (void) playbackDetailsReceived{}
+- (void) spotifyInfoReceived {}
+- (void) initialInformationReceived {}
 @end

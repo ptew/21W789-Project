@@ -30,18 +30,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 0;
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return  UITableViewCellEditingStyleInsert;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"There are %d rows in playlists", [[GroupQClient sharedClient].library.playlistSectionNames count]);
-    return [[GroupQClient sharedClient].library.playlistSectionNames count];
+    return [[GroupQClient sharedClient].library.playlistCollection count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -52,9 +46,8 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [[GroupQClient sharedClient].library.playlistSectionNames objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[[[GroupQClient sharedClient].library.playlistCollection allKeys]sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.row];
     
-    NSLog(@"Playlist title: %@", cell.textLabel.text);
     return cell;
 }
 
@@ -62,9 +55,18 @@
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleInsert)
     {
-        NSArray *playlist = [[GroupQClient sharedClient].library.playlistCollection objectAtIndex:indexPath.row];
+        NSString *playlistName = [[[[GroupQClient sharedClient].library.playlistCollection allKeys]sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.row];
+        
+        NSArray *playlist = [[GroupQClient sharedClient].library.playlistCollection objectForKey:playlistName];
         [[GroupQClient sharedClient].pickerSongs addObjectsFromArray:playlist];
+        
+        [self.pickerTableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
     }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return  UITableViewCellEditingStyleInsert;
 }
 
 - (IBAction)donePressed:(UIBarButtonItem *)sender {

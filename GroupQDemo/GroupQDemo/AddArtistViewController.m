@@ -38,6 +38,10 @@
     
 }
 
+- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [[GroupQClient sharedClient].library.artistSectionNames objectAtIndex:section];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     return [[GroupQClient sharedClient].library.artistSectionNames indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         if ([(NSString*)obj isEqualToString:title])
@@ -48,11 +52,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[GroupQClient sharedClient].library.artistCollection objectAtIndex:section] count];
-}
-
-- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[GroupQClient sharedClient].library.artistSectionNames objectAtIndex:section];
+    return ((NSMutableDictionary*)[[GroupQClient sharedClient].library.artistCollection objectAtIndex:section]).count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,14 +64,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    NSString *artistName = ((iOSQueueItem*)[[[GroupQClient sharedClient].library.artistCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).artist;
-    
-    if(artistName.length == 0) {
-        cell.textLabel.text = @"";
-    }
-    else {
-        cell.textLabel.text = artistName;
-    }
+    id artistsBeginningWithSectionLetter = [[GroupQClient sharedClient].library.artistCollection objectAtIndex:indexPath.section];
+    NSArray *artistNames = [artistsBeginningWithSectionLetter allKeys];
+    NSArray *sortedArtistNames = [artistNames sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    NSString *artistName = [sortedArtistNames objectAtIndex:indexPath.row];
+    cell.textLabel.text = artistName;
     
     return cell;
 }
@@ -79,8 +76,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleInsert) {
-        NSArray *artistSongs = [[[GroupQClient sharedClient].library.artistCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        NSMutableDictionary *artistsBeginningWithSectionLetter = (NSMutableDictionary *)[[GroupQClient sharedClient].library.artistCollection objectAtIndex:indexPath.section];
+        NSArray *artistNames = [artistsBeginningWithSectionLetter allKeys];
+        NSArray *sortedArtistNames = [artistNames sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        NSString *artistName = [sortedArtistNames objectAtIndex:indexPath.row];
+        NSArray *artistSongs = [artistsBeginningWithSectionLetter objectForKey:artistName];
         [[GroupQClient sharedClient].pickerSongs addObjectsFromArray:artistSongs];
+        
+        [self.pickerTableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
     }   
 }
 

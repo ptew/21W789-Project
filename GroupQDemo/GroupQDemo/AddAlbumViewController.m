@@ -49,14 +49,9 @@
     }];
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return  UITableViewCellEditingStyleInsert;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[GroupQClient sharedClient].library.albumCollection objectAtIndex:section] count];
+    return ((NSMutableDictionary*)[[GroupQClient sharedClient].library.albumCollection objectAtIndex:section]).count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -68,13 +63,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    NSString *album = ((iOSQueueItem*)[[[GroupQClient sharedClient].library.albumCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).album;
-    if (album.length == 0) {
-        cell.textLabel.text = @"";
-    }
-    else {
-        cell.textLabel.text = album;
-    }
+    id albumsBeginningWithSectionLetter = [[GroupQClient sharedClient].library.albumCollection objectAtIndex:indexPath.section];
+    NSArray *albumNames = [albumsBeginningWithSectionLetter allKeys];
+    NSArray *sortedAlbumNames = [albumNames sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    NSString *albumName = [sortedAlbumNames objectAtIndex:indexPath.row];
+    cell.textLabel.text = albumName;
     
     return cell;
 }
@@ -82,9 +75,21 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleInsert) {
-        NSArray *artistSongs = [[[GroupQClient sharedClient].library.albumCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        [[GroupQClient sharedClient].pickerSongs addObjectsFromArray:artistSongs];
+        NSMutableDictionary *albumsBeginningWithSectionLetter = [[GroupQClient sharedClient].library.albumCollection objectAtIndex:indexPath.section];
+        NSArray *albumNames = [albumsBeginningWithSectionLetter allKeys];
+        NSArray *sortedAlbumNames = [albumNames sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        NSString *albumName = [sortedAlbumNames objectAtIndex:indexPath.row];
+        NSArray *albumSongs = [albumsBeginningWithSectionLetter objectForKey:albumName];
+
+        [[GroupQClient sharedClient].pickerSongs addObjectsFromArray:albumSongs];
+        
+        [self.pickerTableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
     }
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return  UITableViewCellEditingStyleInsert;
 }
 
 

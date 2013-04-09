@@ -19,9 +19,9 @@
 @property (strong, nonatomic) NSMutableArray *songSectionNames;
 @property (strong, nonatomic) NSMutableArray *artistSectionNames;
 @property (strong, nonatomic) NSMutableArray *albumSectionNames;
-@property (strong, nonatomic) NSMutableArray *playlistSectionNames;
+
 @property (strong, nonatomic) NSMutableArray *songCollection;
 @property (strong, nonatomic) NSMutableArray *artistCollection;
 @property (strong, nonatomic) NSMutableArray *albumCollection;
-@property (strong, nonatomic) NSMutableArray *playlistCollection;
+@property (strong, nonatomic) NSMutableDictionary *playlistCollection;
 @end

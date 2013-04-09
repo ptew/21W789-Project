@@ -28,6 +28,7 @@
 		4C9D8DF01710B4CB001145B8 /* SPLoginResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D8DEF1710B4CB001145B8 /* SPLoginResources.bundle */; };
 		B82E6C2D1711E23600767DF8 /* QueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82E6C2C1711E23600767DF8 /* QueueViewController.m */; };
 		B846E3211710ED3800B8E2AD /* spotify-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B846E3201710ED3800B8E2AD /* spotify-logo.png */; };
+		B8585A92171397BD0096C2E4 /* GroupQPlaybackDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = B8585A91171397BD0096C2E4 /* GroupQPlaybackDetail.m */; };
 		B86510D01710D2E800495318 /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86510CD1710D2E800495318 /* ActivityView.xib */; };
 		B86510D11710D2E800495318 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86510CF1710D2E800495318 /* ActivityViewController.m */; };
 		B86510D31710D6C400495318 /* libCocoaLibSpotify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DDE1710B44A001145B8 /* libCocoaLibSpotify.a */; };
@@ -146,6 +147,8 @@
 		B82E6C2B1711E23600767DF8 /* QueueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueViewController.h; sourceTree = "<group>"; };
 		B82E6C2C1711E23600767DF8 /* QueueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueViewController.m; sourceTree = "<group>"; };
 		B846E3201710ED3800B8E2AD /* spotify-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotify-logo.png"; sourceTree = "<group>"; };
+		B8585A90171397BD0096C2E4 /* GroupQPlaybackDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupQPlaybackDetail.h; sourceTree = "<group>"; };
+		B8585A91171397BD0096C2E4 /* GroupQPlaybackDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupQPlaybackDetail.m; sourceTree = "<group>"; };
 		B86510CD1710D2E800495318 /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 		B86510CE1710D2E800495318 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		B86510CF1710D2E800495318 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
@@ -443,6 +446,8 @@
 		B8FEAA4D171380BD00E83351 /* GroupQQ */ = {
 			isa = PBXGroup;
 			children = (
+				B8585A90171397BD0096C2E4 /* GroupQPlaybackDetail.h */,
+				B8585A91171397BD0096C2E4 /* GroupQPlaybackDetail.m */,
 				B8824DF317129EE9002C8C30 /* GroupQMusicCollection.h */,
 				B8824DF417129EE9002C8C30 /* GroupQMusicCollection.m */,
 				B899DD881713366800334312 /* iOSQueueItem.h */,
@@ -602,6 +607,7 @@
 				B8824DF517129EE9002C8C30 /* GroupQMusicCollection.m in Sources */,
 				B899DD8A1713366800334312 /* iOSQueueItem.m in Sources */,
 				4C05C6471713586A00C285D2 /* NowPlayingViewController.m in Sources */,
+				B8585A92171397BD0096C2E4 /* GroupQPlaybackDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

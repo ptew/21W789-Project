@@ -31,6 +31,10 @@
     self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [[GroupQClient sharedClient] setDelegate:self];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -104,4 +108,13 @@
 
     //Implement volume here once the views are in place.
 }
+
+- (void) eventsUpdated{}
+- (void) didConnectToEvent{}
+- (void) didNotConnectToEvent{}
+- (void) disconnectedFromEvent{
+    //perform segway to transition out
+}
+- (void) initialInformationReceived{}
+- (void) spotifyInfoReceived {}
 @end

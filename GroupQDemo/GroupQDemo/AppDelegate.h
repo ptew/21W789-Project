@@ -12,4 +12,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
++ (NSString *)applicationDocumentsDirectory;
 @end

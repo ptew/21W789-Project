@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GroupQNetworking.h"
 #import "ActivityViewController.h"
+#import "AppDelegate.h"
 
 @interface BrowseEventsViewController : UITableViewController <GroupQClientDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 

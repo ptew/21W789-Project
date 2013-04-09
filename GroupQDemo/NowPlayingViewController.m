@@ -59,13 +59,15 @@
 
 - (void)updateProgressBar{
     float songDuration;
-    if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]){
+    if([[GroupQClient sharedClient] isSongPlaying]){
+        if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]){
         songDuration = [[(iOSQueueItem*)[GroupQClient sharedClient].queue.nowPlaying playbackDuration] floatValue];
+        }
+        else {
+            songDuration = [(SpotifyQueueItem*)[GroupQClient sharedClient].queue.nowPlaying length];
+        }
+        [self.songProgressBar setProgress:(self.songProgressBar.progress + 1.0 / songDuration)];
     }
-    else {
-        songDuration = [(SpotifyQueueItem*)[GroupQClient sharedClient].queue.nowPlaying length];
-    }
-    [self.songProgressBar setProgress:(self.songProgressBar.progress + 1.0 / songDuration)];
 }
 
 #pragma mark GroupQDelegate methods
@@ -73,10 +75,10 @@
 - (void) playbackDetailsReceived {
     //sets the play button be be either play or pause
     if([[GroupQClient sharedClient] isSongPlaying]){
-        [self.playButtonOutlet setTitle:@"Play" forState:UIControlStateNormal];
+        [self.playButtonOutlet setTitle:@"Pause" forState:UIControlStateNormal];
     }
     else {
-        [self.playButtonOutlet setTitle:@"Pause" forState:UIControlStateNormal];
+        [self.playButtonOutlet setTitle:@"Play" forState:UIControlStateNormal];
     }
     
     //sets the progress bar to be the total progress.

@@ -732,6 +732,7 @@
             <relationships>
                 <relationship kind="action" name="cancelPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="donePressed:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="pickerTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="AddArtistViewController" superclassName="UIViewController">

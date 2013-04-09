@@ -26,13 +26,17 @@
 
 }
 
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [GroupQClient sharedClient].library.songSectionNames.count;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    
+    return [GroupQClient sharedClient].library.songSectionNames;
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -41,11 +45,6 @@
             return TRUE;
         return FALSE;
     }];
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return  UITableViewCellEditingStyleInsert;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -92,6 +91,11 @@
         
         [self.pickerTableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
     }   
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return  UITableViewCellEditingStyleInsert;
 }
 
 

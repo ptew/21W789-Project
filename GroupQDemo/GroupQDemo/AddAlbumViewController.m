@@ -31,6 +31,16 @@
     
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    
+    return [GroupQClient sharedClient].library.albumSectionNames;
+    
+}
+
+- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [[GroupQClient sharedClient].library.albumSectionNames objectAtIndex:section];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     return [[GroupQClient sharedClient].library.albumSectionNames indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         if ([(NSString*)obj isEqualToString:title])
@@ -60,7 +70,7 @@
     
     NSString *album = ((iOSQueueItem*)[[[GroupQClient sharedClient].library.albumCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).album;
     if (album.length == 0) {
-        cell.textLabel.text = @"Untitled album";
+        cell.textLabel.text = @"";
     }
     else {
         cell.textLabel.text = album;

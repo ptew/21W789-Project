@@ -32,6 +32,12 @@
 
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    
+    return [GroupQClient sharedClient].library.artistSectionNames;
+    
+}
+
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
     return [[GroupQClient sharedClient].library.artistSectionNames indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         if ([(NSString*)obj isEqualToString:title])
@@ -43,6 +49,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[[GroupQClient sharedClient].library.artistCollection objectAtIndex:section] count];
+}
+
+- (NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [[GroupQClient sharedClient].library.artistSectionNames objectAtIndex:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -57,7 +67,7 @@
     NSString *artistName = ((iOSQueueItem*)[[[GroupQClient sharedClient].library.artistCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).artist;
     
     if(artistName.length == 0) {
-        cell.textLabel.text = @"Blank artist";
+        cell.textLabel.text = @"";
     }
     else {
         cell.textLabel.text = artistName;

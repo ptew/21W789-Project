@@ -67,6 +67,15 @@
     // Set them up
     [self setUpStreams];
 }
+
+- (void) connectAsHost {
+    CFReadStreamRef readRef;
+    CFWriteStreamRef writeRef;
+    CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)@"localhost", [[GroupQEvent sharedEvent]eventService].port, &readRef, &writeRef);
+    readStream = (NSInputStream*)CFBridgingRelease(readRef);
+    writeStream = (NSOutputStream*)CFBridgingRelease(writeRef);
+    [self setUpStreams];
+}
 // Sets up the streams and initializes the buffers
 - (void) setUpStreams {
     // Set the stream delegates

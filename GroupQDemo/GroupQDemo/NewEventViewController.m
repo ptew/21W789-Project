@@ -94,7 +94,8 @@
 
 #pragma mark - GroupQEvent delegate methods
 - (void) eventCreated {
-    self.creatingActivity.text = @"event created. running event.";
+    [[GroupQClient sharedClient] setDelegate:self];
+    [[GroupQClient sharedClient] connectAsHost];
 }
 
 - (void) eventNotCreated {
@@ -102,4 +103,19 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Join" message:@"Could not create event." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
+
+#pragma mark - GroupQClient delegate methods
+- (void) didConnectToEvent{
+}
+- (void) didNotConnectToEvent{
+}
+- (void) disconnectedFromEvent{
+};
+- (void) eventsUpdated{}
+- (void) initialInformationReceived{
+    [self dismissViewControllerAnimated:NO completion:NULL];
+    [self performSegueWithIdentifier:@"createEvent" sender:self];
+}
+- (void) playbackDetailsReceived{}
+- (void) spotifyInfoReceived{}
 @end

@@ -56,17 +56,14 @@
 
 #pragma mark UITextField delegate methods
 
-- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (IBAction)eventNameChanged:(UITextField *)textField {
     if (textField.text.length > 0){
         [self.navigationItem.rightBarButtonItem setEnabled:YES];
     }
     else {
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
     }
-    return true;
 }
-    
-
 
 
 #pragma mark - Spotify Connection delegate methods

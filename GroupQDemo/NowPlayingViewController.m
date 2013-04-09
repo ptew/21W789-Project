@@ -10,6 +10,7 @@
 
 @interface NowPlayingViewController ()
 @property (strong, nonatomic) NSTimer *progressBarTimer;
+- (NSString*) timeFormatted: (int) totalSeconds;
 @end
 
 @implementation NowPlayingViewController
@@ -26,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.playImage = [UIImage imageNamed:@"playButton"];
+    self.pauseImage = [UIImage imageNamed:@"pauseButton"];
 	[[GroupQClient sharedClient] setDelegate:self];
     [[GroupQClient sharedClient] tellServerToSendPlaybackDetail];
     self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
@@ -33,12 +36,11 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [[GroupQClient sharedClient] setDelegate:self];
+    [self playbackDetailsReceived];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)volumeUpdated:(UISlider *)sender {
+    [[GroupQClient sharedClient] tellServerToSetVolume:[NSNumber numberWithFloat:sender.value]];
 }
 
 - (IBAction)playButton:(id)sender {
@@ -54,19 +56,19 @@
     [[GroupQClient sharedClient]tellServerToPlaySong:0];
 }
 
-- (IBAction)previousButton:(UIButton *)sender {
-}
 
 - (void)updateProgressBar{
     float songDuration;
     if([[GroupQClient sharedClient] isSongPlaying]){
         if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]){
-        songDuration = [[(iOSQueueItem*)[GroupQClient sharedClient].queue.nowPlaying playbackDuration] floatValue];
+            songDuration = [[(iOSQueueItem*)[GroupQClient sharedClient].queue.nowPlaying playbackDuration] floatValue];
         }
         else {
             songDuration = [(SpotifyQueueItem*)[GroupQClient sharedClient].queue.nowPlaying length];
         }
-        [self.songProgressBar setProgress:(self.songProgressBar.progress + 1.0 / songDuration)];
+        [[GroupQClient sharedClient] setSongProgress:[[GroupQClient sharedClient] songProgress]+1];
+        [self.songProgressBar setProgress:([[GroupQClient sharedClient] songProgress] / songDuration)];
+        self.songProgress.text = [self timeFormatted:([[GroupQClient sharedClient] songProgress])];
     }
 }
 
@@ -75,10 +77,10 @@
 - (void) playbackDetailsReceived {
     //sets the play button be be either play or pause
     if([[GroupQClient sharedClient] isSongPlaying]){
-        [self.playButtonOutlet setTitle:@"Pause" forState:UIControlStateNormal];
+        self.playButtonOutlet.imageView.image = self.pauseImage;
     }
     else {
-        [self.playButtonOutlet setTitle:@"Play" forState:UIControlStateNormal];
+        self.playButtonOutlet.imageView.image = self.playImage;
     }
     
     //sets the progress bar to be the total progress.
@@ -86,6 +88,7 @@
     float progressPercent;
     if([GroupQClient sharedClient].queue.nowPlaying == nil){
         progressPercent = 0;
+        songDuration = 0;
     }
     else if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]){
         songDuration = [[(iOSQueueItem*)[GroupQClient sharedClient].queue.nowPlaying playbackDuration] floatValue];
@@ -95,8 +98,12 @@
         songDuration = [(SpotifyQueueItem*)[GroupQClient sharedClient].queue.nowPlaying length];
         progressPercent = [[GroupQClient sharedClient] songProgress] / songDuration;
     }
+    self.songDuration.text = [self timeFormatted:songDuration];
+    self.songProgress.text = [self timeFormatted:([[GroupQClient sharedClient] songProgress])];
     
     [self.songProgressBar setProgress:progressPercent];
+    
+    [self.songVolume setValue:[[GroupQClient sharedClient] songVolume] animated:TRUE];
     
     //update the artist and the track information
     if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]){
@@ -107,8 +114,22 @@
         self.songTitle.text = [(SpotifyQueueItem*)[GroupQClient sharedClient].queue.nowPlaying title];
         self.artist.text = [(SpotifyQueueItem*)[GroupQClient sharedClient].queue.nowPlaying artist];
     }
+    
+    if ([[GroupQClient sharedClient] songProgress] == -1) {
+        self.artist.text = @"--";
+        self.songTitle.text = @"---------";
+        self.songProgress.text = @"--:--";
+        self.songDuration.text = @"--:--";
+    }
+}
 
-    //Implement volume here once the views are in place.
+- (NSString *)timeFormatted:(int)totalSeconds
+{
+    
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds / 60) % 60;
+    
+    return [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
 }
 
 - (void) eventsUpdated{}
@@ -119,4 +140,57 @@
 }
 - (void) initialInformationReceived{}
 - (void) spotifyInfoReceived {}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *choice = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if([choice isEqualToString:@"End Event"]) {
+        [[GroupQEvent sharedEvent] endEvent];
+    }
+    else if([choice isEqualToString:@"Leave Event"]) {
+        [[GroupQClient sharedClient] disconnect];
+        [self disconnectedFromEvent];
+    }
+    else if([choice isEqualToString:@"Connect To Spotify"]) {
+        self.loginConnection = [[SpotifyConnection alloc] initWithParent:self];
+        [self.loginConnection setDelegate:self];
+        [self.loginConnection connect];
+        [self performSelector:@selector(showSpotifyLogin) withObject:nil afterDelay:0.0];
+    }
+}
+
+- (void) showSpotifyLogin {
+    self.spLoginController = [self.loginConnection getLoginScreen];
+    [self presentViewController:self.spLoginController animated:NO completion:NULL];
+}
+
+- (void)loggedInToSpotifySuccessfully{
+    [[GroupQEvent sharedEvent] setSpotify:true];
+    [[GroupQEvent sharedEvent] tellClientsAboutSpotifyStatus];
+}
+- (void)loggedOutOfSpotify{
+    [[GroupQEvent sharedEvent] setSpotify:false];
+    [[GroupQEvent sharedEvent] tellClientsAboutSpotifyStatus];
+}
+
+- (void)failedToLoginToSpotifyWithError:(NSError*)error{
+    NSLog(@"A spotify login error occored");
+}
+
+- (IBAction)eventAction:(UIBarButtonItem *)sender {
+    UIActionSheet *actionSheet;
+    if ([[GroupQClient sharedClient] isHost]) {
+        if ([[GroupQEvent sharedEvent] hasSpotify]) {
+            actionSheet = [[UIActionSheet alloc] initWithTitle:@"Event Host Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"End Event" otherButtonTitles:nil];
+        }
+        else {
+            actionSheet = [[UIActionSheet alloc] initWithTitle:@"Event Host Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"End Event" otherButtonTitles:@"Connect To Spotify", nil];
+        }
+    }
+    else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Guest Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Leave Event" otherButtonTitles:nil];
+    }
+    UITabBarController *controller = (UITabBarController*)[self parentViewController].parentViewController;
+    [actionSheet showFromTabBar:controller.tabBar];
+}
 @end

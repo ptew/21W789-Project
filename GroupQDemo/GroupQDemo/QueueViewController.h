@@ -11,5 +11,5 @@
 #import "GroupQNetworking.h"
 #import "Spotify.h"
 
-@interface QueueViewController : UITableViewController<UIActionSheetDelegate, GroupQClientDelegate, GroupQQueueDelegate, UITableViewDelegate>
+@interface QueueViewController : UITableViewController<UIActionSheetDelegate, GroupQClientDelegate, GroupQQueueDelegate, SpotifyConnectionDelegate>
 @end

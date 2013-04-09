@@ -29,6 +29,14 @@
 		B82E6C2D1711E23600767DF8 /* QueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82E6C2C1711E23600767DF8 /* QueueViewController.m */; };
 		B846E3211710ED3800B8E2AD /* spotify-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B846E3201710ED3800B8E2AD /* spotify-logo.png */; };
 		B8585A92171397BD0096C2E4 /* GroupQPlaybackDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = B8585A91171397BD0096C2E4 /* GroupQPlaybackDetail.m */; };
+		B85D904A17142DA600A9F3A3 /* nextSong.png in Resources */ = {isa = PBXBuildFile; fileRef = B85D904617142DA600A9F3A3 /* nextSong.png */; };
+		B85D904B17142DA600A9F3A3 /* nowPlayingBar.png in Resources */ = {isa = PBXBuildFile; fileRef = B85D904717142DA600A9F3A3 /* nowPlayingBar.png */; };
+		B85D904C17142DA600A9F3A3 /* pauseButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B85D904817142DA600A9F3A3 /* pauseButton.png */; };
+		B85D904D17142DA600A9F3A3 /* playButton.png in Resources */ = {isa = PBXBuildFile; fileRef = B85D904917142DA600A9F3A3 /* playButton.png */; };
+		B85D90521714326300A9F3A3 /* speakerHigh.png in Resources */ = {isa = PBXBuildFile; fileRef = B85D90501714326300A9F3A3 /* speakerHigh.png */; };
+		B85D90531714326300A9F3A3 /* speakerLow.png in Resources */ = {isa = PBXBuildFile; fileRef = B85D90511714326300A9F3A3 /* speakerLow.png */; };
+		B85D90561714467700A9F3A3 /* nowPlayingIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B85D90541714467700A9F3A3 /* nowPlayingIcon.png */; };
+		B85D90571714467700A9F3A3 /* queueIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B85D90551714467700A9F3A3 /* queueIcon.png */; };
 		B86510D01710D2E800495318 /* ActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B86510CD1710D2E800495318 /* ActivityView.xib */; };
 		B86510D11710D2E800495318 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86510CF1710D2E800495318 /* ActivityViewController.m */; };
 		B86510D31710D6C400495318 /* libCocoaLibSpotify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DDE1710B44A001145B8 /* libCocoaLibSpotify.a */; };
@@ -151,6 +159,14 @@
 		B846E3201710ED3800B8E2AD /* spotify-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotify-logo.png"; sourceTree = "<group>"; };
 		B8585A90171397BD0096C2E4 /* GroupQPlaybackDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupQPlaybackDetail.h; sourceTree = "<group>"; };
 		B8585A91171397BD0096C2E4 /* GroupQPlaybackDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupQPlaybackDetail.m; sourceTree = "<group>"; };
+		B85D904617142DA600A9F3A3 /* nextSong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextSong.png; sourceTree = "<group>"; };
+		B85D904717142DA600A9F3A3 /* nowPlayingBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nowPlayingBar.png; sourceTree = "<group>"; };
+		B85D904817142DA600A9F3A3 /* pauseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton.png; sourceTree = "<group>"; };
+		B85D904917142DA600A9F3A3 /* playButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playButton.png; sourceTree = "<group>"; };
+		B85D90501714326300A9F3A3 /* speakerHigh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speakerHigh.png; sourceTree = "<group>"; };
+		B85D90511714326300A9F3A3 /* speakerLow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speakerLow.png; sourceTree = "<group>"; };
+		B85D90541714467700A9F3A3 /* nowPlayingIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nowPlayingIcon.png; sourceTree = "<group>"; };
+		B85D90551714467700A9F3A3 /* queueIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = queueIcon.png; sourceTree = "<group>"; };
 		B86510CD1710D2E800495318 /* ActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityView.xib; sourceTree = "<group>"; };
 		B86510CE1710D2E800495318 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		B86510CF1710D2E800495318 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
@@ -415,6 +431,14 @@
 		B8A999D81710C6B4004E037D /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				B85D90541714467700A9F3A3 /* nowPlayingIcon.png */,
+				B85D90551714467700A9F3A3 /* queueIcon.png */,
+				B85D90501714326300A9F3A3 /* speakerHigh.png */,
+				B85D90511714326300A9F3A3 /* speakerLow.png */,
+				B85D904617142DA600A9F3A3 /* nextSong.png */,
+				B85D904717142DA600A9F3A3 /* nowPlayingBar.png */,
+				B85D904817142DA600A9F3A3 /* pauseButton.png */,
+				B85D904917142DA600A9F3A3 /* playButton.png */,
 				DEBCDD2B1712765400C5EE4E /* AlbumArtPlaceholder.png */,
 				DEBCDD2C1712765400C5EE4E /* AlbumArtPlaceholder@2x.png */,
 				DEBCDD2D1712765400C5EE4E /* AlbumArtPlaceholderLarge.png */,
@@ -582,6 +606,14 @@
 				DEBCDD421712765400C5EE4E /* Songs@2x.png in Resources */,
 				B89B95001713DEE800F2D488 /* ICON_SMALL.png in Resources */,
 				B89B95041713DF1900F2D488 /* Icon_LARGE.png in Resources */,
+				B85D904A17142DA600A9F3A3 /* nextSong.png in Resources */,
+				B85D904B17142DA600A9F3A3 /* nowPlayingBar.png in Resources */,
+				B85D904C17142DA600A9F3A3 /* pauseButton.png in Resources */,
+				B85D904D17142DA600A9F3A3 /* playButton.png in Resources */,
+				B85D90521714326300A9F3A3 /* speakerHigh.png in Resources */,
+				B85D90531714326300A9F3A3 /* speakerLow.png in Resources */,
+				B85D90561714467700A9F3A3 /* nowPlayingIcon.png in Resources */,
+				B85D90571714467700A9F3A3 /* queueIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

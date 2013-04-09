@@ -167,8 +167,9 @@
 - (bool)    isSongPlaying   {return isSongPlaying;}
 - (bool)    hostHasSpotify  {return hostHasSpotify;}
 - (float)   songVolume      {return songVolume;}
-- (float)   songProgress    {return songProgress;}
 
+- (float)   songProgress                    {return songProgress;}
+- (void)    setSongProgress:(float)progress {songProgress = progress;}
 
 #pragma mark - Messages to send to the server
 

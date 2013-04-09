@@ -48,7 +48,6 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 // Event information
 - (void) sendItemsAndQueueTo: (GroupQConnection *) who;
-- (void) tellClientsAboutSpotifyStatus;
 - (void) tellClientsPlaybackDetails;
 
 // Queue management
@@ -155,6 +154,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     
     // Remove users from list
     [self.userConnections removeAllObjects];
+    [[GroupQClient sharedClient] startSearchingForEvents];
 }
 
 
@@ -333,6 +333,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     self.songQueue.nowPlaying = nil;
     [self.songQueue playSong:0];
     [self tellClientsToPlaySong:0];
+    [self tellClientsPlaybackDetails];
     [self playNextSongInQueue];
 }
 
@@ -376,8 +377,8 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 // Event information
 - (void) sendItemsAndQueueTo:(GroupQConnection *)who {
     NSLog(@"GQ Sending items and queue.");
-    [self broadcastObject:self.library withHeader:@"library"];
-    [self broadcastObject:self.songQueue withHeader:@"songQueue"];
+    [who sendObject:self.library withHeader:@"library"];
+    [who sendObject:self.songQueue withHeader:@"songQueue"];
 }
 
 - (void) tellClientsAboutSpotifyStatus {

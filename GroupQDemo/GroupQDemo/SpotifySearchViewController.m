@@ -12,6 +12,7 @@
 @property (strong, nonatomic) NSIndexPath *currentlySelectedSong;
 @property (strong, nonatomic) UIActionSheet *songActionSheet;
 @property (strong, nonatomic) UIActionSheet *errorActionSheet;
+@property bool isSearching;
 @end
 
 @implementation SpotifySearchViewController
@@ -32,6 +33,7 @@
         }
     }
     
+    self.isSearching = false;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -48,6 +50,7 @@
 #pragma mark SpotifySearher methods
 
 - (void) searchReturnedResults:(NSArray *)results {
+    self.isSearching = false;
     self.searchResults = [NSArray alloc];
     if(results.count > 0){
         self.searchResults = [self.searchResults initWithArray:results.copy];
@@ -59,14 +62,18 @@
 }
 
 - (void) searchResultedInError {
+    self.isSearching = false;
     NSLog(@"Search error");
     self.errorActionSheet = [[UIActionSheet alloc] initWithTitle:@"An Error Occored" delegate:self cancelButtonTitle:@"Try Again" destructiveButtonTitle:nil otherButtonTitles:nil, nil, nil];
+    [self.tableView reloadData];
 }
 
 #pragma mark SearchBar delegate methods
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [[SpotifySearcher sharedSearcher] search:searchBar.text];
+    self.isSearching = true;
+    [self.tableView reloadData];
     [searchBar resignFirstResponder];
 }
 
@@ -82,7 +89,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.searchResults == nil){
+    if (self.searchResults == nil || self.isSearching){
         return 1;
     }
     else {
@@ -102,7 +109,14 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    if(self.searchResults == nil){
+    if(self.isSearching) {
+        if(indexPath.row == 0) {
+            cell.textLabel.text = @"Searching...";
+            cell.detailTextLabel.text = @"";
+            cell.textLabel.textColor = [UIColor grayColor];
+        }
+    }
+    else if(self.searchResults == nil){
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Search Returned No Results";
             cell.detailTextLabel.text = @"";

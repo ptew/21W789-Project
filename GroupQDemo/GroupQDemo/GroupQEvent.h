@@ -42,6 +42,8 @@
 // Ends the event
 - (void) endEvent;
 
+#pragma mark - Information management
+- (void) tellClientsAboutSpotifyStatus;
 
 #pragma mark - Accessors
 - (void) setSpotify: (bool) hasSpotify;

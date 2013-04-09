@@ -13,14 +13,19 @@
 @interface QueueViewController ()
 
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *addSongButton;
+@property (strong, nonatomic) UIBarButtonItem *cancelDeleteButton;
 @property (nonatomic, weak) UIActionSheet *songActionSheet;
 @property (nonatomic, weak) UIActionSheet *mediaActionSheet;
 @property (nonatomic, strong) NSIndexPath *currentlySelectedSongIndex;
 @property (strong, nonatomic) UISwipeGestureRecognizer* deleteGestureRecognizer;
 @property (strong, nonatomic) NSIndexPath *cellToDelete;
+@property (strong, nonatomic) SpotifyConnection *loginConnection;
+@property (strong, nonatomic) SPLoginViewController *spLoginController;
 
 - (IBAction)showMediaPicker:(id)sender;
-+ (UITableViewCell*)removeCountLabelsFrom:(UITableViewCell*)cell;
+- (void) cancelDelete;
 @end
 
 
@@ -31,11 +36,13 @@
     [super viewDidLoad];
     [[GroupQClient sharedClient] setDelegate:self];
     [[GroupQClient sharedClient].queue setDelegate:self];
-     self.clearsSelectionOnViewWillAppear = NO;
     [self setEditing:TRUE animated:TRUE];
     
-    self.deleteGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftFrom:)];
+    self.deleteGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRightFrom:)];
+    self.deleteGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    
     [self.view addGestureRecognizer:self.deleteGestureRecognizer];
+    self.cancelDeleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelDelete)];
     self.cellToDelete = nil;
 }
 
@@ -44,9 +51,10 @@
     [self.tableView reloadData];
 }
 
-- (void)handleSwipeLeftFrom:(UIGestureRecognizer *)recognizer{
+- (void)handleSwipeRightFrom:(UIGestureRecognizer *)recognizer{
     CGPoint touchPoint = [recognizer locationOfTouch:0 inView:self.view];
     self.cellToDelete = [self.tableView indexPathForRowAtPoint:touchPoint];
+    self.navigationItem.rightBarButtonItem = self.cancelDeleteButton;
     [self.tableView reloadData];
 }
 
@@ -99,7 +107,15 @@
     //Sets the inital labels so the user knows to add songs to play.
     NSString *nowPlayingTitle = @"Add a song to play";
     NSString *nowPlayingSubtitle = @"";
-    
+    for (UIView *view in cell.subviews) {
+        if ([view isKindOfClass:[UILabel class]]) {
+            UILabel *label = (UILabel*)view;
+            if (label.tag == 10) {
+               [label removeFromSuperview];
+                break;
+            }
+        }
+    }
     if (indexPath.section == 0){
         //handles the now playing cell if the now playing song is an ios song.
         if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
@@ -129,7 +145,6 @@
                 }
             }
         }
-        cell = [QueueViewController removeCountLabelsFrom:cell];
     }
     else if(indexPath.section == 1) {
         //handles the now playing cell if the now playing song is an ios song.
@@ -160,8 +175,8 @@
                 }
             }
         }
-        cell = [QueueViewController removeCountLabelsFrom:cell];
         UILabel *countLabel = [[UILabel alloc] init];
+        countLabel.tag = 10;
         countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
         countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
         [cell addSubview:countLabel];
@@ -170,15 +185,6 @@
     cell.detailTextLabel.text = nowPlayingSubtitle;
     
     [tableView deselectRowAtIndexPath: indexPath animated: YES];
-    return cell;
-}
-
-+ (UITableViewCell*) removeCountLabelsFrom:(UITableViewCell *)cell{
-    for (UIView *subview in [cell subviews]) {
-        if ([subview isKindOfClass:[UIWebView class]]) {
-            [subview removeFromSuperview];
-        }
-    }
     return cell;
 }
 
@@ -256,6 +262,37 @@
     else if([choice isEqualToString:@"Add from Spotify"]){
         [self performSegueWithIdentifier:@"spotifySearch" sender:self];
     }
+    else if([choice isEqualToString:@"End Event"]) {
+        [[GroupQEvent sharedEvent] endEvent];
+    }
+    else if([choice isEqualToString:@"Leave Event"]) {
+        [[GroupQClient sharedClient] disconnect];
+        [self disconnectedFromEvent];
+    }
+    else if([choice isEqualToString:@"Connect To Spotify"]) {
+        self.loginConnection = [[SpotifyConnection alloc] initWithParent:self];
+        [self.loginConnection setDelegate:self];
+        [self.loginConnection connect];
+        [self performSelector:@selector(showSpotifyLogin) withObject:nil afterDelay:0.0];
+    }
+}
+
+- (void) showSpotifyLogin {
+    self.spLoginController = [self.loginConnection getLoginScreen];
+    [self presentViewController:self.spLoginController animated:NO completion:NULL];
+}
+
+- (void)loggedInToSpotifySuccessfully{
+    [[GroupQEvent sharedEvent] setSpotify:true];
+    [[GroupQEvent sharedEvent] tellClientsAboutSpotifyStatus];
+}
+- (void)loggedOutOfSpotify{
+    [[GroupQEvent sharedEvent] setSpotify:false];
+    [[GroupQEvent sharedEvent] tellClientsAboutSpotifyStatus];
+}
+
+- (void)failedToLoginToSpotifyWithError:(NSError*)error{
+    NSLog(@"A spotify login error occored");
 }
 
 /*
@@ -271,9 +308,16 @@
             spotifyTitle = @"Add from Spotify";
         }
         UIActionSheet *mediaActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Content" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Content", spotifyTitle, nil];
-        [mediaActionSheet showFromBarButtonItem:sender animated:YES];
+        UITabBarController *controller = (UITabBarController*)[self parentViewController].parentViewController;
+        [mediaActionSheet showFromTabBar:controller.tabBar];
     }
     
+    [self.tableView reloadData];
+}
+
+- (void) cancelDelete {
+    self.cellToDelete = nil;
+    self.navigationItem.rightBarButtonItem = self.addSongButton;
     [self.tableView reloadData];
 }
 
@@ -286,6 +330,7 @@
     if([self.cellToDelete isEqual:indexPath]){
         [[GroupQClient sharedClient] tellServerToDeleteSong:indexPath.row];
         self.cellToDelete = nil;
+        self.navigationItem.rightBarButtonItem = self.addSongButton;
     }
 }
 
@@ -297,8 +342,20 @@
     [self.parentViewController performSegueWithIdentifier:@"leaveEvent" sender:self];
 }
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender {
-    [[GroupQClient sharedClient] disconnect];
-    [self disconnectedFromEvent];
+    UIActionSheet *actionSheet;
+    if ([[GroupQClient sharedClient] isHost]) {
+        if ([[GroupQEvent sharedEvent] hasSpotify]) {
+            actionSheet = [[UIActionSheet alloc] initWithTitle:@"Event Host Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"End Event" otherButtonTitles:nil];
+        }
+        else {
+            actionSheet = [[UIActionSheet alloc] initWithTitle:@"Event Host Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"End Event" otherButtonTitles:@"Connect To Spotify", nil];
+        }
+    }
+    else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Guest Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Leave Event" otherButtonTitles:nil];
+    }
+    UITabBarController *controller = (UITabBarController*)[self parentViewController].parentViewController;
+    [actionSheet showFromTabBar:controller.tabBar];
 }
 - (void) playbackDetailsReceived{}
 - (void) spotifyInfoReceived {}

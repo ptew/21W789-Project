@@ -65,7 +65,9 @@
 - (bool) isSongPlaying;
 - (bool) hostHasSpotify;
 - (float) songVolume;
+
 - (float) songProgress;
+- (void)  setSongProgress: (float)progress;
 
 #pragma mark - Messages to send to the server
 // Client information

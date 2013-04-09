@@ -37,11 +37,10 @@
 {
     [super viewDidLoad];
     self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateText) userInfo:nil repeats:YES];
-    //[self updateText];
+    [self updateText];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-    NSLog(@"View appeared.");
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

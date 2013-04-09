@@ -49,7 +49,7 @@
         [self.queuedSongs removeObjectAtIndex:position+1];
     }
     else {
-        [self.queuedSongs insertObject:songToMove atIndex:destination];
+        [self.queuedSongs insertObject:songToMove atIndex:destination+1];
         [self.queuedSongs removeObjectAtIndex:position];
     }
     [self.delegate queueDidChange];

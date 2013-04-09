@@ -48,9 +48,9 @@
 #pragma mark SpotifySearher methods
 
 - (void) searchReturnedResults:(NSArray *)results {
+    self.searchResults = [NSArray alloc];
     if(results.count > 0){
-        self.searchResults = [[NSArray alloc] initWithArray:results.copy];
-        [self.tableView reloadData];
+        self.searchResults = [self.searchResults initWithArray:results.copy];
     }
     else{
         self.searchResults = nil;
@@ -83,7 +83,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.searchResults == nil){
-        return 0;
+        return 1;
     }
     else {
         if (self.searchResults.count > 10)
@@ -105,6 +105,7 @@
     if(self.searchResults == nil){
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Search Returned No Results";
+            cell.detailTextLabel.text = @"";
             cell.textLabel.textColor = [UIColor grayColor];
         }
     }
@@ -113,6 +114,7 @@
         NSString * title   = song.title;
         NSString * album   = song.album;
         NSString * artist  = song.artist;
+        cell.textLabel.textColor = [UIColor blackColor];
         cell.textLabel.text = title;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",artist, album];
     }

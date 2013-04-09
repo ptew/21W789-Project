@@ -16,10 +16,6 @@
 
 
 #import "QueueViewController.h"
-#import <MediaPlayer/MediaPlayer.h>
-#import "Spotify.h"
-
-
 
 @interface QueueViewController ()
 
@@ -31,6 +27,7 @@
 - (IBAction)showMediaPicker:(id)sender;
 
 @end
+
 
 @implementation QueueViewController
 
@@ -181,15 +178,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section==1) {
-    self.currentlySelectedSong = indexPath;
-    if (self.songActionSheet) {
-        // do nothing
-    } else {
-        UIActionSheet *songActionSheet = [[UIActionSheet alloc] initWithTitle:@"Queue Item Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play Now",@"Play Next", nil];
-        [songActionSheet showInView:[self.tableView window]];
-    }
+        self.currentlySelectedSong = indexPath;
+        if (self.songActionSheet) {
+            // do nothing
+        } else {
+            UIActionSheet *songActionSheet = [[UIActionSheet alloc] initWithTitle:@"Queue Item Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play Now",@"Play Next", nil];
+            [songActionSheet showInView:[self.tableView window]];
+        }
     
-    [self.tableView reloadData];
+        [self.tableView reloadData];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 

@@ -90,12 +90,15 @@
     else if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]){
         songDuration = [[(iOSQueueItem*)[GroupQClient sharedClient].queue.nowPlaying playbackDuration] floatValue];
         progressPercent = [[GroupQClient sharedClient] songProgress] / songDuration;
+        NSLog(@"Song Duration %f", songDuration);
     }
     else {
         songDuration = [(SpotifyQueueItem*)[GroupQClient sharedClient].queue.nowPlaying length];
         progressPercent = [[GroupQClient sharedClient] songProgress] / songDuration;
+        NSLog(@"Song Duration %f", songDuration);
     }
     
+    NSLog(@"Progress percent %f", progressPercent);
     [self.songProgressBar setProgress:progressPercent];
     
     //update the artist and the track information

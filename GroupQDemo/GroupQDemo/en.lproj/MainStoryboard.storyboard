@@ -9,7 +9,7 @@
             <objects>
                 <tableViewController id="zDH-rj-Q4H" customClass="BrowseEventsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="rHh-pF-DzV">
-                        <rect key="frame" x="0.0" y="20" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </tableView>
@@ -34,7 +34,7 @@
             <objects>
                 <tableViewController id="riJ-Je-JJd" customClass="NewEventViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Q37-YK-IJR">
-                        <rect key="frame" x="0.0" y="20" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -64,6 +64,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
+                                                        <action selector="eventNameChanged:" destination="riJ-Je-JJd" eventType="editingChanged" id="DND-fO-g6O"/>
                                                         <outlet property="delegate" destination="riJ-Je-JJd" id="Le0-7E-PO1"/>
                                                     </connections>
                                                 </textField>
@@ -184,7 +185,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Create an Event" id="OmW-ya-EcG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="CTQ-0b-HqO">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="CTQ-0b-HqO">
                             <connections>
                                 <action selector="createEvent:" destination="riJ-Je-JJd" id="Lox-cJ-dyO"/>
                             </connections>
@@ -410,27 +411,35 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jhp-2l-SHu">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhp-2l-SHu">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="onM-5w-ids"/>
-                                    <constraint firstAttribute="height" constant="46" id="ybw-zF-KPD"/>
+                                    <constraint firstAttribute="width" constant="240" id="5t0-hY-Uhy"/>
                                 </constraints>
                                 <string key="text">This product uses SPOTIFY CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group.</string>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="spotify-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="mZ3-rc-xA8">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="hFL-AB-0u3"/>
+                                    <constraint firstAttribute="width" constant="50" id="lfd-5j-zEz"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.41694661900000002" blue="0.081784601880000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="jhp-2l-SHu" firstAttribute="centerX" secondItem="p2C-oP-Fzf" secondAttribute="centerX" type="default" id="3TF-gx-8jX"/>
-                            <constraint firstItem="fSk-nm-0qC" firstAttribute="top" secondItem="y4Z-wC-t9a" secondAttribute="top" constant="176" id="5OW-nt-se5"/>
                             <constraint firstItem="fSk-nm-0qC" firstAttribute="leading" secondItem="y4Z-wC-t9a" secondAttribute="leading" type="default" id="7dY-Qp-A4d"/>
                             <constraint firstItem="fSk-nm-0qC" firstAttribute="trailing" secondItem="y4Z-wC-t9a" secondAttribute="trailing" type="default" id="CB6-uP-G8n"/>
-                            <constraint firstItem="p2C-oP-Fzf" firstAttribute="top" secondItem="y4Z-wC-t9a" secondAttribute="top" constant="225" type="user" id="Ixw-O1-foM"/>
+                            <constraint firstAttribute="trailing" secondItem="jhp-2l-SHu" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Di6-3j-FIq"/>
+                            <constraint firstItem="mZ3-rc-xA8" firstAttribute="leading" secondItem="y4Z-wC-t9a" secondAttribute="leading" constant="16" id="EOa-Rq-ZEi"/>
                             <constraint firstAttribute="bottom" secondItem="jhp-2l-SHu" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="Ki5-PT-eYB"/>
                             <constraint firstItem="p2C-oP-Fzf" firstAttribute="centerX" secondItem="fSk-nm-0qC" secondAttribute="centerX" type="default" id="blF-nI-zDg"/>
+                            <constraint firstItem="mZ3-rc-xA8" firstAttribute="top" secondItem="jhp-2l-SHu" secondAttribute="top" type="default" id="jaa-ra-wKC"/>
+                            <constraint firstAttribute="bottom" secondItem="mZ3-rc-xA8" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="l4U-UA-zSW"/>
+                            <constraint firstItem="fSk-nm-0qC" firstAttribute="top" secondItem="y4Z-wC-t9a" secondAttribute="top" constant="127" id="vbd-3b-hhd"/>
+                            <constraint firstItem="p2C-oP-Fzf" firstAttribute="top" secondItem="y4Z-wC-t9a" secondAttribute="top" constant="181" id="zOM-Br-Ca3"/>
                         </constraints>
                     </view>
                     <connections>
@@ -550,7 +559,7 @@
             <objects>
                 <viewController title="Songs" id="8cH-fJ-93z" customClass="AddAlbumViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NoC-4e-Qxl">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hKa-54-Hhh">
@@ -654,7 +663,7 @@
             <objects>
                 <viewController title="Songs" id="Nab-IV-YvJ" customClass="AddArtistViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3bT-6V-2th">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lG2-OT-EGR">
@@ -708,7 +717,7 @@
         <image name="Playlists.png" width="29" height="24"/>
         <image name="Songs.png" width="17" height="24"/>
         <image name="Speaker.png" width="227" height="224"/>
-        <image name="spotify-logo.png" width="892" height="896"/>
+        <image name="spotify-logo.png" width="100" height="100"/>
     </resources>
     <classes>
         <class className="AddAlbumViewController" superclassName="UIViewController">
@@ -756,6 +765,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NewEventViewController.h"/>
             <relationships>
                 <relationship kind="action" name="createEvent:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="eventNameChanged:" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="connectedLabelCell" candidateClass="UITableViewCell"/>
                 <relationship kind="outlet" name="eventName" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="eventPassword" candidateClass="UITextField"/>
@@ -799,7 +809,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="5H1-OI-y46"/>
-        <segue reference="ZNm-DC-b6d"/>
+        <segue reference="ox9-Ag-TPa"/>
+        <segue reference="VEM-PN-mcH"/>
     </inferredMetricsTieBreakers>
 </document>

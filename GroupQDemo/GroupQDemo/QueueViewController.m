@@ -34,6 +34,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    [[GroupQClient sharedClient] setDelegate:self];
     [self.tableView reloadData];
 }
 

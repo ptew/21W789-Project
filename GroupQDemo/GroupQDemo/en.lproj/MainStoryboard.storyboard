@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ZS0-1s-WzU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ZS0-1s-WzU">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -333,6 +333,7 @@
                     <tabBarItem key="tabBarItem" title="Now Playing" id="mm7-3m-Xk4"/>
                     <connections>
                         <outlet property="artist" destination="cRS-vh-FLg" id="3AW-tX-wX7"/>
+                        <outlet property="playButtonOutlet" destination="sFc-mI-1Yl" id="D4P-2T-pdW"/>
                         <outlet property="songProgressBar" destination="Iv2-rY-dQu" id="tPJ-1C-aQj"/>
                         <outlet property="songTitle" destination="wcX-wv-f14" id="6ig-vh-Yrm"/>
                     </connections>
@@ -732,6 +733,7 @@
                 <relationship kind="action" name="playButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="previousButton:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="artist" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="playButtonOutlet" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="songProgressBar" candidateClass="UIProgressView"/>
                 <relationship kind="outlet" name="songTitle" candidateClass="UILabel"/>
             </relationships>

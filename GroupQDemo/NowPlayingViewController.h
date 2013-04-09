@@ -10,12 +10,13 @@
 #import "GroupQQueue.h"
 #import "GroupQClient.h"
 
-@interface NowPlayingViewController : UIViewController
+@interface NowPlayingViewController : UIViewController<GroupQClientDelegate>
 - (IBAction)playButton:(UIButton *)sender;
 - (IBAction)nextButton:(UIButton *)sender;
 - (IBAction)previousButton:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIProgressView *songProgressBar;
 @property (weak, nonatomic) IBOutlet UILabel *songTitle;
 @property (weak, nonatomic) IBOutlet UILabel *artist;
+@property (weak, nonatomic) IBOutlet UIButton *playButtonOutlet;
 
 @end

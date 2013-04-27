@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CocoaLibSpotify.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -15,10 +15,12 @@
 @end
 
 @implementation SpotifyPlayer
+
 - (SpotifyPlayer *)init{
     self = [super initWithPlaybackSession:[SPSession sharedSession]];
     return self;
 }
+
 - (void)playTrack:(SpotifyQueueItem *) songToPlay atTime:(NSTimeInterval)time{
     NSURL *trackURL = songToPlay.trackURI;
     
@@ -49,15 +51,6 @@
         }
     }];
     return;
-}
-
-+ (SpotifyPlayer *) sharedPlayer {
-    static SpotifyPlayer *sharedPlayer = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedPlayer = [[SpotifyPlayer alloc] init];
-    });
-    return sharedPlayer;
 }
 
 #pragma mark SpotifyPlayer Delegate method

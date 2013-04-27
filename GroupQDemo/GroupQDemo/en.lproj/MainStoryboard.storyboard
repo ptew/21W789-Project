@@ -402,7 +402,6 @@
                     </navigationBar>
                     <connections>
                         <segue destination="1ux-Vf-C8C" kind="relationship" relationship="rootViewController" id="DOo-i7-h22"/>
-                        <segue destination="K7h-sY-icD" kind="modal" identifier="leaveEvent" id="L0v-XK-wVz"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCS-hE-JuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -914,7 +913,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gI2-8a-832"/>
-        <segue reference="L0v-XK-wVz"/>
+        <segue reference="ox9-Ag-TPa"/>
+        <segue reference="WqH-fC-Gt7"/>
     </inferredMetricsTieBreakers>
 </document>

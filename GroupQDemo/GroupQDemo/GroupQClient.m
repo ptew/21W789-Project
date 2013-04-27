@@ -102,6 +102,7 @@
 
 - (void) disconnect {
     [self.connectionToServer disconnectStreams:YES];
+    isHost = false;
 }
 
 - (void) connection:(GroupQConnection *)connection receivedMessage:(NSString *)message withHeader:(NSString *)header {

@@ -284,6 +284,7 @@
 
 - (void)loggedInToSpotifySuccessfully{
     [[GroupQEvent sharedEvent] setSpotify:true];
+    [[GroupQEvent sharedEvent] connectToSpotify];
     [[GroupQEvent sharedEvent] tellClientsAboutSpotifyStatus];
 }
 - (void)loggedOutOfSpotify{
@@ -339,7 +340,7 @@
 - (void) didConnectToEvent{}
 - (void) didNotConnectToEvent{}
 - (void) disconnectedFromEvent{
-    [self.parentViewController performSegueWithIdentifier:@"leaveEvent" sender:self];
+    [self.parentViewController.parentViewController performSegueWithIdentifier:@"leaveEvent" sender:self];
 }
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender {
     UIActionSheet *actionSheet;

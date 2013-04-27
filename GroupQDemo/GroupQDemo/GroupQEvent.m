@@ -25,6 +25,8 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 // The current music item being played
 @property (strong, nonatomic) MPMediaItem *nowPlayingHandle;
 
+// The spotify player
+@property (strong, nonatomic) SpotifyPlayer *spotifyPlayer;
 
 // The song queue and library
 @property (strong, nonatomic) GroupQQueue *songQueue;
@@ -152,11 +154,24 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         [connection disconnectStreams:TRUE];
     }
     
+    // Stop playing music
+    [self.musicPlayer stop];
+    
+    // Log out of spotify
+    if(hasSpotify) {
+        [[SPSession sharedSession] logout:NULL];
+        hasSpotify = false;
+    }
+    
     // Remove users from list
     [self.userConnections removeAllObjects];
-    [[GroupQClient sharedClient] startSearchingForEvents];
 }
 
+// Sets up spotify
+- (void) connectToSpotify {
+    self.spotifyPlayer = [[SpotifyPlayer alloc] init];
+    self.spotifyPlayer.playerDelegate = self;
+}
 
 #pragma mark - Connection management
 
@@ -256,8 +271,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
             [self.musicPlayer pause];
         }
         else {
-            pauseTime = [SpotifyPlayer sharedPlayer].trackPosition;
-            [SpotifyPlayer sharedPlayer].isPlaying = NO;
+            if(hasSpotify) {
+                pauseTime = self.spotifyPlayer.trackPosition;
+                self.spotifyPlayer.isPlaying = NO;
+            }
         }
         [self tellClientsPlaybackDetails];
     }
@@ -281,7 +298,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     else if([header isEqualToString:@"setVolume"]) {
         NSNumber *volumeLevel = [NSKeyedUnarchiver unarchiveObjectWithData:message];
         [self.musicPlayer setVolume:[volumeLevel floatValue]];
-        [SpotifyPlayer sharedPlayer].volume = [volumeLevel doubleValue];
+        self.spotifyPlayer.volume = [volumeLevel doubleValue];
         [self tellClientsPlaybackDetails];
     }
 }
@@ -315,7 +332,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     
     self.library = [[GroupQMusicCollection alloc] initWithSongs:[MPMediaQuery songsQuery] artists:[MPMediaQuery artistsQuery] albums:[MPMediaQuery albumsQuery] playlists:[MPMediaQuery playlistsQuery]];
     
-    [[SpotifyPlayer sharedPlayer] setPlayerDelegate:self];
+    if(hasSpotify) {
+        [self connectToSpotify];
+    }
+    
     NSLog(@"GQ Music player set up.");
 }
 
@@ -368,7 +388,9 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         }
     }
     else{
-        [[SpotifyPlayer sharedPlayer] playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying atTime: pauseTime];
+        if (hasSpotify) {
+            [self.spotifyPlayer playTrack:(SpotifyQueueItem*)self.songQueue.nowPlaying atTime: pauseTime];
+        }
     }
 }
 
@@ -400,7 +422,9 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
             currentTime = [NSNumber numberWithFloat:self.musicPlayer.currentPlaybackTime];
         }
         else {
-            currentTime = [NSNumber numberWithFloat:[SpotifyPlayer sharedPlayer].trackPosition];
+            if (hasSpotify) {
+                currentTime = [NSNumber numberWithFloat:self.spotifyPlayer.trackPosition];
+            }
         }
         details = [[GroupQPlaybackDetail alloc] initWithSongPlaying: isSongPlaying progress:[currentTime floatValue] volume:[volume floatValue]];
     }

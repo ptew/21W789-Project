@@ -41,6 +41,8 @@
 - (void) createEventWithName: (NSString*) name andPassword: (NSString*) password;
 // Ends the event
 - (void) endEvent;
+// Connects the event to spotify
+- (void) connectToSpotify;
 
 #pragma mark - Information management
 - (void) tellClientsAboutSpotifyStatus;
@@ -48,6 +50,7 @@
 #pragma mark - Accessors
 - (void) setSpotify: (bool) hasSpotify;
 - (bool) hasSpotify;
+
 
 #pragma mark - Singleton accessor
 + (GroupQEvent *) sharedEvent;

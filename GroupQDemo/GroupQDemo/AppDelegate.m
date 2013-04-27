@@ -7,11 +7,16 @@
 //
 
 #import "AppDelegate.h"
+#import "appkey.c"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [SPSession initializeSharedSessionWithApplicationKey:[NSData dataWithBytes:&g_appkey length:g_appkey_size]
+											   userAgent:@"com.spotify.SimplePlayer-iOS"
+										   loadingPolicy:SPAsyncLoadingManual
+												   error:nil];
     // Override point for customization after application launch.
     return YES;
 }

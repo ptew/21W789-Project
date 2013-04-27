@@ -68,6 +68,7 @@
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     NSLog(@"The connection failed with error %@", error);
+    [self.delegate searchResultedInError];
 }
 
 /*

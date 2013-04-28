@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *songTitle;
 @property (weak, nonatomic) IBOutlet UILabel *artist;
 @property (weak, nonatomic) IBOutlet UIButton *playButtonOutlet;
+@property (weak, nonatomic) IBOutlet UIButton *nextButtonOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *songDuration;
 @property (weak, nonatomic) IBOutlet UILabel *songProgress;
 @property (weak, nonatomic) IBOutlet UISlider *songVolume;

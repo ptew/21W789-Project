@@ -58,6 +58,11 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) tellClientsToDeleteSong: (int) position;
 - (void) tellClientsToPlaySong: (int) position;
 - (void) tellClientsToAddSpotifySong: (SpotifyQueueItem *) song;
+
+// Request management
+- (void) tellClientsToRequestSongs: (NSArray*) songs;
+- (void) tellClientsToDeleteRequest: (int) index;
+
 @end
 
 
@@ -281,6 +286,9 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     else if([header isEqualToString:@"requestPlaybackDetail"]) {
         [self tellClientsPlaybackDetails];
     }
+    else if([header isEqualToString:@"deleteRequest"]) {
+        [self tellClientsToDeleteRequest:[message integerValue]];
+    }
 }
 
 - (void) connection:(GroupQConnection *)connection receivedObject:(NSData *)message withHeader:(NSString *)header {
@@ -300,6 +308,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         [self.musicPlayer setVolume:[volumeLevel floatValue]];
         self.spotifyPlayer.volume = [volumeLevel doubleValue];
         [self tellClientsPlaybackDetails];
+    }
+    else if([header isEqualToString:@"requestSongs"]) {
+        NSArray *songs = [NSKeyedUnarchiver unarchiveObjectWithData:message];
+        [self tellClientsToRequestSongs:songs];
     }
 }
 
@@ -456,6 +468,16 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     NSLog(@"GQ telling clients to play song.");
     isSongPlaying = true;
     [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"playSong"];
+}
+
+// Request management
+- (void) tellClientsToRequestSongs: (NSArray*) songs {
+    NSLog(@"GQ telling clients to request songs.");
+    [self broadcastObject:songs withHeader:@"requestSongs"];
+}
+- (void) tellClientsToDeleteRequest: (int) index {
+    NSLog(@"GQ telling clients to delete request.");
+    [self broadcastMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"deleteRequest"];
 }
 
 #pragma mark - Singleton accessor

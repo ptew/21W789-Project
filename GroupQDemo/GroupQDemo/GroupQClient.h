@@ -37,6 +37,9 @@
 @property (strong, nonatomic) GroupQQueue *queue;
 @property (strong, nonatomic) GroupQMusicCollection *library;
 
+// The requested song queue
+@property (strong, nonatomic) GroupQQueue *requestQueue;
+
 // The current items being picked by the picker
 @property (strong, nonatomic) NSMutableArray *pickerSongs;
 
@@ -79,12 +82,16 @@
 - (void) tellServerToMoveSongFrom:(int)index To:(int)newIndex;
 - (void) tellServerToDeleteSong:(int)index;
 - (void) tellServerToPlaySong:(int)index;
-- (void) tellServerToaddSpotifySong:(SpotifyQueueItem *)song;
+- (void) tellServerToAddSpotifySong:(SpotifyQueueItem *)song;
 
 // Playback management
 - (void) tellServerToResumeSong;
 - (void) tellServerToPauseSong;
 - (void) tellServerToSetVolume: (NSNumber *) level;
+
+// Request management
+- (void) tellServerToRequestSongs: (NSArray*) songs;
+- (void) tellServerToDeleteRequest: (int) index;
 
 #pragma mark - Singleton accessor
 + (GroupQClient *) sharedClient;

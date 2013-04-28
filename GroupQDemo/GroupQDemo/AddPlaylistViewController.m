@@ -70,7 +70,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)donePressed:(UIBarButtonItem *)sender {
-    [[GroupQClient sharedClient] tellServerToAddSongs:[GroupQClient sharedClient].pickerSongs];
+    if ([[GroupQClient sharedClient] isDJ]) {
+        [[GroupQClient sharedClient] tellServerToAddSongs:[GroupQClient sharedClient].pickerSongs];
+    }
+    else {
+        [[GroupQClient sharedClient] tellServerToRequestSongs:[GroupQClient sharedClient].pickerSongs];
+    }
     [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
     

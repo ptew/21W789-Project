@@ -26,6 +26,8 @@
 		4C9D8DEC1710B488001145B8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DEB1710B488001145B8 /* AudioToolbox.framework */; };
 		4C9D8DEE1710B48D001145B8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9D8DED1710B48D001145B8 /* AVFoundation.framework */; };
 		4C9D8DF01710B4CB001145B8 /* SPLoginResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4C9D8DEF1710B4CB001145B8 /* SPLoginResources.bundle */; };
+		B8183F8F172C8BCD00B49107 /* RequestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8183F8E172C8BCD00B49107 /* RequestsViewController.m */; };
+		B8183F93172C9FC100B49107 /* requestsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8183F92172C9FC100B49107 /* requestsIcon.png */; };
 		B82E6C2D1711E23600767DF8 /* QueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82E6C2C1711E23600767DF8 /* QueueViewController.m */; };
 		B846E3211710ED3800B8E2AD /* spotify-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B846E3201710ED3800B8E2AD /* spotify-logo.png */; };
 		B8585A92171397BD0096C2E4 /* GroupQPlaybackDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = B8585A91171397BD0096C2E4 /* GroupQPlaybackDetail.m */; };
@@ -154,6 +156,9 @@
 		4C9D8E031710B588001145B8 /* GroupQClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GroupQClient.m; sourceTree = "<group>"; };
 		4C9D8E041710B588001145B8 /* GroupQClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroupQClientDelegate.h; sourceTree = "<group>"; };
 		4C9D8E0B1710B618001145B8 /* Spotify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Spotify.h; sourceTree = "<group>"; };
+		B8183F8D172C8BCD00B49107 /* RequestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestsViewController.h; sourceTree = "<group>"; };
+		B8183F8E172C8BCD00B49107 /* RequestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestsViewController.m; sourceTree = "<group>"; };
+		B8183F92172C9FC100B49107 /* requestsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = requestsIcon.png; sourceTree = "<group>"; };
 		B82E6C2B1711E23600767DF8 /* QueueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueueViewController.h; sourceTree = "<group>"; };
 		B82E6C2C1711E23600767DF8 /* QueueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueueViewController.m; sourceTree = "<group>"; };
 		B846E3201710ED3800B8E2AD /* spotify-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotify-logo.png"; sourceTree = "<group>"; };
@@ -317,6 +322,8 @@
 				B8A999E71710C9B8004E037D /* SplashScreenViewController.h */,
 				4C05C6451713586A00C285D2 /* NowPlayingViewController.h */,
 				4C05C6461713586A00C285D2 /* NowPlayingViewController.m */,
+				B8183F8D172C8BCD00B49107 /* RequestsViewController.h */,
+				B8183F8E172C8BCD00B49107 /* RequestsViewController.m */,
 				B8FEAA50171380F200E83351 /* Picker View Controllers */,
 				4C9D8DCD1710B432001145B8 /* MainStoryboard.storyboard */,
 			);
@@ -431,6 +438,7 @@
 		B8A999D81710C6B4004E037D /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				B8183F92172C9FC100B49107 /* requestsIcon.png */,
 				B85D90541714467700A9F3A3 /* nowPlayingIcon.png */,
 				B85D90551714467700A9F3A3 /* queueIcon.png */,
 				B85D90501714326300A9F3A3 /* speakerHigh.png */,
@@ -614,6 +622,7 @@
 				B85D90531714326300A9F3A3 /* speakerLow.png in Resources */,
 				B85D90561714467700A9F3A3 /* nowPlayingIcon.png in Resources */,
 				B85D90571714467700A9F3A3 /* queueIcon.png in Resources */,
+				B8183F93172C9FC100B49107 /* requestsIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,6 +657,7 @@
 				B899DD8A1713366800334312 /* iOSQueueItem.m in Sources */,
 				4C05C6471713586A00C285D2 /* NowPlayingViewController.m in Sources */,
 				B8585A92171397BD0096C2E4 /* GroupQPlaybackDetail.m in Sources */,
+				B8183F8F172C8BCD00B49107 /* RequestsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

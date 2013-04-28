@@ -187,7 +187,12 @@
     if (self.songActionSheet) {
         // do nothing
     } else {
-        self.songActionSheet = [[UIActionSheet alloc] initWithTitle:@"Queue Item Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to Queue", nil, nil];
+        if ([[GroupQClient sharedClient] isDJ]) {
+            self.songActionSheet = [[UIActionSheet alloc] initWithTitle:@"Song Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add to Queue", nil, nil];
+        }
+        else {
+            self.songActionSheet = [[UIActionSheet alloc] initWithTitle:@"Song Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Request Song", nil, nil];
+        }
         [self.songActionSheet showInView:[self.tableView window]];
     }
     
@@ -202,7 +207,11 @@
     if([actionSheet isEqual:self.songActionSheet]){
         if([buttonText isEqualToString:@"Add to Queue"]) {
             //Add to Queue Button
-            [[GroupQClient sharedClient] tellServerToaddSpotifySong:[self.searchResults objectAtIndex:self.currentlySelectedSong.row]];
+            [[GroupQClient sharedClient] tellServerToAddSpotifySong:[self.searchResults objectAtIndex:self.currentlySelectedSong.row]];
+            [self performSegueWithIdentifier:@"doneWithSpotify" sender:self];
+        }
+        else if([buttonText isEqualToString:@"Request Song"]) {
+            [[GroupQClient sharedClient] tellServerToRequestSongs:[NSArray arrayWithObject:[self.searchResults objectAtIndex:self.currentlySelectedSong.row]]];
             [self performSegueWithIdentifier:@"doneWithSpotify" sender:self];
         }
     }

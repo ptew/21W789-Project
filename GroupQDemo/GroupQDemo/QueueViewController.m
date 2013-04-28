@@ -36,12 +36,15 @@
     [super viewDidLoad];
     [[GroupQClient sharedClient] setDelegate:self];
     [[GroupQClient sharedClient].queue setDelegate:self];
-    [self setEditing:TRUE animated:TRUE];
     
     self.deleteGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRightFrom:)];
     self.deleteGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
     
-    [self.view addGestureRecognizer:self.deleteGestureRecognizer];
+    [self setEditing:TRUE animated:TRUE];
+    
+    if ([[GroupQClient sharedClient] isDJ]) {
+        [self.view addGestureRecognizer:self.deleteGestureRecognizer];
+    }
     self.cancelDeleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelDelete)];
     self.cellToDelete = nil;
 }
@@ -54,8 +57,13 @@
 - (void)handleSwipeRightFrom:(UIGestureRecognizer *)recognizer{
     CGPoint touchPoint = [recognizer locationOfTouch:0 inView:self.view];
     self.cellToDelete = [self.tableView indexPathForRowAtPoint:touchPoint];
-    self.navigationItem.rightBarButtonItem = self.cancelDeleteButton;
-    [self.tableView reloadData];
+    if (self.cellToDelete.section == 0) {
+        self.cellToDelete = nil;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem = self.cancelDeleteButton;
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark groupQ Queue delegate methods
@@ -105,7 +113,10 @@
     
     
     //Sets the inital labels so the user knows to add songs to play.
-    NSString *nowPlayingTitle = @"Add a song to play";
+    NSString *nowPlayingTitle = @"Add a song to play.";
+    if (![[GroupQClient sharedClient] isDJ]) {
+        nowPlayingTitle = @"Request songs to play.";
+    }
     NSString *nowPlayingSubtitle = @"";
     for (UIView *view in cell.subviews) {
         if ([view isKindOfClass:[UILabel class]]) {
@@ -184,6 +195,10 @@
     cell.textLabel.text = nowPlayingTitle;
     cell.detailTextLabel.text = nowPlayingSubtitle;
     
+    if(![[GroupQClient sharedClient] isDJ]) {
+        cell.userInteractionEnabled = false;
+    }
+    
     [tableView deselectRowAtIndexPath: indexPath animated: YES];
     return cell;
 }
@@ -215,6 +230,8 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (![[GroupQClient sharedClient] isDJ])
+        return NO;
     if (indexPath.section == 0) // Don't move the first row
        return NO;
     
@@ -224,6 +241,9 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     self.cellToDelete = nil;
+    if (![[GroupQClient sharedClient] isDJ]) {
+        return;
+    }
     //Does not allow movement of the first section. ie section 0.
     if (sourceIndexPath.section == 1 && destinationIndexPath.section == 1){
         [[GroupQClient sharedClient] tellServerToMoveSongFrom:sourceIndexPath.row To:destinationIndexPath.row];
@@ -256,10 +276,10 @@
     else if([choice isEqualToString:@"Play Next"]){
         [[GroupQClient sharedClient] tellServerToMoveSongFrom:self.currentlySelectedSongIndex.row To:0];
     }
-    else if([choice isEqualToString:@"Add Content"]){
+    else if([choice isEqualToString:@"Add Content"] || [choice isEqualToString:@"Request Content"]){
         [self performSegueWithIdentifier:@"addSongPicker" sender:self];
     }
-    else if([choice isEqualToString:@"Add from Spotify"]){
+    else if([choice isEqualToString:@"Add from Spotify"] || [choice isEqualToString:@"Request from Spotify"]){
         [self performSegueWithIdentifier:@"spotifySearch" sender:self];
     }
     else if([choice isEqualToString:@"End Event"]) {
@@ -306,9 +326,18 @@
         //Only adds the spotify option if the server is logged into spotify.
         NSString *spotifyTitle = nil;
         if ([[GroupQClient sharedClient] hostHasSpotify]) {
-            spotifyTitle = @"Add from Spotify";
+            if ([[GroupQClient sharedClient] isDJ]) {
+                spotifyTitle = @"Add from Spotify";
+            }
+            else {
+                spotifyTitle = @"Request from Spotify";
+            }
         }
-        UIActionSheet *mediaActionSheet = [[UIActionSheet alloc] initWithTitle:@"Add Content" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add Content", spotifyTitle, nil];
+        NSString *contentTitle = @"Request Content";
+        if ([[GroupQClient sharedClient] isDJ]) {
+            contentTitle = @"Add Content";
+        }
+        UIActionSheet *mediaActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:contentTitle, spotifyTitle, nil];
         UITabBarController *controller = (UITabBarController*)[self parentViewController].parentViewController;
         [mediaActionSheet showFromTabBar:controller.tabBar];
     }

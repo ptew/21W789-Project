@@ -35,6 +35,7 @@
     songVolume = 0;
     songProgress = 0;
     
+    self.requestQueue = [[GroupQQueue alloc] init];
     // Initially assume we are not the host
     isHost = false;
     return self;
@@ -72,6 +73,7 @@
 
 - (void) connectAsHost {
     isHost = true;
+    isDJ = true;
     self.connectionToServer = [[GroupQConnection alloc] init];
     self.connectionToServer.delegate = self;
     [self.connectionToServer connectAsHost];
@@ -125,6 +127,9 @@
         hostHasSpotify = false;
         [self.delegate spotifyInfoReceived];
     }
+    else if([header isEqualToString:@"deleteRequest"]) {
+        [self.requestQueue deleteSong:[message integerValue]];
+    }
     else{
         NSLog(@"Unrecognized header: %@ parsed in recievedMessages.", header);
     }
@@ -152,6 +157,9 @@
         songProgress = [details songProgress];
         songVolume = [details songVolume];
         [self.delegate playbackDetailsReceived];
+    }
+    else if([header isEqualToString:@"requestSongs"]) {
+        [self.requestQueue addSongs:[NSKeyedUnarchiver unarchiveObjectWithData:message]];
     }
     else{
         NSLog(@"Unrecognized header: %@ parsed in recievedObjects.", header);
@@ -201,7 +209,7 @@
 - (void) tellServerToPlaySong:(int)index{
     [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"playSong"];
 }
-- (void) tellServerToaddSpotifySong:(SpotifyQueueItem *)song{
+- (void) tellServerToAddSpotifySong:(SpotifyQueueItem *)song{
     [self.connectionToServer sendObject:song withHeader:@"addSpotifySong"];
 }
 
@@ -215,6 +223,15 @@
 }
 - (void) tellServerToSetVolume: (NSNumber *) level {
     [self.connectionToServer sendObject:level withHeader:@"setVolume"];
+}
+
+// Request management
+- (void) tellServerToRequestSongs:(NSArray *)songs {
+    [self.connectionToServer sendObject:songs withHeader:@"requestSongs"];
+}
+
+- (void) tellServerToDeleteRequest:(int) index {
+    [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"deleteRequest"];
 }
 
 #pragma mark - Singleton accessor

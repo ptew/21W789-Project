@@ -108,6 +108,7 @@
     if(dj) {
         if ([self getPassword:[self.eventToJoin name]] == nil) {
             // If there's no password, join right away
+            [[GroupQClient sharedClient] setDJ: true];
             [self joinEvent];
         }
         else {
@@ -119,6 +120,7 @@
     }
     else {
         // Listeners can always join
+        [[GroupQClient sharedClient] setDJ: false];
         [self joinEvent];
     }
 }
@@ -169,6 +171,7 @@
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Go!"]) {
         NSString *enteredPassword = [[alertView textFieldAtIndex:0] text];
         if ([enteredPassword isEqualToString:[self getPassword:self.eventToJoin.name]]) {
+            [[GroupQClient sharedClient] setDJ: true];
             [self joinEvent];
         }
         else {

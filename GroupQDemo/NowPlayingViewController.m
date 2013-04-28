@@ -19,19 +19,25 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
     }
     return self;
 }
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.playImage = [UIImage imageNamed:@"playButton"];
     self.pauseImage = [UIImage imageNamed:@"pauseButton"];
+    self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
+    if (![[GroupQClient sharedClient] isDJ]) {
+        self.playButtonOutlet.enabled = false;
+        self.nextButtonOutlet.enabled = false;
+        self.songVolume.enabled = false;
+    }
 	[[GroupQClient sharedClient] setDelegate:self];
     [[GroupQClient sharedClient] tellServerToSendPlaybackDetail];
-    self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

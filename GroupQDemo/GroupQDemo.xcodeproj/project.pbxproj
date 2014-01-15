@@ -52,8 +52,6 @@
 		B86510DD1710EC0900495318 /* NewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B86510DC1710EC0900495318 /* NewEventViewController.m */; };
 		B8824DF517129EE9002C8C30 /* GroupQMusicCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B8824DF417129EE9002C8C30 /* GroupQMusicCollection.m */; };
 		B899DD8A1713366800334312 /* iOSQueueItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B899DD891713366800334312 /* iOSQueueItem.m */; };
-		B89B95001713DEE800F2D488 /* ICON_SMALL.png in Resources */ = {isa = PBXBuildFile; fileRef = B89B94FF1713DEE800F2D488 /* ICON_SMALL.png */; };
-		B89B95041713DF1900F2D488 /* Icon_LARGE.png in Resources */ = {isa = PBXBuildFile; fileRef = B89B95031713DF1900F2D488 /* Icon_LARGE.png */; };
 		B8A999DE1710C6B4004E037D /* Icon.psd in Resources */ = {isa = PBXBuildFile; fileRef = B8A999D91710C6B4004E037D /* Icon.psd */; };
 		B8A999DF1710C6B4004E037D /* Icon_LARGE.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999DA1710C6B4004E037D /* Icon_LARGE.png */; };
 		B8A999E01710C6B4004E037D /* ICON_SMALL.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999DB1710C6B4004E037D /* ICON_SMALL.png */; };
@@ -612,8 +610,6 @@
 				DEBCDD401712765400C5EE4E /* Playlists@2x.png in Resources */,
 				DEBCDD411712765400C5EE4E /* Songs.png in Resources */,
 				DEBCDD421712765400C5EE4E /* Songs@2x.png in Resources */,
-				B89B95001713DEE800F2D488 /* ICON_SMALL.png in Resources */,
-				B89B95041713DF1900F2D488 /* Icon_LARGE.png in Resources */,
 				B85D904A17142DA600A9F3A3 /* nextSong.png in Resources */,
 				B85D904B17142DA600A9F3A3 /* nowPlayingBar.png in Resources */,
 				B85D904C17142DA600A9F3A3 /* pauseButton.png in Resources */,

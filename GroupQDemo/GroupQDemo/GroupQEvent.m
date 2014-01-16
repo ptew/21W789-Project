@@ -426,22 +426,23 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 
 - (void) tellClientsPlaybackDetails {
     GroupQPlaybackDetail *details;
-    NSNumber *volume;
-    volume = [NSNumber numberWithFloat:self.musicPlayer.volume];
     if(self.songQueue.nowPlaying != nil) {
         NSNumber *currentTime;
+        NSNumber *volume;
         if ([self.songQueue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
             currentTime = [NSNumber numberWithFloat:self.musicPlayer.currentPlaybackTime];
+            volume = [NSNumber numberWithFloat:self.musicPlayer.volume];
         }
         else {
             if (hasSpotify) {
                 currentTime = [NSNumber numberWithFloat:self.spotifyPlayer.trackPosition];
+                volume = [NSNumber numberWithFloat:self.spotifyPlayer.volume];
             }
         }
         details = [[GroupQPlaybackDetail alloc] initWithSongPlaying: isSongPlaying progress:[currentTime floatValue] volume:[volume floatValue]];
     }
     else {
-        details = [[GroupQPlaybackDetail alloc] initWithSongPlaying:false progress:-1 volume:[volume floatValue]];
+        details = [[GroupQPlaybackDetail alloc] initWithSongPlaying:false progress:-1 volume:0.0f];
     }
     NSLog(@"Sending details. Position: %f", details.songProgress);
     [self broadcastObject:details withHeader:@"playbackDetails"];

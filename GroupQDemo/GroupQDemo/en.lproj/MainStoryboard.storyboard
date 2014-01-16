@@ -664,7 +664,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search Spotify" showsCancelButton="YES" id="nwh-cE-5rk">
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Search Spotify" showsCancelButton="YES" id="nwh-cE-5rk">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -681,6 +681,7 @@
                             <outlet property="delegate" destination="1b7-nj-qu4" id="A5Q-3O-Pt0"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="searchText" destination="nwh-cE-5rk" id="z8o-8w-YLC"/>
                         <segue destination="me9-cr-aFB" kind="modal" identifier="doneWithSpotify" animates="NO" id="gI2-8a-832"/>
@@ -688,7 +689,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AxD-yU-y5B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2498" y="3583"/>
+            <point key="canvasLocation" x="2445" y="3543"/>
         </scene>
         <!--Add Album View Controller - Songs-->
         <scene sceneID="Fzo-kY-7iM">
@@ -904,7 +905,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="gI2-8a-832"/>
         <segue reference="ox9-Ag-TPa"/>
-        <segue reference="VEM-PN-mcH"/>
     </inferredMetricsTieBreakers>
 </document>

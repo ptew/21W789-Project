@@ -18,9 +18,6 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.progressBarTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgressBar) userInfo:nil repeats:YES];
-    }
     return self;
 }
 
@@ -110,6 +107,7 @@
     [self.songProgressBar setProgress:progressPercent];
     
     [self.songVolume setValue:[[GroupQClient sharedClient] songVolume] animated:TRUE];
+    NSLog(@"Set song volume to %f", [[GroupQClient sharedClient] songVolume]);
     
     //update the artist and the track information
     if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]){

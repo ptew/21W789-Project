@@ -10,6 +10,8 @@
 
 @interface AddAlbumViewController ()
 
+@property (strong, nonatomic) NSMutableArray *addedItems;
+
 @end
 
 @implementation AddAlbumViewController
@@ -20,6 +22,8 @@
     
     self.pickerTableView.scrollsToTop = TRUE;
     self.pickerTableView.showsVerticalScrollIndicator = TRUE;
+    
+    self.addedItems = [[NSMutableArray alloc] init];
     
 }
 
@@ -69,6 +73,18 @@
     NSString *albumName = [sortedAlbumNames objectAtIndex:indexPath.row];
     cell.textLabel.text = albumName;
     
+    if ([self.addedItems containsObject:albumName]) {
+        cell.textLabel.textColor = [UIColor grayColor];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+    }
+    
+    if ([self.addedItems containsObject:albumName]) {
+        cell.textLabel.textColor = [UIColor grayColor];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+    }
+    
     return cell;
 }
 
@@ -82,8 +98,8 @@
         NSArray *albumSongs = [albumsBeginningWithSectionLetter objectForKey:albumName];
 
         [[GroupQClient sharedClient].pickerSongs addObjectsFromArray:albumSongs];
-        
-        [self.pickerTableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
+        [self.addedItems addObject:albumName];
+        [tableView reloadData];
     }
 }
 
@@ -102,10 +118,12 @@
     }
     [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
+    self.addedItems = [[NSMutableArray alloc] init];
 }
 
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender {
     [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
+    self.addedItems = [[NSMutableArray alloc] init];
 }
 @end

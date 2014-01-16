@@ -10,6 +10,7 @@
 
 @interface AddPlaylistViewController ()
 @property (nonatomic,weak) NSString *type;
+@property (strong, nonatomic) NSMutableArray *addedItems;
 
 @end
 
@@ -23,7 +24,7 @@
     self.pickerTableView.scrollsToTop = TRUE;
     self.pickerTableView.showsVerticalScrollIndicator = TRUE;
     
-    
+    self.addedItems = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - Table view data source
@@ -46,7 +47,16 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [[[[GroupQClient sharedClient].library.playlistCollection allKeys]sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.row];
+    
+    NSString *playlistName = [[[[GroupQClient sharedClient].library.playlistCollection allKeys]sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = playlistName;
+    
+    if ([self.addedItems containsObject:playlistName]) {
+        cell.textLabel.textColor = [UIColor grayColor];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+    }
     
     return cell;
 }
@@ -59,8 +69,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
         NSArray *playlist = [[GroupQClient sharedClient].library.playlistCollection objectForKey:playlistName];
         [[GroupQClient sharedClient].pickerSongs addObjectsFromArray:playlist];
-        
-        [self.pickerTableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
+        [self.addedItems addObject:playlistName];
+        [tableView reloadData];
     }
 }
 
@@ -78,11 +88,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
-    
+    self.addedItems = [[NSMutableArray alloc] init];
 }
 
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender {
     [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
+    self.addedItems = [[NSMutableArray alloc] init];
 }
 @end

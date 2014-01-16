@@ -10,6 +10,8 @@
 
 @interface AddSongViewController ()
 
+@property (strong, nonatomic) NSMutableArray *addedItems;
+
 @end
 
 @implementation AddSongViewController
@@ -20,10 +22,10 @@
     [super viewDidLoad];
 
     [self.pickerTableView setEditing:TRUE animated:TRUE];
-    
     self.pickerTableView.scrollsToTop = TRUE;
     self.pickerTableView.showsVerticalScrollIndicator = TRUE;
-
+    
+    self.addedItems = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - Table view data source
@@ -78,7 +80,12 @@
     else{
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",artist, album];
     }
-
+    
+    if ([self.addedItems containsObject:songItem]) {
+        cell.textLabel.textColor = [UIColor grayColor];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+    }
     
     return cell;
 }
@@ -88,8 +95,8 @@
     if (editingStyle == UITableViewCellEditingStyleInsert) {
         iOSQueueItem *songItem = [[[GroupQClient sharedClient].library.songCollection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
         [[GroupQClient sharedClient].pickerSongs addObject:songItem];
-        
-        [self.pickerTableView cellForRowAtIndexPath:indexPath].textLabel.textColor = [UIColor grayColor];
+        [self.addedItems addObject:songItem];
+        [tableView reloadData];
     }   
 }
 
@@ -108,10 +115,12 @@
     }
     [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
+    self.addedItems = [[NSMutableArray alloc] init];
 }
 
 - (IBAction)cancelPressed:(UIBarButtonItem *)sender{
     [GroupQClient sharedClient].pickerSongs = [[NSMutableArray alloc] init];
     [[self parentViewController] performSegueWithIdentifier:@"doneWithPicker" sender:self];
+    self.addedItems = [[NSMutableArray alloc] init];
 }
 @end

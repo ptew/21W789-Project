@@ -280,6 +280,7 @@
         [self performSegueWithIdentifier:@"addSongPicker" sender:self];
     }
     else if([choice isEqualToString:@"Add from Spotify"] || [choice isEqualToString:@"Request from Spotify"]){
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
         [self performSegueWithIdentifier:@"spotifySearch" sender:self];
     }
     else if([choice isEqualToString:@"End Event"]) {

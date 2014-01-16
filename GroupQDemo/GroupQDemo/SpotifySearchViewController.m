@@ -21,7 +21,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [[SpotifySearcher sharedSearcher] setDelegate:self];
     
     [self.searchText becomeFirstResponder];
@@ -39,6 +38,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"Hiding status bar.");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    NSLog(@"Showing status bar.");
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning

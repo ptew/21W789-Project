@@ -24,6 +24,14 @@
     SPLoginViewController *controller = [SPLoginViewController loginControllerForSession:[SPSession sharedSession]];
     if (controller == nil)
         NSLog(@"Could not create login controller");
+    controller.edgesForExtendedLayout = UIRectEdgeNone;
+    controller.extendedLayoutIncludesOpaqueBars=NO;
+    controller.automaticallyAdjustsScrollViewInsets=NO;
+    for (UIViewController* childViewController in controller.childViewControllers) {
+        childViewController.edgesForExtendedLayout = UIRectEdgeNone;
+        childViewController.extendedLayoutIncludesOpaqueBars=NO;
+        childViewController.automaticallyAdjustsScrollViewInsets=NO;
+    }
     return controller;
 }
 

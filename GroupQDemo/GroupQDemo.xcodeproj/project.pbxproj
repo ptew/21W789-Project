@@ -63,6 +63,10 @@
 		B8A999F71710D027004E037D /* NoLock.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A999F61710D027004E037D /* NoLock.png */; };
 		B8F46F4E1711E26400846F82 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F46F4D1711E26400846F82 /* MediaPlayer.framework */; };
 		B8F46F54171203AE00846F82 /* GroupQQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F46F53171203AE00846F82 /* GroupQQueue.m */; };
+		DE60604E18887DEB00C1A425 /* AddAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE60604A18887DEB00C1A425 /* AddAlbumViewController.m */; };
+		DE60604F18887DEB00C1A425 /* AddArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE60604B18887DEB00C1A425 /* AddArtistViewController.m */; };
+		DE60605018887DEB00C1A425 /* AddPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE60604C18887DEB00C1A425 /* AddPlaylistViewController.m */; };
+		DE60605118887DEB00C1A425 /* AddSongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE60604D18887DEB00C1A425 /* AddSongViewController.m */; };
 		DEBCDD371712765400C5EE4E /* AlbumArtPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD2B1712765400C5EE4E /* AlbumArtPlaceholder.png */; };
 		DEBCDD381712765400C5EE4E /* AlbumArtPlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD2C1712765400C5EE4E /* AlbumArtPlaceholder@2x.png */; };
 		DEBCDD391712765400C5EE4E /* AlbumArtPlaceholderLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD2D1712765400C5EE4E /* AlbumArtPlaceholderLarge.png */; };
@@ -75,10 +79,6 @@
 		DEBCDD401712765400C5EE4E /* Playlists@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD341712765400C5EE4E /* Playlists@2x.png */; };
 		DEBCDD411712765400C5EE4E /* Songs.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD351712765400C5EE4E /* Songs.png */; };
 		DEBCDD421712765400C5EE4E /* Songs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEBCDD361712765400C5EE4E /* Songs@2x.png */; };
-		DECFD88B1712498B0077003E /* AddPlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFD88A1712498B0077003E /* AddPlaylistViewController.m */; };
-		DECFD88E171249A80077003E /* AddSongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFD88D171249A80077003E /* AddSongViewController.m */; };
-		DECFD891171249C60077003E /* AddArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFD890171249C60077003E /* AddArtistViewController.m */; };
-		DECFD894171249E10077003E /* AddAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DECFD893171249E10077003E /* AddAlbumViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +196,10 @@
 		B8F46F511711F12F00846F82 /* SpotifyPlayerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpotifyPlayerDelegate.h; sourceTree = "<group>"; };
 		B8F46F52171203AE00846F82 /* GroupQQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupQQueue.h; path = ../GroupQQueue.h; sourceTree = "<group>"; };
 		B8F46F53171203AE00846F82 /* GroupQQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GroupQQueue.m; path = ../GroupQQueue.m; sourceTree = "<group>"; };
+		DE60604A18887DEB00C1A425 /* AddAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAlbumViewController.m; sourceTree = "<group>"; };
+		DE60604B18887DEB00C1A425 /* AddArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddArtistViewController.m; sourceTree = "<group>"; };
+		DE60604C18887DEB00C1A425 /* AddPlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPlaylistViewController.m; sourceTree = "<group>"; };
+		DE60604D18887DEB00C1A425 /* AddSongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSongViewController.m; sourceTree = "<group>"; };
 		DEBCDD2B1712765400C5EE4E /* AlbumArtPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlbumArtPlaceholder.png; sourceTree = "<group>"; };
 		DEBCDD2C1712765400C5EE4E /* AlbumArtPlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlbumArtPlaceholder@2x.png"; sourceTree = "<group>"; };
 		DEBCDD2D1712765400C5EE4E /* AlbumArtPlaceholderLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlbumArtPlaceholderLarge.png; sourceTree = "<group>"; };
@@ -209,13 +213,9 @@
 		DEBCDD351712765400C5EE4E /* Songs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Songs.png; sourceTree = "<group>"; };
 		DEBCDD361712765400C5EE4E /* Songs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Songs@2x.png"; sourceTree = "<group>"; };
 		DECFD8891712498B0077003E /* AddPlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPlaylistViewController.h; sourceTree = "<group>"; };
-		DECFD88A1712498B0077003E /* AddPlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPlaylistViewController.m; sourceTree = "<group>"; };
 		DECFD88C171249A80077003E /* AddSongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSongViewController.h; sourceTree = "<group>"; };
-		DECFD88D171249A80077003E /* AddSongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSongViewController.m; sourceTree = "<group>"; };
 		DECFD88F171249C60077003E /* AddArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddArtistViewController.h; sourceTree = "<group>"; };
-		DECFD890171249C60077003E /* AddArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddArtistViewController.m; sourceTree = "<group>"; };
 		DECFD892171249E10077003E /* AddAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAlbumViewController.h; sourceTree = "<group>"; };
-		DECFD893171249E10077003E /* AddAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAlbumViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -497,14 +497,14 @@
 		B8FEAA50171380F200E83351 /* Picker View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DE60604A18887DEB00C1A425 /* AddAlbumViewController.m */,
+				DE60604B18887DEB00C1A425 /* AddArtistViewController.m */,
+				DE60604C18887DEB00C1A425 /* AddPlaylistViewController.m */,
+				DE60604D18887DEB00C1A425 /* AddSongViewController.m */,
 				DECFD88C171249A80077003E /* AddSongViewController.h */,
-				DECFD88D171249A80077003E /* AddSongViewController.m */,
 				DECFD88F171249C60077003E /* AddArtistViewController.h */,
-				DECFD890171249C60077003E /* AddArtistViewController.m */,
 				DECFD892171249E10077003E /* AddAlbumViewController.h */,
-				DECFD893171249E10077003E /* AddAlbumViewController.m */,
 				DECFD8891712498B0077003E /* AddPlaylistViewController.h */,
-				DECFD88A1712498B0077003E /* AddPlaylistViewController.m */,
 			);
 			name = "Picker View Controllers";
 			sourceTree = "<group>";
@@ -634,8 +634,11 @@
 				B86510D61710D7D500495318 /* GroupQEvent.m in Sources */,
 				B86510D71710D7D500495318 /* SpotifyConnection.m in Sources */,
 				B86510D81710D7D500495318 /* SpotifyPlayer.m in Sources */,
+				DE60605118887DEB00C1A425 /* AddSongViewController.m in Sources */,
 				B86510D91710D7D500495318 /* SpotifyQueueItem.m in Sources */,
+				DE60604E18887DEB00C1A425 /* AddAlbumViewController.m in Sources */,
 				B86510DA1710D7D500495318 /* SpotifySearcher.m in Sources */,
+				DE60605018887DEB00C1A425 /* AddPlaylistViewController.m in Sources */,
 				4C9D8DC21710B432001145B8 /* main.m in Sources */,
 				4C9D8DC61710B432001145B8 /* AppDelegate.m in Sources */,
 				B8A999EA1710C9B8004E037D /* SplashScreenViewController.m in Sources */,
@@ -644,10 +647,7 @@
 				B86510DD1710EC0900495318 /* NewEventViewController.m in Sources */,
 				B82E6C2D1711E23600767DF8 /* QueueViewController.m in Sources */,
 				B8F46F54171203AE00846F82 /* GroupQQueue.m in Sources */,
-				DECFD88B1712498B0077003E /* AddPlaylistViewController.m in Sources */,
-				DECFD88E171249A80077003E /* AddSongViewController.m in Sources */,
-				DECFD891171249C60077003E /* AddArtistViewController.m in Sources */,
-				DECFD894171249E10077003E /* AddAlbumViewController.m in Sources */,
+				DE60604F18887DEB00C1A425 /* AddArtistViewController.m in Sources */,
 				4C7B8FA717127E9300FFCC14 /* SpotifySearchViewController.m in Sources */,
 				B8824DF517129EE9002C8C30 /* GroupQMusicCollection.m in Sources */,
 				B899DD8A1713366800334312 /* iOSQueueItem.m in Sources */,
@@ -750,12 +750,14 @@
 				GCC_PREFIX_HEADER = "GroupQDemo/GroupQDemo-Prefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "GroupQDemo/GroupQDemo-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -767,12 +769,14 @@
 				GCC_PREFIX_HEADER = "GroupQDemo/GroupQDemo-Prefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "GroupQDemo/GroupQDemo-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

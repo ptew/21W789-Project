@@ -178,6 +178,10 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     self.spotifyPlayer.playerDelegate = self;
 }
 
+- (void) pauseEvent {
+    [self connection:nil receivedMessage:nil withHeader:@"pauseSong"];
+}
+
 #pragma mark - Connection management
 
 // The socket callback function will be called whenever a new socket connects to the listening socket

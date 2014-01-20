@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "appkey.c"
+#import "GroupQNetworking.h"
 
 @implementation AppDelegate
 
@@ -17,6 +18,7 @@
 											   userAgent:@"com.spotify.SimplePlayer-iOS"
 										   loadingPolicy:SPAsyncLoadingManual
 												   error:nil];
+    
     // Override point for customization after application launch.
     return YES;
 }
@@ -31,6 +33,9 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    if ([GroupQClient sharedClient].isHost) {
+        [[GroupQEvent sharedEvent] pauseEvent];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

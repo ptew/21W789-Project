@@ -160,7 +160,7 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     }
     
     // Stop playing music
-    [self.musicPlayer stop];
+    [self.musicPlayer pause];
     
     // Log out of spotify
     if(hasSpotify) {

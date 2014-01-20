@@ -116,16 +116,11 @@
     if (![[GroupQClient sharedClient] isDJ]) {
         nowPlayingTitle = @"Request a song to play.";
     }
+    
     NSString *nowPlayingSubtitle = @"";
-    for (UIView *view in cell.subviews) {
-        if ([view isKindOfClass:[UILabel class]]) {
-            UILabel *label = (UILabel*)view;
-            if (label.tag == 10) {
-               [label removeFromSuperview];
-                break;
-            }
-        }
-    }
+    
+    [[cell viewWithTag:10] removeFromSuperview];
+    
     if (indexPath.section == 0){
         //handles the now playing cell if the now playing song is an ios song.
         if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
@@ -185,11 +180,11 @@
                 }
             }
         }
-//        UILabel *countLabel = [[UILabel alloc] init];
-//        countLabel.tag = 10;
-//        countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
-//        countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
-//        [cell addSubview:countLabel];
+        UILabel *countLabel = [[UILabel alloc] init];
+        countLabel.tag = 10;
+        countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
+        countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
+        [cell addSubview:countLabel];
     }
     cell.textLabel.text = nowPlayingTitle;
     cell.detailTextLabel.text = nowPlayingSubtitle;

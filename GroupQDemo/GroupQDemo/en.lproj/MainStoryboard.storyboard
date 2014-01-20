@@ -587,7 +587,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="me9-cr-aFB" kind="modal" identifier="doneWithPicker" animates="NO" id="ZNm-DC-b6d"/>
-                        <segue destination="HXa-QH-WWq" kind="relationship" relationship="viewControllers" id="2sX-eR-fu3"/>
+                        <segue destination="HXa-QH-WWq" kind="relationship" relationship="viewControllers" id="u5b-4Q-nx7"/>
                         <segue destination="St0-a1-sag" kind="relationship" relationship="viewControllers" id="eB6-NA-xSf"/>
                         <segue destination="Nab-IV-YvJ" kind="relationship" relationship="viewControllers" id="c1q-bL-qKL"/>
                         <segue destination="8cH-fJ-93z" kind="relationship" relationship="viewControllers" id="lvp-Hd-XEI"/>
@@ -595,7 +595,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RrA-gd-EcW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2528" y="1097"/>
+            <point key="canvasLocation" x="2478" y="1081"/>
         </scene>
         <!--Add Song View Controller - Songs-->
         <scene sceneID="50X-rL-BRK">
@@ -740,7 +740,7 @@
                             <constraint firstItem="Aww-pP-Cth" firstAttribute="trailing" secondItem="hKa-54-Hhh" secondAttribute="trailing" id="pyq-wv-0Ve"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Albums" image="Albums.png" id="PgC-eQ-EEU"/>
                     <connections>
                         <outlet property="pickerTableView" destination="hKa-54-Hhh" id="b0I-JN-P6g"/>
@@ -753,40 +753,41 @@
         <!--Add Playlist View Controller - Songs-->
         <scene sceneID="BuE-D6-5Ny">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JbG-jt-1MS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Songs" id="HXa-QH-WWq" customClass="AddPlaylistViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kkQ-oA-zVt"/>
                         <viewControllerLayoutGuide type="bottom" id="RZI-ag-a8I"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="r1l-lX-yzv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Vsb-uW-RYa">
-                                <rect key="frame" x="0.0" y="20" width="320" height="411"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Vsb-uW-RYa">
+                                <rect key="frame" x="0.0" y="69" width="320" height="411"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <navigationBar key="tableFooterView" contentMode="scaleToFill" id="dQ7-hm-FCV">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                    <items>
-                                        <navigationItem title="Playlists" id="ALK-HY-aVA">
-                                            <barButtonItem key="leftBarButtonItem" title="Cancel" id="cQS-KB-WAr">
-                                                <connections>
-                                                    <action selector="cancelPressed:" destination="HXa-QH-WWq" id="dsd-vc-OBg"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem key="rightBarButtonItem" title="Done" id="6Bx-ML-J8g">
-                                                <connections>
-                                                    <action selector="donePressed:" destination="HXa-QH-WWq" id="TJU-fX-aNv"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </navigationItem>
-                                    </items>
-                                </navigationBar>
                                 <connections>
                                     <outlet property="dataSource" destination="HXa-QH-WWq" id="mQm-WM-6rQ"/>
                                     <outlet property="delegate" destination="HXa-QH-WWq" id="Cet-3n-ItZ"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dQ7-hm-FCV">
+                                <rect key="frame" x="0.0" y="25" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Playlists" id="ALK-HY-aVA">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="cQS-KB-WAr">
+                                            <connections>
+                                                <action selector="cancelPressed:" destination="HXa-QH-WWq" id="dsd-vc-OBg"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="6Bx-ML-J8g">
+                                            <connections>
+                                                <action selector="donePressed:" destination="HXa-QH-WWq" id="TJU-fX-aNv"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -798,12 +799,10 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Playlists" image="Playlists.png" id="zod-37-7cX"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="pickerTableView" destination="Vsb-uW-RYa" id="To8-ov-ny7"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JbG-jt-1MS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3129" y="839"/>
         </scene>
@@ -856,7 +855,7 @@
                             <constraint firstItem="lG2-OT-EGR" firstAttribute="top" secondItem="01W-rh-nSA" secondAttribute="bottom" id="yY5-9P-lDa"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Artists" image="Artists.png" id="04c-os-TNN"/>
                     <connections>
                         <outlet property="pickerTableView" destination="lG2-OT-EGR" id="xkg-2H-7N5"/>
@@ -905,7 +904,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gI2-8a-832"/>
+        <segue reference="ZNm-DC-b6d"/>
         <segue reference="ox9-Ag-TPa"/>
     </inferredMetricsTieBreakers>
 </document>

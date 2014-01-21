@@ -10,6 +10,10 @@
 
 #import "QueueViewController.h"
 
+#define SECTION_NOW_PLAYING 1
+#define SECTION_QUEUE 2
+#define SECTION_PREVIOUS 0
+
 @interface QueueViewController ()
 
 - (IBAction)leaveEvent:(UIBarButtonItem *)sender;
@@ -52,17 +56,18 @@
 - (void)viewDidAppear:(BOOL)animated{
     [[GroupQClient sharedClient] setDelegate:self];
     [self.tableView reloadData];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:SECTION_NOW_PLAYING] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 - (void)handleSwipeRightFrom:(UIGestureRecognizer *)recognizer{
     CGPoint touchPoint = [recognizer locationOfTouch:0 inView:self.view];
     self.cellToDelete = [self.tableView indexPathForRowAtPoint:touchPoint];
-    if (self.cellToDelete.section == 0) {
-        self.cellToDelete = nil;
-    }
-    else {
+    if (self.cellToDelete.section == SECTION_QUEUE) {
         self.navigationItem.rightBarButtonItem = self.cancelDeleteButton;
         [self.tableView reloadData];
+    }
+    else {
+        self.cellToDelete = nil;
     }
 }
 
@@ -78,7 +83,7 @@
 {
     // Return the number of sections.
     //section for now playing and annother for the rest of the queue.
-    return 2;
+    return 3;
 }
 
 /*
@@ -88,11 +93,13 @@
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == SECTION_NOW_PLAYING) {
         return 1;
     }
-    else if (section == 1) {
+    else if (section == SECTION_QUEUE) {
         return [GroupQClient sharedClient].queue.queuedSongs.count;
+    } else if (section == SECTION_PREVIOUS) {
+        return [GroupQClient sharedClient].queue.previousSongs.count;
     }
     return 0;
 }
@@ -121,7 +128,7 @@
     
     [[cell viewWithTag:10] removeFromSuperview];
     
-    if (indexPath.section == 0){
+    if (indexPath.section == SECTION_NOW_PLAYING){
         //handles the now playing cell if the now playing song is an ios song.
         if ([[GroupQClient sharedClient].queue.nowPlaying isKindOfClass:[iOSQueueItem class]]) {
             iOSQueueItem * song = [GroupQClient sharedClient].queue.nowPlaying;
@@ -151,7 +158,7 @@
             }
         }
     }
-    else if(indexPath.section == 1) {
+    else if(indexPath.section == SECTION_QUEUE) {
         //handles the now playing cell if the now playing song is an ios song.
         if ([[[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row] isKindOfClass:[iOSQueueItem class]]) {
             iOSQueueItem * song = [[GroupQClient sharedClient].queue.queuedSongs objectAtIndex:indexPath.row];
@@ -185,6 +192,35 @@
         countLabel.text = [NSString stringWithFormat:@"%d", indexPath.row+1];
         countLabel.frame = CGRectMake(15, cell.frame.size.height/4, 20, cell.frame.size.height/2);
         [cell addSubview:countLabel];
+    } else if (indexPath.section == SECTION_PREVIOUS) {
+        //handles the now playing cell if the now playing song is an ios song.
+        if ([[[GroupQClient sharedClient].queue.previousSongs objectAtIndex:indexPath.row] isKindOfClass:[iOSQueueItem class]]) {
+            iOSQueueItem * song = [[GroupQClient sharedClient].queue.previousSongs objectAtIndex:indexPath.row];
+            if (song) {
+                nowPlayingTitle = song.title;
+                if ([song.album isEqualToString:@""]) {
+                    nowPlayingSubtitle = song.artist;
+                }
+                else{
+                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",song.artist, song.album];
+                }
+            }
+        }
+        else if ([[[GroupQClient sharedClient].queue.previousSongs objectAtIndex:indexPath.row] isKindOfClass:[SpotifyQueueItem class]]){
+            SpotifyQueueItem *song = [[GroupQClient sharedClient].queue.previousSongs objectAtIndex:indexPath.row];
+            NSString * title   = song.title;
+            NSString * album   = song.album;
+            NSString * artist  = song.artist;
+            if (song) {
+                nowPlayingTitle = title;
+                if ([album isEqualToString:@""]) {
+                    nowPlayingSubtitle = artist;
+                }
+                else{
+                    nowPlayingSubtitle = [NSString stringWithFormat:@"%@ - %@",artist, album];
+                }
+            }
+        }
     }
     cell.textLabel.text = nowPlayingTitle;
     cell.detailTextLabel.text = nowPlayingSubtitle;
@@ -198,17 +234,20 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == SECTION_NOW_PLAYING) {
         return @"Now Playing";
     }
-    else if (section == 1) {
+    else if (section == SECTION_QUEUE) {
         return @"Up Next";
+    }
+    else if (section == SECTION_PREVIOUS) {
+        return @"Previously Played";
     }
     return @"";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section==1) {
+    if (indexPath.section!=SECTION_NOW_PLAYING) {
         self.currentlySelectedSongIndex = indexPath;
         if (self.songActionSheet) {
             // do nothing
@@ -226,7 +265,7 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
     if (![[GroupQClient sharedClient] isDJ])
         return NO;
-    if (indexPath.section == 0) // Don't move the first row
+    if (indexPath.section != SECTION_QUEUE) // Don't move the first row
        return NO;
     
     return YES;
@@ -239,11 +278,11 @@
         return;
     }
     //Does not allow movement of the first section. ie section 0.
-    if (sourceIndexPath.section == 1 && destinationIndexPath.section == 1){
+    if (sourceIndexPath.section == SECTION_QUEUE && destinationIndexPath.section == SECTION_QUEUE){
         [[GroupQClient sharedClient] tellServerToMoveSongFrom:sourceIndexPath.row To:destinationIndexPath.row];
     }
     //make the moved song the now playing song and delete the song that is now playing.
-    else if(sourceIndexPath.section == 1 && destinationIndexPath.section == 0){
+    else if(sourceIndexPath.section == SECTION_QUEUE && destinationIndexPath.section == SECTION_NOW_PLAYING){
         [[GroupQClient sharedClient] tellServerToPlaySong:sourceIndexPath.row];
     }
     else{
@@ -265,10 +304,18 @@
     self.cellToDelete = nil;
     NSString *choice = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([choice isEqualToString:@"Play Now"]){
-        [[GroupQClient sharedClient] tellServerToPlaySong:self.currentlySelectedSongIndex.row];
+        if (self.currentlySelectedSongIndex.section == SECTION_QUEUE) {
+            [[GroupQClient sharedClient] tellServerToPlaySong:self.currentlySelectedSongIndex.row];
+        } else {
+            [[GroupQClient sharedClient] tellServerToReplaySong:self.currentlySelectedSongIndex.row];
+        }
     }
     else if([choice isEqualToString:@"Play Next"]){
-        [[GroupQClient sharedClient] tellServerToMoveSongFrom:self.currentlySelectedSongIndex.row To:0];
+        if (self.currentlySelectedSongIndex.section == SECTION_QUEUE) {
+            [[GroupQClient sharedClient] tellServerToMoveSongFrom:self.currentlySelectedSongIndex.row To:0];
+        } else {
+            [[GroupQClient sharedClient] tellServerToReplaySongNext:self.currentlySelectedSongIndex.row];
+        }
     }
     else if([choice isEqualToString:@"Add Content"] || [choice isEqualToString:@"Request Content"]){
         [self performSegueWithIdentifier:@"addSongPicker" sender:self];

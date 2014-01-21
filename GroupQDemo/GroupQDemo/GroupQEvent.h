@@ -44,7 +44,6 @@
 // Connects the event to spotify
 - (void) connectToSpotify;
 - (void) pauseEvent;
-- (void) resumeEvent;
 
 #pragma mark - Information management
 - (void) tellClientsAboutSpotifyStatus;

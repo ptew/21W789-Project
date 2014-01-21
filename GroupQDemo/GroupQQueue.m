@@ -16,18 +16,21 @@
     self = [super init];
     self.nowPlaying = nil;
     self.queuedSongs = [[NSMutableArray alloc] init];
+    self.previousSongs = [[NSMutableArray alloc] init];
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.nowPlaying forKey:@"nowPlaying"];
     [aCoder encodeObject:self.queuedSongs forKey:@"queuedSongs"];
+    [aCoder encodeObject:self.previousSongs forKey:@"previousSongs"];
 }
 
 - (GroupQQueue*) initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
         self.nowPlaying = [aDecoder decodeObjectForKey:@"nowPlaying"];
         self.queuedSongs = [aDecoder decodeObjectForKey:@"queuedSongs"];
+        self.previousSongs = [aDecoder decodeObjectForKey:@"previousSongs"];
     }
     return self;
 }
@@ -72,6 +75,10 @@
     if(index >= self.queuedSongs.count) {
         return;
     }
+    
+    if (self.nowPlaying) {
+        [self.previousSongs addObject:self.nowPlaying];
+    }
     self.nowPlaying = [self.queuedSongs objectAtIndex:index];
     [self deleteSong:index];
 }
@@ -79,6 +86,18 @@
 - (void) addSpotifySong: (SpotifyQueueItem *) song {
     [self.queuedSongs addObject:song];
     [self.delegate queueDidChange];
+}
+
+
+- (void) replayNow: (int) index {
+    [self.queuedSongs addObject:[self.previousSongs objectAtIndex:index]];
+    [self playSong:([self.queuedSongs count] - 1)];
+}
+
+
+- (void) replayNext: (int) index {
+    [self.queuedSongs addObject:[self.previousSongs objectAtIndex:index]];
+    [self moveSong:([self.queuedSongs count] - 1) to:0];
 }
 
 @end

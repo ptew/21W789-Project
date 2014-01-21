@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) id nowPlaying;                // The current song being played
 @property (strong, nonatomic) NSMutableArray *queuedSongs;  // The queue of songs to play
+@property (strong, nonatomic) NSMutableArray *previousSongs;  // A list of songs that have been previously played
 
 @property (strong, nonatomic) id<GroupQQueueDelegate> delegate;
 
@@ -31,5 +32,9 @@
 - (void) playSong: (int) index;
 // Adds a single song from Spotify to the queue
 - (void) addSpotifySong: (SpotifyQueueItem *) song;
+// Plays a previous song again
+- (void) replayNow: (int) index;
+// Adds a previous song to the queue so that it will be played next
+- (void) replayNext: (int) index;
 
 @end

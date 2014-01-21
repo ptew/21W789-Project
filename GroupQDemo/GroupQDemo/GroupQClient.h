@@ -82,6 +82,8 @@
 - (void) tellServerToMoveSongFrom:(int)index To:(int)newIndex;
 - (void) tellServerToDeleteSong:(int)index;
 - (void) tellServerToPlaySong:(int)index;
+- (void) tellServerToReplaySong:(int)index;
+- (void) tellServerToReplaySongNext:(int)index;
 - (void) tellServerToAddSpotifySong:(SpotifyQueueItem *)song;
 
 // Playback management

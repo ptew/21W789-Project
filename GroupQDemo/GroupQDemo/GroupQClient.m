@@ -119,6 +119,12 @@
     else if([header isEqualToString:@"playSong"]){
         [self.queue playSong:[message integerValue]];
     }
+    else if([header isEqualToString:@"replaySong"]) {
+        [self.queue replayNow:[message integerValue]];
+    }
+    else if([header isEqualToString:@"replaySongNext"]) {
+        [self.queue replayNext:[message integerValue]];
+    }
     else if([header isEqualToString:@"loggedInToSpotify"]) {
         hostHasSpotify = true;
         [self.delegate spotifyInfoReceived];
@@ -208,6 +214,12 @@
 }
 - (void) tellServerToPlaySong:(int)index{
     [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"playSong"];
+}
+- (void) tellServerToReplaySong:(int)index {
+    [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"replaySong"];
+}
+- (void) tellServerToReplaySongNext:(int)index {
+    [self.connectionToServer sendMessage:[NSString stringWithFormat:@"%d", index] withHeader:@"replaySongNext"];
 }
 - (void) tellServerToAddSpotifySong:(SpotifyQueueItem *)song{
     [self.connectionToServer sendObject:song withHeader:@"addSpotifySong"];

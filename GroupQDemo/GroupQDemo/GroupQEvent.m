@@ -57,6 +57,8 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
 - (void) tellClientsToMoveSongFrom: (int) oldPos to: (int) newPos;
 - (void) tellClientsToDeleteSong: (int) position;
 - (void) tellClientsToPlaySong: (int) position;
+- (void) tellClientsToReplaySong: (int) position;
+- (void) tellClientsToReplaySongNext: (int) position;
 - (void) tellClientsToAddSpotifySong: (SpotifyQueueItem *) song;
 
 // Request management
@@ -258,6 +260,22 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
         pauseTime = 0;
         [self playNextSongInQueue];
         [self tellClientsToPlaySong:pos];
+        [self tellClientsPlaybackDetails];
+    }
+    else if([header isEqualToString:@"replaySong"]) {
+        int pos = [message integerValue];
+        [self.songQueue replayNow:pos];
+        pauseTime = 0;
+        [self playNextSongInQueue];
+        [self tellClientsToReplaySong:pos];
+        [self tellClientsPlaybackDetails];
+    }
+    else if([header isEqualToString:@"replaySongNext"]) {
+        int pos = [message integerValue];
+        [self.songQueue replayNext:pos];
+        pauseTime = 0;
+        [self playNextSongInQueue];
+        [self tellClientsToReplaySongNext:pos];
         [self tellClientsPlaybackDetails];
     }
     else if([header isEqualToString:@"resumeSong"]) {
@@ -474,7 +492,16 @@ void socketCallBack(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef 
     isSongPlaying = true;
     [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"playSong"];
 }
-
+- (void) tellClientsToReplaySong: (int) position {
+    NSLog(@"GQ telling clients to replay song.");
+    isSongPlaying = true;
+    [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"replaySong"];
+}
+- (void) tellClientsToReplaySongNext: (int) position {
+    NSLog(@"GQ telling clients to replay song next.");
+    isSongPlaying = true;
+    [self broadcastMessage:[NSString stringWithFormat:@"%d", position] withHeader:@"replaySongNext"];
+}
 // Request management
 - (void) tellClientsToRequestSongs: (NSArray*) songs {
     NSLog(@"GQ telling clients to request songs.");
